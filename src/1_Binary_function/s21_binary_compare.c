@@ -1,4 +1,4 @@
-#include "./../s21_decimal.h"
+#include "../include/s21_decimal.h"
 
 /**
  * @brief check that decimal is null
@@ -12,7 +12,7 @@ int s21_is_equal_null(s21_decimal decimal) {
 }
 
 /**
- * @brief compare two decimal
+ * @brief find the first no nule bit
  * @author "morsbard"
  * @param decimal1 first comparing decimal
  * @param decimal2 second comparing decimal

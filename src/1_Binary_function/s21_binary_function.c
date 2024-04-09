@@ -1,4 +1,4 @@
-#include "./../s21_decimal.h"
+#include "../include/s21_decimal.h"
 
 /**
 * @brief Get value from nubmer with index of bit
@@ -40,12 +40,12 @@ int s21_reset_bit(int number, int index) { return number & ~(0b1 << index); }
                     0 - no bit,
                     1 - bit here.
 */
-int s21_decimal_is_set_bit(s21_decimal decimal, int index) {
-  return s21_is_set_bit(decimal.bits[index / MAX_BLOCKS], index % MAX_BLOCKS);
-}
+// int s21_decimal_is_set_bit(s21_decimal decimal, int index) {
+//   return s21_is_set_bit(decimal.bits[index / MAX_BLOCKS], index % MAX_BLOCKS);
+// }
 
 /**
- * @brief Set bit in decimal with index of bit with walue 1
+ * @brief Set bit in decimal with index of bit with value 1
  * @author morsbard
  * @param decimal source of value
  * @param index index of bit in decimal where setting bit
@@ -55,10 +55,10 @@ int s21_decimal_is_set_bit(s21_decimal decimal, int index) {
 s21_decimal s21_decimal_set_bit(s21_decimal decimal, int index, int bit) {
   if (bit == 0) {
     decimal.bits[index / MAX_BLOCKS] =
-        s21_reset_bit(decimal.bits[index / MAX_BLOCKS], index % MAX_BLOCKS);
+        s21_reset_bit(decimal.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
   } else {
     decimal.bits[index / MAX_BLOCKS] =
-        s21_set_bit(decimal.bits[index / MAX_BLOCKS], index % MAX_BLOCKS);
+        s21_set_bit(decimal.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
   }
   return decimal;
 }

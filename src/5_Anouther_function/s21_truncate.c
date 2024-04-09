@@ -1,4 +1,4 @@
-#include "./../s21_decimal.h"
+#include "../include/s21_decimal.h"
 
 /*
   @brief Returns the integral digits of the specified Decimal any fractional

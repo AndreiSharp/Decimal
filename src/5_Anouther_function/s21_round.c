@@ -1,4 +1,4 @@
-#include "./../s21_decimal.h"
+#include "../include/s21_decimal.h"
 
 /*
  @brief Rounds a decimal value to the nearest integer

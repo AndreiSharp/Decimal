@@ -1,9 +1,15 @@
+#pragma once
 
 /*--------------------------------CONST---------------------------------*/
 
-#define MAX_BLOCKS 4       // count of bits
-#define MAX_BIT_BLOCKS 96  // count of bits in one block
-#define MAX_DEGREE 28      // Максимальная степень
+#define MAX_BLOCKS 4      // count of bits
+#define MAX_BIT_BLOCKS 96 // count of bits in one block
+#define SIZE_BLOCK 32     // size of one block
+#define DATA_INDEX   // index of bits where exponent and sign of s21_decimal
+#define EXP_POS_L 16 // left positon of exponent in bits[DATA_INDEX]
+#define EXP_POS_R 23 // right positon of exponent in bits[DATA_INDEX]
+#define SIGN_POS 31  // position of s21_decimal sign in bits[DATA_INDEX]
+
 /*--------------------------------STRUCT--------------------------------*/
 
 /* main struct of decimal:
@@ -27,11 +33,10 @@ typedef struct {
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_SUCCES 0     // OK
-#define S21_TOO_LARGE 1  // The number is too large or equal to infinity
-#define S21_TOO_SMALL \
-  2  // The number is too small or equal to negative infinity
-#define S21_DEV_BY_ZERO 3  // Division by 0
+#define S21_SUCCES 0    // OK
+#define S21_TOO_LARGE 1 // The number is too large or equal to infinity
+#define S21_TOO_SMALL 2 // The number is too small or equal to negative infinity
+#define S21_DEV_BY_ZERO 3 // Division by 0
 #define S21_ERROR 4
 /*-------------------------------Function--------------------------------*/
 
@@ -42,7 +47,8 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
 // Multiplication
-int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
+int s21_mul(s21_decimal value_1, s21_decimal value_2,
+            s21_decimal *result); // boilbrit
 
 // Division
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
@@ -52,6 +58,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 /*-------------------------Comprasion operators--------------------------*/
 
 /*---------------------------------CONST---------------------------------*/
+
 #define S21_TRUE 1
 #define S21_FALSE 1
 
@@ -81,7 +88,7 @@ int s21_is_not_equal(s21_decimal, s21_decimal);
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_CONV_ERROR  // Convertation error
+#define S21_CONV_ERROR // Convertation error
 
 /*-------------------------------Function--------------------------------*/
 
@@ -103,7 +110,7 @@ int s21_from_decimal_to_float(s21_decimal src, float *dst);
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_CALC_ERROR  // Calculation error
+#define S21_CALC_ERROR // Calculation error
 
 /*-------------------------------Function--------------------------------*/
 
@@ -116,7 +123,7 @@ int s21_round(s21_decimal value, s21_decimal *result);
 
 // Returns the integral digits of the specified Decimal; any fractional digits
 // are discarded, including trailing zeroes
-int s21_truncate(s21_decimal value, s21_decimal *result);
+int s21_truncate(s21_decimal value, s21_decimal *result); // boilbrit
 
 // Returns the result of multiplying the specified Decimal value by negative one
 int s21_negate(s21_decimal value, s21_decimal *result);
