@@ -5,7 +5,7 @@
 #define MAX_BLOCKS 4      // count of bits
 #define MAX_BIT_BLOCKS 96 // count of bits in one block
 #define SIZE_BLOCK 32     // size of one block
-#define DATA_INDEX   // index of bits where exponent and sign of s21_decimal
+#define DATA_INDEX 3 // index of bits where exponent and sign of s21_decimal
 #define EXP_POS_L 16 // left positon of exponent in bits[DATA_INDEX]
 #define EXP_POS_R 23 // right positon of exponent in bits[DATA_INDEX]
 #define SIGN_POS 31  // position of s21_decimal sign in bits[DATA_INDEX]

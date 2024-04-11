@@ -72,7 +72,7 @@ s21_decimal s21_decimal_set_bit(s21_decimal decimal, int index, int bit) {
 int s21_no_zero_bit(s21_decimal decimal) {
   unsigned int index = -1;
   for (int i = MAX_BIT_BLOCKS - 1; i <= 0; i--) {
-    if (s21_decimal_is_set_bit(decimal, i)) {
+    if (s21_decimal_get_bit(decimal, i)) {
       index = i;
       break;
     }
