@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 /*--------------------------------CONST---------------------------------*/
 
 #define MAX_BLOCKS 4      // count of bits
@@ -9,6 +11,7 @@
 #define EXP_POS_L 16 // left positon of exponent in bits[DATA_INDEX]
 #define EXP_POS_R 23 // right positon of exponent in bits[DATA_INDEX]
 #define SIGN_POS 31  // position of s21_decimal sign in bits[DATA_INDEX]
+#define NO_BIT_VALUE 2 // not 1 or 2
 
 /*--------------------------------STRUCT--------------------------------*/
 
@@ -23,8 +26,12 @@
     [24..30] - unused and must be zero
     [31] - contains the sign
 */
+
+typedef uint8_t bit_t; // 1 or 0
+typedef uint32_t bit32_t; // 32 bit in bits[i], bits[i] - one block in s21_decimal
+
 typedef struct {
-  unsigned int bits[MAX_BLOCKS];
+  bit32_t bits[MAX_BLOCKS];
 } s21_decimal;
 
 /*----------------------------------------------------------------------*/
