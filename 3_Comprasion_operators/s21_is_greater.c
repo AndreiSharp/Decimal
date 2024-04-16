@@ -1,4 +1,4 @@
-#include "./../s21_decimal.h"
+#include "./../6_Headers/s21_decimal.h"
 
 // Greater than
 int s21_is_greater(s21_decimal, s21_decimal) {}

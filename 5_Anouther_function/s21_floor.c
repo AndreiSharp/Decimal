@@ -1,4 +1,4 @@
-#include "./../s21_decimal.h"
+#include "./../6_Headers/s21_decimal.h"
 
 // Rounds a specified Decimal number to the closest integer toward negative
 // infinity
