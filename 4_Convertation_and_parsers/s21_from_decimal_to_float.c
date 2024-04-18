@@ -1,10 +1,10 @@
 #include "./../6_Headers/s21_convertation_and_parsers.h"
 
 int s21_from_decimal_to_float(s21_decimal src, float *dst) {
-  int status = 0;
+  int result = 0;
   *dst = 0;
   if (dst == 0) {
-    status = 1;
+    result = 1;
   } else {
     int minus = 1;
     long double result = 0, two = 1;
@@ -21,5 +21,5 @@ int s21_from_decimal_to_float(s21_decimal src, float *dst) {
     }
     *dst = minus * result;
   }
-  return status;
+  return result;
 }
