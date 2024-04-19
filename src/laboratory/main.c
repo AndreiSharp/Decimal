@@ -5,15 +5,21 @@
 
 /*--------------------------------CONST---------------------------------*/
 
-#define MAX_BLOCKS 4                               // count of bits
-#define SIZE_BLOCK 32                              // size of one block
-#define SIZE_MANTIS ((MAX_BLOCKS)-1) * SIZE_BLOCK  // count of bits in one block
-#define DATA_INDEX 3    // index of bits where exponent and sign of s21_decimal
-#define EXP_POS_L 16    // left positon of exponent in bits[DATA_INDEX]
-#define EXP_POS_R 23    // right positon of exponent in bits[DATA_INDEX]
-#define DECIMAL_EXP_POS_L 3 * SIZE_BLOCK + EXP_POS_L - 1
-#define DECIMAL_EXP_POS_R 3 * SIZE_BLOCK + EXP_POS_R - 1
-#define SIGN_POS 31     // position of s21_decimal sign in bits[DATA_INDEX]
+enum SIZES {
+  MAX_BLOCKS = 4,
+  SIZE_BLOCK = 32,
+  SIZE_MANTIS = (MAX_BLOCKS - 1) * SIZE_BLOCK,
+};
+
+enum POSITIONS {
+  EXP_POS_L = 16,
+  EXP_POS_R = 23,
+  DECIMAL_EXP_POS_L = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_L - 1,
+  DECIMAL_EXP_POS_R = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_R - 1,
+  SIGN_POS = SIZE_BLOCK - 1,
+  DATA_INDEX = MAX_BLOCKS - 1
+};
+
 #define NO_BIT_VALUE 2  // not 1 or 2
 
 /*--------------------------------STRUCT--------------------------------*/
@@ -124,6 +130,20 @@ int s21_decimal_first_set_bit(s21_decimal decimal) {
   return result;
 }
 
+int *s21_sub_to_bin(int prefix[], int n, int sub) {
+  for (int i = 0, x = 1 << (n - 1); i < n; ++i, x >>= 1) {
+    printf("%d %d\n", x, prefix[i]);
+
+    prefix[i] = sub / x;
+    sub %= x;
+
+    printf("%d\n", prefix[i]);
+
+    puts("");
+  }
+  return prefix;
+}
+
 s21_decimal s21_decimal_div_10(s21_decimal decimal) {
   s21_decimal result;
   s21_decimal_init(&result);
@@ -142,21 +162,12 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
           prefix[0] * 8 + prefix[1] * 4 + prefix[2] * 2 + prefix[3] * 1;
       int sub = prefix10 - 10;
 
-      if (sub < 0) {
-        prefix[0] = -1;
-      } else {
-        prefix[0] = sub / 8;
-        sub %= 8;
-        prefix[1] = sub / 4;
-        sub %= 4;
-        prefix[2] = sub / 2;
-        sub %= 2;
-        prefix[3] = sub;
+      if (sub >= 0) {
+        int *new_prefix = s21_sub_to_bin(prefix, 4, sub);
 
-        decimal = s21_decimal_set_bit(decimal, i, prefix[0]);
-        decimal = s21_decimal_set_bit(decimal, i - 1, prefix[1]);
-        decimal = s21_decimal_set_bit(decimal, i - 2, prefix[2]);
-        decimal = s21_decimal_set_bit(decimal, i - 3, prefix[3]);
+        for (int j = 0; j < 4; ++j) {
+          decimal = s21_decimal_set_bit(decimal, i - j, new_prefix[j]);
+        }
 
         result = s21_decimal_set_bit(result, i - 3, 1);
       }
@@ -173,24 +184,12 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
                      prefix[3] * 2 + prefix[4] * 1;
       int sub = prefix10 - 10;
 
-      if (sub < 0) {
-        prefix[0] = -1;
-      } else {
-        prefix[0] = sub / 16;
-        sub %= 16;
-        prefix[1] = sub / 8;
-        sub %= 8;
-        prefix[2] = sub / 4;
-        sub %= 4;
-        prefix[3] = sub / 2;
-        sub %= 2;
-        prefix[4] = sub;
+      if (sub >= 0) {
+        int *new_prefix = s21_sub_to_bin(prefix, 5, sub);
 
-        decimal = s21_decimal_set_bit(decimal, i + 1, prefix[0]);
-        decimal = s21_decimal_set_bit(decimal, i, prefix[1]);
-        decimal = s21_decimal_set_bit(decimal, i - 1, prefix[2]);
-        decimal = s21_decimal_set_bit(decimal, i - 2, prefix[3]);
-        decimal = s21_decimal_set_bit(decimal, i - 3, prefix[4]);
+        for (int j = 0; j < 5; ++j) {
+          decimal = s21_decimal_set_bit(decimal, i - j + 1, new_prefix[j]);
+        }
 
         result = s21_decimal_set_bit(result, i - 3, 1);
       }
@@ -200,8 +199,6 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
   printf("remander = %d\n", decimal.bits[0]);
   printf("result = %d\n", result.bits[0]);
   printf("exp = %d\n", s21_decimal_exp(decimal));
-
-  
 
   return result;
 }
