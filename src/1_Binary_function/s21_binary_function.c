@@ -55,10 +55,10 @@ int s21_reset_bit(int number, int index) { return number & ~(0b1 << index); }
  */
 s21_decimal s21_decimal_set_bit(s21_decimal decimal, int index, int bit) {
   if (bit == 0) {
-    decimal.bits[index / MAX_BLOCKS] =
+    decimal.bits[index / SIZE_BLOCK] =
         s21_reset_bit(decimal.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
   } else {
-    decimal.bits[index / MAX_BLOCKS] =
+    decimal.bits[index / SIZE_BLOCK] =
         s21_set_bit(decimal.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
   }
   return decimal;
