@@ -2,6 +2,8 @@
 
 #include "s21_decimal_binary.h"
 
+#define BIN_ZERO 0b00000000000000000000000000000000
+
 /*-------------------------Helper function------------------------------*/
 
 // get sign of s21_decimal
@@ -23,5 +25,7 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal);
 s21_decimal s21_decimal_copy(s21_decimal src, s21_decimal *dest);
 
 bit_t s21_decimal_get_bit(s21_decimal decimal, int index);
+
+s21_decimal s21_decimal_init(s21_decimal *decimal);
 
 /*----------------------------------------------------------------------*/

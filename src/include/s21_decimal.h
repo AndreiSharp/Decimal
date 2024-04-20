@@ -1,23 +1,31 @@
 #pragma once
-
+#include <stddef.h>
 #include <stdint.h>
 
 /*--------------------------------CONST---------------------------------*/
+enum sizes {
+  MAX_BLOCKS = 4,  // count of bits
+  SIZE_BLOCK = 32, // count of bits in one block
+  SIZE_MANTIS = (MAX_BLOCKS - 1) * SIZE_BLOCK,
+};
 
-#define MAX_BLOCKS 4       // count of bits
-#define MAX_BIT_BLOCKS 96  // count of bits in one block
-#define SIZE_BLOCK 32      // size of one block
-#define DATA_INDEX 3    // index of bits where exponent and sign of s21_decimal
-#define EXP_POS_L 16    // left positon of exponent in bits[DATA_INDEX]
-#define EXP_POS_R 23    // right positon of exponent in bits[DATA_INDEX]
-#define SIGN_POS 31     // position of s21_decimal sign in bits[DATA_INDEX]
-#define NO_BIT_VALUE 2  // not 1 or 2
+enum position {
+  EXP_POS_L = 16, // left positon of exponent in bits[DATA_INDEX]
+  EXP_POS_R = 23, // right positon of exponent in bits[DATA_INDEX]
+  DECIMAL_EXP_POS_L = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_L - 1,
+  DECIMAL_EXP_POS_R = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_R - 1,
+  SIGN_POS = SIZE_BLOCK - 1, // position of s21_decimal sign in bits[DATA_INDEX]
+  DATA_INDEX =
+      MAX_BLOCKS - 1 // index of bits where exponent and sign of s21_decimal
+};
+
+#define NO_BIT_VALUE 2 // not 1 or 2
 
 /*--------------------------------STRUCT--------------------------------*/
 
-typedef uint8_t bit_t;  // 1 or 0
+typedef uint8_t bit_t; // 1 or 0
 typedef uint32_t
-    bit32_t;  // 32 bit in bits[i], bits[i] - one block in s21_decimal
+    bit32_t; // 32 bit in bits[i], bits[i] - one block in s21_decimal
 
 /* main struct of decimal:
   in 0 bit [0..31] contain low bits of 96-bit integer
@@ -41,12 +49,14 @@ typedef struct {
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_SUCCES 0     // OK
-#define S21_TOO_LARGE 1  // The number is too large or equal to infinity
-#define S21_TOO_SMALL \
-  2  // The number is too small or equal to negative infinity
-#define S21_DEV_BY_ZERO 3  // Division by 0
-#define S21_ERROR 4
+enum s21_arithmetic_result {
+  S21_SUCCES = 0,      // OK
+  S21_TOO_LARGE = 1,   // The number is too large or equal to infinity
+  S21_TOO_SMALL = 2,   // The number is too small or equal to negative infinity
+  S21_DEV_BY_ZERO = 3, // Division by 0
+  S21_ERROR = 4        // Another Error
+};
+
 /*-------------------------------Function--------------------------------*/
 
 // Addition
@@ -57,7 +67,7 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
 // Multiplication
 int s21_mul(s21_decimal value_1, s21_decimal value_2,
-            s21_decimal *result);  // boilbrit
+            s21_decimal *result); // boilbrit
 
 // Division
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
@@ -68,8 +78,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_TRUE 1
-#define S21_FALSE 1
+enum s21_comprasion_result { S21_TRUE = 1, S21_FALSE = 0 };
 
 /*-------------------------------Function--------------------------------*/
 
@@ -97,7 +106,10 @@ int s21_is_not_equal(s21_decimal, s21_decimal);
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_CONV_ERROR  // Convertation error
+enum s21_conv_result {
+  S21_CONV_ERROR = 1, // Convertation error
+  S21_CONV_SUCCESS = 0
+};
 
 /*-------------------------------Function--------------------------------*/
 
@@ -119,7 +131,7 @@ int s21_from_decimal_to_float(s21_decimal src, float *dst);
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_CALC_ERROR  // Calculation error
+#define S21_CALC_ERROR // Calculation error
 
 /*-------------------------------Function--------------------------------*/
 
@@ -132,7 +144,7 @@ int s21_round(s21_decimal value, s21_decimal *result);
 
 // Returns the integral digits of the specified Decimal; any fractional digits
 // are discarded, including trailing zeroes
-int s21_truncate(s21_decimal value, s21_decimal *result);  // boilbrit
+int s21_truncate(s21_decimal value, s21_decimal *result); // boilbrit
 
 // Returns the result of multiplying the specified Decimal value by negative one
 int s21_negate(s21_decimal value, s21_decimal *result);
