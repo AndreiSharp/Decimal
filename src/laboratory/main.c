@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -130,41 +131,41 @@ int s21_decimal_first_set_bit(s21_decimal decimal) {
   return result;
 }
 
-int *s21_sub_to_bin(int prefix[], int n, int sub) {
-  for (int i = 0, x = 1 << (n - 1); i < n; ++i, x >>= 1) {
-    printf("%d %d\n", x, prefix[i]);
-
-    prefix[i] = sub / x;
-    sub %= x;
-
-    printf("%d\n", prefix[i]);
-
-    puts("");
+bit_t *s21_sub_to_bin(bit_t prefix[], size_t n, int sub) {
+  for (int i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
+    prefix[i] = sub / pow;
+    sub %= pow;
   }
   return prefix;
 }
 
+int s21_get_sub_10(bit_t prefix[], size_t n) {
+  unsigned int prefix10 = 0;
+  for (int i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
+    prefix10 += prefix[i] * pow;
+  }
+  return prefix10 - 10;
+}
+
 s21_decimal s21_decimal_div_10(s21_decimal decimal) {
+  for (int i = 0; i < 3; ++i) {
+    printf("%d\n", decimal.bits[i]);
+  }
+
   s21_decimal result;
   s21_decimal_init(&result);
   int start = s21_decimal_first_set_bit(decimal);
 
   for (int i = start; i >= 3; --i) {
     if (i == start) {
-      int prefix[4] = {
-          s21_decimal_get_bit(decimal, i),
-          s21_decimal_get_bit(decimal, i - 1),
-          s21_decimal_get_bit(decimal, i - 2),
-          s21_decimal_get_bit(decimal, i - 3),
-      };
+      bit_t prefix[4];
+      for (int j = 0; j < 4; ++j) {
+        prefix[j] = s21_decimal_get_bit(decimal, i - j);
+      }
 
-      int prefix10 =
-          prefix[0] * 8 + prefix[1] * 4 + prefix[2] * 2 + prefix[3] * 1;
-      int sub = prefix10 - 10;
-
+      int sub = s21_get_sub_10(prefix, 4);
       if (sub >= 0) {
-        int *new_prefix = s21_sub_to_bin(prefix, 4, sub);
-
+        bit_t *new_prefix = s21_sub_to_bin(prefix, 4, sub);
         for (int j = 0; j < 4; ++j) {
           decimal = s21_decimal_set_bit(decimal, i - j, new_prefix[j]);
         }
@@ -172,21 +173,14 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
         result = s21_decimal_set_bit(result, i - 3, 1);
       }
     } else {
-      int prefix[5] = {
-          s21_decimal_get_bit(decimal, i + 1),
-          s21_decimal_get_bit(decimal, i),
-          s21_decimal_get_bit(decimal, i - 1),
-          s21_decimal_get_bit(decimal, i - 2),
-          s21_decimal_get_bit(decimal, i - 3),
-      };
+      bit_t prefix[5];
+      for (int j = 0; j < 5; ++j) {
+        prefix[j] = s21_decimal_get_bit(decimal, i - j + 1);
+      }
 
-      int prefix10 = prefix[0] * 16 + prefix[1] * 8 + prefix[2] * 4 +
-                     prefix[3] * 2 + prefix[4] * 1;
-      int sub = prefix10 - 10;
-
+      int sub = s21_get_sub_10(prefix, 5);
       if (sub >= 0) {
-        int *new_prefix = s21_sub_to_bin(prefix, 5, sub);
-
+        bit_t *new_prefix = s21_sub_to_bin(prefix, 5, sub);
         for (int j = 0; j < 5; ++j) {
           decimal = s21_decimal_set_bit(decimal, i - j + 1, new_prefix[j]);
         }
@@ -205,7 +199,7 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
 
 int main() {
   s21_decimal decimal;
-  decimal.bits[0] = 0b00000000000000000000000011100111;  // 231
+  decimal.bits[0] = 0b00000000000000000100000011100111;  // 231
   decimal.bits[1] = 0b00000000000000000000000000000000;
   decimal.bits[2] = 0b00000000000000000000000000000000;
   decimal.bits[3] = 0b00000000000000000000000000000000;
