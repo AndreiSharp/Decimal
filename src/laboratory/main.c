@@ -147,6 +147,18 @@ int s21_get_sub_10(bit_t prefix[], size_t n) {
   return prefix10 - 10;
 }
 
+
+int s21_no_zero_bit(s21_decimal decimal) {
+  unsigned int index = -1;
+  for (int i = SIZE_MANTIS - 1; i >= 0; i--) {
+    if (s21_decimal_get_bit(decimal, i) == 1) {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+
 s21_decimal s21_decimal_div_10(s21_decimal decimal) {
   for (int i = 0; i < 3; ++i) {
     printf("%d\n", decimal.bits[i]);
@@ -154,8 +166,8 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
 
   s21_decimal result;
   s21_decimal_init(&result);
-  int start = s21_decimal_first_set_bit(decimal);
-
+  int start = s21_no_zero_bit(decimal);
+  printf("%d\n", s21_no_zero_bit(decimal));
   for (int i = start; i >= 3; --i) {
     if (i == start) {
       bit_t prefix[4];
