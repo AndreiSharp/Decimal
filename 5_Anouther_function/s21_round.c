@@ -1,4 +1,4 @@
-#include "./../6_Headers/s21_decimal.h"
+#include "./s21_anouther_function.h"
 
 /*
  @brief Rounds a decimal value to the nearest integer
@@ -7,5 +7,4 @@
  @param result
  @return int
  */
-
 int s21_round(s21_decimal value, s21_decimal *result) {}

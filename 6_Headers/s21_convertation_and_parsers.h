@@ -5,12 +5,9 @@
 
 #include "./s21_binary_function.h"
 #include "./s21_decimal_types.h"
+#include "./s21_help_function.h"
 
 /*-----------------------CONVERTATION AND PARSERS------------------------*/
-
-/*---------------------------------CONST---------------------------------*/
-
-#define S21_CONV_ERROR 1  // Convertation error
 
 /*-------------------------------Function--------------------------------*/
 

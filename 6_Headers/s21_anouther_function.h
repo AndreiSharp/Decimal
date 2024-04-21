@@ -5,12 +5,9 @@
 
 #include "./s21_binary_function.h"
 #include "./s21_decimal_types.h"
+#include "./s21_help_function.h"
 
 /*---------------------------ANOUTHER FUNCTION---------------------------*/
-
-/*---------------------------------CONST---------------------------------*/
-
-#define S21_CALC_ERROR  // Calculation error
 
 /*-------------------------------Function--------------------------------*/
 

@@ -5,7 +5,7 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
   if (dst) {
     if (src < 0) {
       src *= -1;
-      s21_decimal_set_bit(dst, MAX_BIT_BLOCKS, 1);
+      s21_decimal_set_bit(*dst, MAX_BIT_BLOCKS, 1);
     }
     dst->bits[0] = src;
   } else {

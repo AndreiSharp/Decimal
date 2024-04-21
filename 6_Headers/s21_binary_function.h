@@ -84,4 +84,6 @@ int s21_is_equal_null(s21_decimal decimal);
  *                '1' - if decimal1 moe then decimal2.
  */
 int s21_binary_compare(s21_decimal decimal1, s21_decimal decimal2);
+
+int s21_get_index_high_bit(s21_decimal value);
 #endif

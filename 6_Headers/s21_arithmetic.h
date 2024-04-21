@@ -5,16 +5,10 @@
 
 #include "./s21_binary_function.h"
 #include "./s21_decimal_types.h"
+#include "./s21_help_function.h"
 
 /*-------------------------Arithmetic function---------------------------*/
 
-/*---------------------------------CONST---------------------------------*/
-
-#define S21_TOO_LARGE 1  // The number is too large or equal to infinity
-#define S21_TOO_SMALL \
-  2  // The number is too small or equal to negative infinity
-#define S21_DEV_BY_ZERO 3  // Division by 0
-#define S21_ERROR 4
 /*-------------------------------Function--------------------------------*/
 
 // Addition

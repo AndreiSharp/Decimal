@@ -1,4 +1,4 @@
-#include "./../6_Headers/s21_decimal.h"
+#include "./s21_comprasion_operators.h"
 
 // Not equal to
-int s21_is_not_equal(s21_decimal, s21_decimal) {}
+int s21_is_not_equal(s21_decimal value_1, s21_decimal value_2) {}

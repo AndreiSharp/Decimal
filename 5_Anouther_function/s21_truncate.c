@@ -1,4 +1,4 @@
-#include "./../6_Headers/s21_decimal.h"
+#include "./s21_anouther_function.h"
 
 /*
   @brief Returns the integral digits of the specified Decimal any fractional
@@ -8,5 +8,4 @@
   @param result
   @return int
  */
-
 int s21_truncate(s21_decimal value, s21_decimal *result) {}
