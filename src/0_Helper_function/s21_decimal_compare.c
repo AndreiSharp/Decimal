@@ -68,6 +68,12 @@ void function_compare(s21_decimal value_1, s21_decimal value_2,
   }
 }
 
+/**
+ * @brief смена знака децимала, если мантиса равна 0 
+ * @author yrelcary
+ * @param  value - децимал
+ */
+
 void change_sign_if_zero (s21_decimal *value){
 int check_zero = s21_mantis_is_equal_null(*value);
 printf("%d", check_zero);
