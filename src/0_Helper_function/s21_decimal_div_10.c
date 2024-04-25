@@ -40,6 +40,7 @@ static bit_t *s21_sub_to_bin(bit_t prefix[], size_t n, unsigned int sub) {
 s21_decimal s21_decimal_div_10(s21_decimal decimal) {
   s21_decimal result;
   s21_decimal_init(&result);
+  result.bits[DATA_INDEX] = decimal.bits[DATA_INDEX];
   int start = s21_no_zero_bit(decimal);
 
   for (int i = start; i >= 3; --i) {
