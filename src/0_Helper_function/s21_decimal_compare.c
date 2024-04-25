@@ -52,7 +52,9 @@ void function_compare(s21_decimal value_1, s21_decimal value_2,
   int sign2 = s21_decimal_sign(value_2);
   int exp1 = s21_decimal_exp(value_1);
   int exp2 = s21_decimal_exp(value_2);
-  if (sign1 != sign2) {
+  change_sign_if_zero(value_1);
+  change_sign_if_zero(value_2);
+  if (sign1 != sign2 && check_zero) {
     if (sign1 == 1) {
       *second_number = 1;
     } else {
@@ -64,4 +66,12 @@ void function_compare(s21_decimal value_1, s21_decimal value_2,
   } else {
     compare_decimal(value_1, value_2, first_number, second_number);
   }
+}
+
+void change_sign_if_zero (s21_decimal *value){
+int check_zero = s21_mantis_is_equal_null(*value);
+printf("%d", check_zero);
+if (check_zero == 1) {
+*value = s21_decimal_set_bit(*value, 127, 0);
+}
 }
