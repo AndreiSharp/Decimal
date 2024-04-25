@@ -9,7 +9,7 @@
   @return flag mistake
  */
 
-iint s21_truncate(s21_decimal value, s21_decimal *result){
+int s21_truncate(s21_decimal value, s21_decimal *result){
 int flag = 0; //// добавить ошибки при вычислении (если переменные не по формату и тп)
 int exp = s21_decimal_exp(value);
 for (int i = exp; i > 0; i--){
