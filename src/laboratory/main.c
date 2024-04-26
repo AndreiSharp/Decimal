@@ -234,7 +234,7 @@ void function_compare(s21_decimal value_1, s21_decimal value_2,
 
 // | Меньше  | < |
 int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
-  int first = 0; 
+  int first = 0;
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
   int flag = FALSE;
@@ -245,7 +245,7 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
 }
 // | Меньше или равно | <= |
 int s21_is_less_or_equal(s21_decimal value_1, s21_decimal value_2) {
-  int first = 0; 
+  int first = 0;
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
   int flag = FALSE;
@@ -256,7 +256,7 @@ int s21_is_less_or_equal(s21_decimal value_1, s21_decimal value_2) {
 }
 // | Больше | \> |
 int s21_is_greater(s21_decimal value_1, s21_decimal value_2) {
-  int first = 0; 
+  int first = 0;
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
   int flag = FALSE;
@@ -267,7 +267,7 @@ int s21_is_greater(s21_decimal value_1, s21_decimal value_2) {
 }
 // | Больше или равно | \>= |
 int s21_is_greater_or_equal(s21_decimal value_1, s21_decimal value_2) {
-  int first = 0; 
+  int first = 0;
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
   int flag = FALSE;
@@ -278,7 +278,7 @@ int s21_is_greater_or_equal(s21_decimal value_1, s21_decimal value_2) {
 }
 // | Равно | == |
 int s21_is_equal(s21_decimal value_1, s21_decimal value_2) {
- int first = 0; 
+  int first = 0;
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
   int flag = FALSE;
@@ -289,7 +289,7 @@ int s21_is_equal(s21_decimal value_1, s21_decimal value_2) {
 }
 // | Не равно | != |
 int s21_is_not_equal(s21_decimal value_1, s21_decimal value_2) {
- int first = 0; 
+  int first = 0;
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
   int flag = FALSE;
