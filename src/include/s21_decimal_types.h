@@ -19,6 +19,9 @@ enum position {
       MAX_BLOCKS - 1 // index of bits where exponent and sign of s21_decimal
 };
 
+
+#define MAX_MANTIS ((MAX_BLOCKS - 1) * SIZE_BLOCK) // maximum value of mantis
+#define MAX_EXP 28
 #define NO_BIT_VALUE 2 // not 1 or 2
 
 /*--------------------------------STRUCT--------------------------------*/

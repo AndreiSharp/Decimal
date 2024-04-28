@@ -36,4 +36,9 @@ int s21_sub_two_mantis(s21_decimal value_1, s21_decimal value_2,
 
 unsigned int s21_normalization(s21_decimal *value_1, s21_decimal *value_2);
 
+int s21_decimal_mul_two_mantis(s21_decimal value_1, s21_decimal value_2,
+                       s21_decimal *res);
+
+s21_decimal s21_decimal_set_exp(s21_decimal decimal, unsigned int exp);
+
 /*----------------------------------------------------------------------*/
