@@ -1,6 +1,8 @@
 #pragma once
 
-#include "s21_decimal.h"
+#include "s21_decimal_types.h"
+
+#define BIN_ZERO 0b00000000000000000000000000000000
 
 /*-------------------------Binary function------------------------------*/
 

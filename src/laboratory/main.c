@@ -21,13 +21,13 @@ enum POSITIONS {
   DATA_INDEX = MAX_BLOCKS - 1
 };
 
-#define NO_BIT_VALUE 2  // not 1 or 2
+#define NO_BIT_VALUE 2 // not 1 or 2
 
 /*--------------------------------STRUCT--------------------------------*/
 
-typedef uint8_t bit_t;  // 1 or 0
+typedef uint8_t bit_t; // 1 or 0
 typedef uint32_t
-    bit32_t;  // 32 bit in bits[i], bits[i] - one block in s21_decimal
+    bit32_t; // 32 bit in bits[i], bits[i] - one block in s21_decimal
 
 /* main struct of decimal:
   in 0 bit [0..31] contain low bits of 96-bit integer
@@ -147,7 +147,6 @@ int s21_get_sub_10(bit_t prefix[], size_t n) {
   return prefix10 - 10;
 }
 
-
 int s21_no_zero_bit(s21_decimal decimal) {
   unsigned int index = -1;
   for (int i = SIZE_MANTIS - 1; i >= 0; i--) {
@@ -211,7 +210,7 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
 
 int main() {
   s21_decimal decimal;
-  decimal.bits[0] = 0b00000000000000000100000011100111;  // 231
+  decimal.bits[0] = 0b00000000000000000100000011100111; // 231
   decimal.bits[1] = 0b00000000000000000000000000000000;
   decimal.bits[2] = 0b00000000000000000000000000000000;
   decimal.bits[3] = 0b00000000000000000000000000000000;

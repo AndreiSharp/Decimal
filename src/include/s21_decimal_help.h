@@ -1,8 +1,5 @@
 #pragma once
-
-#include "s21_decimal_binary.h"
-
-#define BIN_ZERO 0b00000000000000000000000000000000
+#include "s21_decimal_types.h"
 
 /*-------------------------Helper function------------------------------*/
 
@@ -27,5 +24,16 @@ s21_decimal s21_decimal_copy(s21_decimal src, s21_decimal *dest);
 bit_t s21_decimal_get_bit(s21_decimal decimal, int index);
 
 s21_decimal s21_decimal_init(s21_decimal *decimal);
+
+void function_compare(s21_decimal value_1, s21_decimal value_2,
+                      int *first_number, int *second_number);
+
+int s21_add_two_mantis(s21_decimal value_1, s21_decimal value_2,
+                       s21_decimal *res);
+
+int s21_sub_two_mantis(s21_decimal value_1, s21_decimal value_2,
+                       s21_decimal *res);
+
+unsigned int s21_normalization(s21_decimal *value_1, s21_decimal *value_2);
 
 /*----------------------------------------------------------------------*/

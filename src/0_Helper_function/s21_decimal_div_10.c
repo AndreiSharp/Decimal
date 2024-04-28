@@ -16,13 +16,13 @@ static int s21_get_sub_10(bit_t prefix[], size_t n) {
 }
 
 /**
- * @brief sub to binary 
+ * @brief sub to binary
  * @author "boilbrit"
  * @param bit_t prefix[] first few bits in decimal
  * @param bit_t n count of bits
  * @param unsigned int sub prefix of sub
  * @return static bit_t[] new prefix
-*/
+ */
 static bit_t *s21_sub_to_bin(bit_t prefix[], size_t n, unsigned int sub) {
   for (int i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
     prefix[i] = sub / pow;
