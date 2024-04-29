@@ -12,9 +12,9 @@ int s21_is_less(s21_decimal value_1, s21_decimal value_2) {
   int first = 0; 
   int second = 0;
   function_compare(value_1, value_2, &first, &second);
-  int flag = FALSE;
+  int flag = S21_FALSE;
   if (second == 1) {
-    flag = TRUE;
+    flag = S21_TRUE;
   }
   return flag;
 }
