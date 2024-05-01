@@ -21,6 +21,7 @@ enum position {
   DATA_INDEX = 3,       // index of bits where exponent and sign of s21_decimal
   EXP_POS_L = 16,       // start positon of exponent in bits[DATA_INDEX]
   EXP_POS_R = 23,       // end position of exponent in bits[DATA_INDEX]
+  MAX_EXP = 28
 };
 
 /*--------------------------------STRUCT--------------------------------*/

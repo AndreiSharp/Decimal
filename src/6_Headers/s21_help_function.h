@@ -63,13 +63,62 @@ int s21_sub_two_mantis(s21_decimal value_1, s21_decimal value_2,
 
 /*---------------Convertation_and_parsers_help_function---------------*/
 
+/**
+ * @brief сравнение мантис
+ * @author yrelcary
+ * @param  value_1 децимал
+ * @param value_2 децимал
+ * @param first_number буферная переменная
+ * @param second_number буферная переменная
+ */
+void s21_compare_mantis(s21_decimal value_1, s21_decimal value_2,
+                        int *first_number, int *second_number);
+
+/**
+ * @brief сравнение мантис
+ * @author yrelcary
+ * @param  value_1 децимал
+ * @param value_2 децимал
+ * @param first_number буферная переменная
+ * @param second_number буферная переменная
+ */
+void s21_compare_decimal(s21_decimal value_1, s21_decimal value_2,
+                         int *first_number, int *second_number);
+
+/**
+ * @brief сравнение мантис
+ * @author yrelcary
+ * @param  value_1 децимал
+ * @param value_2 децимал
+ * @param first_number буферная переменная
+ * @param second_number буферная переменная
+ */
+void s21_function_compare(s21_decimal value_1, s21_decimal value_2,
+                          int *first_number, int *second_number);
+
 /*-------------------Anouther_function_help_function------------------*/
 
 /*------------------------Decimal_help_function-----------------------*/
 
 /**
+ * @brief Функция для проверки на корректность задания децимал
+ * @author morsbard
+ * @param value Число типа decimal, по которому ведется проверка
+ * @return При успешном выполнении S21_SUCCESS, в остальных случаях S21_ERROR
+ */
+unsigned int s21_decimal_is_correct(s21_decimal value);
+
+/**
+ * @brief Функция для проверки в блоке DATA_INDEX нулевых областей
+ * @author morsbard
+ * @param value Число типа decimal, по которому ведется проверка
+ * @return Возвращает ноль, если не было найдено значещих битов, иначе 1
+ */
+unsigned int s21_check_null_stack(s21_decimal value);
+
+/**
  * @brief initialization s21_decimal
- * @author "boilbrit"
+ * @author boilbrit
  * @param decimal source of value
  * @return result of initialization
  */
@@ -116,7 +165,7 @@ static bit_t *s21_sub_to_bin(bit_t prefix[], size_t n, unsigned int sub);
 
 /**
  * @brief division decimal by 10
- * @author "boilbrit"
+ * @author boilbrit
  * @param decimal source of value
  * @return division decimal by 10
  */

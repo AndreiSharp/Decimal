@@ -1,5 +1,29 @@
 #include "./../6_Headers/s21_help_function.h"
 
+unsigned int s21_decimal_is_correct(s21_decimal value) {
+  unsigned int flag = S21_SUCCES;
+  if (!s21_check_null_stack(value)) {
+    flag = S21_ERROR;
+  } else {
+    int exp = s21_get_exp(value);
+    if (exp < 0 || exp > 28) {
+      flag = S21_ERROR;
+    }
+  }
+  return flag;
+}
+
+unsigned int s21_check_null_stack(s21_decimal value) {
+  int bits = 0;
+  for (int i = 0; i < EXP_POS_L - 1 && !bits; i++) {
+    bits |= value.bits[DATA_INDEX] >> i;
+  }
+  for (int i = EXP_POS_R; i < SIGN_POS; i++) {
+    bits |= value.bits[DATA_INDEX] >> i;
+  }
+  return bits;
+}
+
 unsigned int s21_decimal_init(s21_decimal *decimal) {
   int point_error = S21_SUCCES;
   if (decimal) {
@@ -25,20 +49,6 @@ unsigned int s21_decimal_copy(s21_decimal src, s21_decimal *dest) {
   return flag_error;
 }
 
-unsigned int s21_check_normalization(s21_decimal value_1, s21_decimal value_2) {
-  unsigned int flag = 0;
-  int exp_1 = s21_take_exp(value_1);
-  int exp_2 = s21_take_exp(value_2);
-  if (exp_1 < exp_2) {
-    flag = 1;
-  } else if (exp_1 > exp_2) {
-    flag = 2;
-  } else {
-    flag = 0;
-  }
-  return flag;
-}
-
 unsigned int s21_normalization(s21_decimal *value_1, s21_decimal *value_2) {
   unsigned int flag = S21_SUCCES;
   if (value_1 && value_2) {
@@ -46,10 +56,10 @@ unsigned int s21_normalization(s21_decimal *value_1, s21_decimal *value_2) {
     int exp_2 = s21_decimal_exp(*value_2);
     if (exp_1 > exp_2) {
       flag = s21_count_mul10(value_2, exp_1 - exp_2);
-      flag = exp_plus(value_2, exp_1 - exp_2);
+      flag = s21_decimal_add_exp(value_2, exp_1 - exp_2);
     } else if (exp_2 > exp_1) {
       flag = s21_count_mul10(value_1, exp_2 - exp_1);
-      flag = exp_plus(value_1, exp_2 - exp_1);
+      flag = s21_decimal_add_exp(value_1, exp_2 - exp_1);
     }
   } else {
     flag = S21_ERROR;
@@ -110,30 +120,46 @@ s21_decimal s21_decimal_div_10(s21_decimal decimal) {
   return result;
 }
 
-s21_decimal s21_mul10(s21_decimal value) {
-  s21_decimal res;
-  res.bits[0] = 0;
-  res.bits[1] = 0;
-  res.bits[2] = 0;
-  res.bits[3] = value.bits[3];
-  int flag = 0;
+unsigned int s21_mul10(s21_decimal value, s21_decimal *result) {
+  s21_decimal *buf;
+  s21_decimal_init(buf);
+  buf->bits[3] = value.bits[3];
+  unsigned int flag = S21_SUCCES;
+  unsigned int res = 0;
   for (int i = 1; i < SIZE_MANTIS; i++) {
     flag = s21_decimal_get_bit(value, i - 1);
-    res = s21_decimal_set_bit(res, i, flag);
+    *buf = s21_decimal_set_bit(*buf, i, res);
   }
   for (int i = 3; i < SIZE_MANTIS; i++) {
     flag =
-        s21_decimal_get_bit(res, i) + s21_decimal_get_bit(value, i - 3) + flag;
-    res = s21_decimal_set_bit(res, i, flag % 2);
-    flag = flag / 2;
+        s21_decimal_get_bit(*buf, i) + s21_decimal_get_bit(value, i - 3) + res;
+    *buf = s21_decimal_set_bit(*buf, i, res % 2);
+    res = res / 2;
   }
-  return res;
+  if (res) {
+    flag = S21_TOO_LARGE;
+  } else {
+    result = buf;
+  }
+  return flag;
 }
 
 unsigned int s21_count_mul10(s21_decimal *value, int count) {
+  unsigned int flag = S21_SUCCES;
+  s21_decimal *result;
   for (int i = 0; i < count; i++) {
     // Умножение мантисы на 10
-    *value = s21_mul10(*value);
+    flag = s21_mul10(*value, result);
   }
-  return 0;
+  if (!flag) {
+    value = result;
+  }
+  return flag;
+}
+
+void s21_pos_zero_decimal(s21_decimal *value) {
+  int check_zero = s21_mantis_is_equal_null(*value);
+  if (check_zero == 1) {
+    *value = s21_decimal_set_bit(*value, 127, 0);
+  }
 }
