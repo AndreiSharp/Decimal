@@ -16,7 +16,7 @@ START_TEST(test_s21_is_not_equal_2) {
     s21_decimal decimal_1, decimal_2;
     s21_decimal_init(&decimal_1);
     s21_decimal_init(&decimal_2);
-    s21_decimal_set_bit(decimal_1, 10, 1);
+    decimal_1 = s21_decimal_set_bit(decimal_1, 10, 1);
 
     int result_s21_is_not_equal = s21_is_not_equal(decimal_1, decimal_2);
     ck_assert_int_eq(result_s21_is_not_equal, S21_TRUE);
@@ -28,7 +28,7 @@ START_TEST(test_s21_is_not_equal_3) {
     s21_decimal decimal_1, decimal_2;
     s21_decimal_init(&decimal_1);
     s21_decimal_init(&decimal_2);
-    s21_decimal_set_bit(decimal_1, 127, 1);
+    decimal_1 = s21_decimal_set_bit(decimal_1, 127, 1);
 
     int result_s21_is_not_equal = s21_is_not_equal(decimal_1, decimal_2);
     ck_assert_int_eq(result_s21_is_not_equal, S21_FALSE);
@@ -40,7 +40,7 @@ START_TEST(test_s21_is_not_equal_4) {
     s21_decimal decimal_1, decimal_2;
     s21_decimal_init(&decimal_1);
     s21_decimal_init(&decimal_2);
-    s21_decimal_set_bit(decimal_2, 95, 1);
+    decimal_2 = s21_decimal_set_bit(decimal_2, 95, 1);
 
     int result_s21_is_not_equal = s21_is_not_equal(decimal_1, decimal_2);
     ck_assert_int_eq(result_s21_is_not_equal, S21_TRUE);
@@ -52,9 +52,9 @@ START_TEST(test_s21_is_not_equal_5) {
     s21_decimal decimal_1, decimal_2;
     s21_decimal_init(&decimal_1);
     s21_decimal_init(&decimal_2);
-    s21_decimal_set_bit(decimal_1, 10, 1);
-    s21_decimal_set_bit(decimal_2, 10, 1);
-    s21_decimal_set_bit(decimal_2, 127, 1);
+    decimal_1 = s21_decimal_set_bit(decimal_1, 10, 1);
+    decimal_2 = s21_decimal_set_bit(decimal_2, 10, 1);
+    decimal_2 = s21_decimal_set_bit(decimal_2, 127, 1);
 
     int result_s21_is_not_equal = s21_is_not_equal(decimal_1, decimal_2);
     ck_assert_int_eq(result_s21_is_not_equal, S21_TRUE);
