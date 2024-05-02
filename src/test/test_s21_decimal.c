@@ -17,10 +17,10 @@ unsigned int run_suite(Suite *suite, char *file_logs) {
 }
 
 int main() {
-    int count_failed_tests = 0;
+  int count_failed_tests = 0;
 
-    count_failed_tests += run_suite(test_s21_is_equal_suite(), "test/logs/test_s21_is_equal.log");
+  count_failed_tests +=
+      run_suite(test_s21_is_equal_suite(), "test/logs/test_s21_is_equal.log");
 
-    return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
-
+  return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }

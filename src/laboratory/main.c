@@ -91,21 +91,21 @@ bit_t s21_decimal_get_bit(s21_decimal decimal, int index) {
 int exp_plus(s21_decimal *value_1, int count) {
   s21_arithmetic_result_t flag = S21_ARITHMETIC_OK;
 
-  int sign = s21_decimal_sign(*value_1); //Узнаем знак числа
+  int sign = s21_decimal_sign(*value_1); // Узнаем знак числа
 
-  *value_1 = s21_decimal_abs(*value_1); //Берем модуль числа
+  *value_1 = s21_decimal_abs(*value_1); // Берем модуль числа
 
   (*value_1).bits[DATA_INDEX] >>=
-      EXP_POS_L - 1; //Сдвигаем третий блок на 15 позиций
+      EXP_POS_L - 1; // Сдвигаем третий блок на 15 позиций
 
   (*value_1).bits[DATA_INDEX] += count; // Увеличиваем экспонент до нужной суммы
   if ((*value_1).bits[DATA_INDEX] > 28) {
     flag = S21_ARITHMETIC_SMALL;
   } else {
     (*value_1).bits[DATA_INDEX] <<=
-        EXP_POS_L - 1; //Сдвигаем третий блок на 15 позиций обратно
-  } //Проверяем на допустимые пределы
-  *value_1 = s21_decimal_set_bit(*value_1, 127, sign); //Возращаем знак числа
+        EXP_POS_L - 1; // Сдвигаем третий блок на 15 позиций обратно
+  } // Проверяем на допустимые пределы
+  *value_1 = s21_decimal_set_bit(*value_1, 127, sign); // Возращаем знак числа
   return flag;
 }
 
@@ -131,7 +131,7 @@ s21_decimal s21_mul10(s21_decimal value) {
 
 int s21_count_mul10(s21_decimal *value, int count) {
   for (int i = 0; i < count; i++) {
-    //Умножение мантисы на 10
+    // Умножение мантисы на 10
     *value = s21_mul10(*value);
   }
   return 0;
@@ -142,14 +142,14 @@ int s21_normalization(s21_decimal *value_1, s21_decimal *value_2) {
   int exp_1 = s21_decimal_exp(*value_1);
   int exp_2 = s21_decimal_exp(*value_2);
   if (exp_1 > exp_2) {
-    //Умножение на 10 числителя и знаменателя
+    // Умножение на 10 числителя и знаменателя
     s21_count_mul10(value_2, exp_1 - exp_2);
-    //Увеличение экспонента
+    // Увеличение экспонента
     flag = exp_plus(value_2, exp_1 - exp_2);
   } else if (exp_2 > exp_1) {
-    //Умножение на 10 числителя и знаменателя
+    // Умножение на 10 числителя и знаменателя
     flag = s21_count_mul10(value_1, exp_2 - exp_1);
-    //Увеличение экспонента
+    // Увеличение экспонента
     flag = exp_plus(value_1, exp_2 - exp_1);
   }
   return flag;
@@ -180,11 +180,11 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   int sign_value2 = s21_decimal_sign(value_2);
 
   if (sign_value1 == sign_value2) {
-    //Нормализация Экспонента
+    // Нормализация Экспонента
     flag = s21_normalization(&value_1, &value_2);
-    //Приравнивание экспонента результата к получившимуся общему экспоненту
+    // Приравнивание экспонента результата к получившимуся общему экспоненту
     (*result).bits[3] = (value_1).bits[3];
-    //Сложение мантис
+    // Сложение мантис
     flag = s21_add_two_mantis(value_1, value_2, result);
   } else {
   }

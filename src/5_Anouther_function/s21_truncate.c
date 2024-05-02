@@ -9,14 +9,15 @@
   @return flag mistake
  */
 
-int s21_truncate(s21_decimal value, s21_decimal *result){
-int flag = 0; //// добавить ошибки при вычислении (если переменные не по формату и тп)
-int exp = s21_decimal_exp(value);
-for (int i = exp; i > 0; i--){
-value = s21_decimal_div_10 (value);
-exp_plus(&value, -1);
-}
-*result = value;
-change_sign_if_zero(result);
-return flag;
+int s21_truncate(s21_decimal value, s21_decimal *result) {
+  int flag = 0; //// добавить ошибки при вычислении (если переменные не по
+                ///формату и тп)
+  int exp = s21_decimal_exp(value);
+  for (int i = exp; i > 0; i--) {
+    value = s21_decimal_div_10(value);
+    exp_plus(&value, -1);
+  }
+  *result = value;
+  change_sign_if_zero(result);
+  return flag;
 }

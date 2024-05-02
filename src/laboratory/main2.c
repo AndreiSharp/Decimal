@@ -96,21 +96,21 @@ bit_t s21_decimal_get_bit(s21_decimal decimal, int index) {
 int exp_plus(s21_decimal *value_1, int count) {
   s21_arithmetic_result_t flag = S21_ARITHMETIC_OK;
 
-  int sign = s21_decimal_sign(*value_1); //Узнаем знак числа
+  int sign = s21_decimal_sign(*value_1); // Узнаем знак числа
 
-  *value_1 = s21_decimal_abs(*value_1); //Берем модуль числа
+  *value_1 = s21_decimal_abs(*value_1); // Берем модуль числа
 
   (*value_1).bits[DATA_INDEX] >>=
-      EXP_POS_L - 1; //Сдвигаем третий блок на 15 позиций
+      EXP_POS_L - 1; // Сдвигаем третий блок на 15 позиций
 
   (*value_1).bits[DATA_INDEX] += count; // Увеличиваем экспонент до нужной суммы
   if ((*value_1).bits[DATA_INDEX] > 28) {
     flag = S21_ARITHMETIC_SMALL;
   } else {
     (*value_1).bits[DATA_INDEX] <<=
-        EXP_POS_L - 1; //Сдвигаем третий блок на 15 позиций обратно
-  } //Проверяем на допустимые пределы
-  *value_1 = s21_decimal_set_bit(*value_1, 127, sign); //Возращаем знак числа
+        EXP_POS_L - 1; // Сдвигаем третий блок на 15 позиций обратно
+  } // Проверяем на допустимые пределы
+  *value_1 = s21_decimal_set_bit(*value_1, 127, sign); // Возращаем знак числа
   return flag;
 }
 int s21_no_zero_bit(s21_decimal decimal) {
@@ -235,7 +235,7 @@ void change_sign_if_zero(s21_decimal *value) {
 
 int s21_truncate(s21_decimal value, s21_decimal *result) {
   int flag = 0; //// добавить ошибки при вычислении (если переменные не по
-                ///формату и тп)
+                /// формату и тп)
   int exp = s21_decimal_exp(value);
   for (int i = exp; i > 0; i--) {
     value = s21_decimal_div_10(value);
@@ -245,9 +245,8 @@ int s21_truncate(s21_decimal value, s21_decimal *result) {
   change_sign_if_zero(result);
   return flag;
 }
-
-/ int s21_add_two_mantis(s21_decimal value_1, s21_decimal value_2,
-                         s21_decimal *res) {
+int s21_add_two_mantis(s21_decimal value_1, s21_decimal value_2,
+                       s21_decimal *res) {
   int flag = 0;
   for (int i = 0; i < SIZE_MANTIS; i++) {
     flag = s21_decimal_get_bit(value_1, i) + s21_decimal_get_bit(value_2, i) +
@@ -258,80 +257,56 @@ int s21_truncate(s21_decimal value, s21_decimal *result) {
   return flag; // изменить
 }
 
-int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
-  s21_arithmetic_result_t flag = S21_ARITHMETIC_OK;
-
-  int sign_value1 = s21_decimal_sign(value_1);
-  int sign_value2 = s21_decimal_sign(value_2);
-
-  if (sign_value1 == 0 && sign_value2 == 0) {
-    //Нормализация Экспонента
-    flag = s21_normalization(&value_1, &value_2, result);
-    //Сложение мантис
-    flag = s21_add_two_mantis(value_1, value_2, result);
-  } else if (sign_value1 == 1 && sign_value2 == 1) {
-    //Нормализация Экспонента
-    flag = s21_normalization(&value_1, &value_2, result);
-    //Сложение мантис
-    flag = s21_add_two_mantis(value_1, value_2, result);
-  }
-  return flag;
-}
-
-int s21_sub_two_mantis(s21_decimal value_1, s21_decimal value_2,
-                       s21_decimal *res) {
-  int flag = 0;
-  int res_div = 0;
-  for (int i = 0; i < SIZE_MANTIS; i++) {
-    res_div =
-        s21_decimal_is_set_bit(value_1, i) - s21_decimal_is_set_bit(value_2, i);
-    if (res_div - flag >= 0) {
-      *res = s21_decimal_set_bit(*res, i, res_div + flag);
-      flag = 0;
+s21_decimal s21_round_banking(s21_decimal value, s21_decimal drobnay_chast) {
+  // создаем децимал, который будем возращать
+  s21_decimal result;
+  s21_decimal_init(&result);
+  // создаем децимал 0.5 для сравнения с другими децималами
+  s21_decimal zero_dot_five = {5, 0, 0, 0b00000000000000001000000000000000};
+  // создаем децимал = 1 для сравнения с другими децималами
+  s21_decimal decimal_one = {1, 0, 0, 0};
+  // проверка на равенство 0.5
+  if (s21_is_equal(drobnay_chast, zero_dot_five)) {
+    // проверка на нечетное и четное число
+    if (s21_decimal_get_bit(value, 0)) {
+      // если функция возращает 1, то оно нечетное и мы прибавляем 1
+      s21_add_two_mantis(value, decimal_one, &result);
     } else {
-      flag = 1;
-      *res = s21_decimal_set_bit(*res, i, 1);
+      // в ином случае оставляем число без изменений
+      result = value;
     }
-  }
-  return flag;
-}
-int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
-  unsigned int flag = S21_SUCCES;
-  int sign_value1 = s21_take_sign(value_1);
-  int sign_value2 = s21_take_sign(value_2);
-  if (sign_value1 == sign_value2) {
-    if (s21_is_less(value_1, value_2)) {
-      flag = s21_sub_two_mantis(value_1, value_2);
-    } else {
-      flag = s21_sub_two_mantis(value_2, value_1);
-    }
+    // Если дробная часть больше 0.5, то прибавляем 1
+  } else if (s21_is_greater(drobnay_chast, zero_dot_five)) {
+    s21_add_two_mantis(value, decimal_one, &result);
   } else {
-    flag = s21_normalization(&value_1, &value_2, result);
-    if (flag) {
-      flag = s21_add_two_mantis(value_1, value_2, result);
-    }
+    // в ином случае оставляем число без изменений
+    result = value;
   }
-  return flag;
+  return result;
 }
 
-int s21_floor(s21_decimal value, s21_decimal *result) {
-  int flag = 0; // для возврата
-  //добавить проверку на корректность децимала
-  s21_decimal_init(result);
-  (*result).bits[3] = value.bits[3];
-  change_sign_if_zero(result);
+int s21_round(s21_decimal value, s21_decimal *result) {
+  int flag = 0;
+  // нужно добавить проверку на корректность числа!!!!!
+
+  s21_decimal_init(&result);
+  // считывем знак
   int sign = s21_decimal_sign(value);
-  flag = s21_truncate(value, result);
-  if (sign == 1) {
-    s21_decimal bufer;
-    s21_decimal_init(&bufer);
-    flag = s21_sub(value, result, &bufer);
-    if (s21_mantis_is_equal_null(bufer) != 1) {
-      s21_decimal_init(&bufer);
-      bufer.bits[0] = 0b0000000000000000000000000000001;
-      flag = s21_add(result, bufer, *result);
-    }
-  }
+  // создаем децимал без знака
+  s21_decimal value_without_sign;
+  value_without_sign = s21_decimal_abs(value);
+  // создаем децимал без знака с отбрасыванием дробной части
+  s21_decimal value_without_sign_truncated;
+  s21_truncate(value_without_sign, &value_without_sign_truncated);
+  // создаем дцемал для записи дробной части
+  s21_decimal drobnay_chast;
+  flag =
+      s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast)
+      // делаем округление с учетом дробной части
+      value_without_sign_truncated =
+          s21_round_banking(value_without_sign_truncated, drobnay_chast);
+  // возращаем знак и записываем децимал в результат
+  *result = s21_decimal_set_bit(value_without_sign_truncated, 127, sign);
   return flag;
 }
 

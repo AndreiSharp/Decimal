@@ -8,5 +8,5 @@
  */
 
 int s21_decimal_sign(s21_decimal decimal) {
- return 0b1 & (decimal.bits[DATA_INDEX] >> SIGN_POS);
+  return 0b1 & (decimal.bits[DATA_INDEX] >> SIGN_POS);
 }
