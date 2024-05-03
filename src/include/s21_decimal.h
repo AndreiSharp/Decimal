@@ -9,11 +9,11 @@
 /*---------------------------------CONST---------------------------------*/
 
 enum s21_arithmetic_result {
-  S21_SUCCES = 0,      // OK
-  S21_TOO_LARGE = 1,   // The number is too large or equal to infinity
-  S21_TOO_SMALL = 2,   // The number is too small or equal to negative infinity
-  S21_DEV_BY_ZERO = 3, // Division by 0
-  S21_ERROR = 4        // Another Error
+  S21_SUCCES = 0,       // OK
+  S21_TOO_LARGE = 1,    // The number is too large or equal to infinity
+  S21_TOO_SMALL = 2,    // The number is too small or equal to negative infinity
+  S21_DEV_BY_ZERO = 3,  // Division by 0
+  S21_ERROR = 4         // Another Error
 };
 
 /*-------------------------------Function--------------------------------*/
@@ -26,7 +26,7 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
 
 // Multiplication
 int s21_mul(s21_decimal value_1, s21_decimal value_2,
-            s21_decimal *result); // boilbrit
+            s21_decimal *result);  // boilbrit
 
 // Division
 int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
@@ -66,7 +66,7 @@ int s21_is_not_equal(s21_decimal, s21_decimal);
 /*---------------------------------CONST---------------------------------*/
 
 enum s21_conv_result {
-  S21_CONV_ERROR = 1, // Convertation error
+  S21_CONV_ERROR = 1,  // Convertation error
   S21_CONV_SUCCESS = 0
 };
 
@@ -90,7 +90,7 @@ int s21_from_decimal_to_float(s21_decimal src, float *dst);
 
 /*---------------------------------CONST---------------------------------*/
 
-#define S21_CALC_ERROR // Calculation error
+#define S21_CALC_ERROR  // Calculation error
 
 /*-------------------------------Function--------------------------------*/
 
@@ -103,7 +103,7 @@ int s21_round(s21_decimal value, s21_decimal *result);
 
 // Returns the integral digits of the specified Decimal; any fractional digits
 // are discarded, including trailing zeroes
-int s21_truncate(s21_decimal value, s21_decimal *result); // boilbrit
+int s21_truncate(s21_decimal value, s21_decimal *result);  // boilbrit
 
 // Returns the result of multiplying the specified Decimal value by negative one
 int s21_negate(s21_decimal value, s21_decimal *result);

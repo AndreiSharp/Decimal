@@ -1,7 +1,7 @@
 #include "test_s21_decimal.h"
 
 unsigned int run_suite(Suite *suite, char *file_logs) {
-  // создаем раней
+  // создаем ранер
   SRunner *srunner = srunner_create(suite);
 
   // результаты записываем в файл
@@ -17,10 +17,12 @@ unsigned int run_suite(Suite *suite, char *file_logs) {
 }
 
 int main() {
-    int count_failed_tests = 0;
+  int count_failed_tests = 0;
 
-    count_failed_tests += run_suite(test_s21_is_equal_suite(), "test/logs/test_s21_is_equal.log");
-	count_failed_tests += run_suite(test_s21_from_decimal_to_int_suite(), "test/logs/test_s21_from_decimal_to_int.log");
+  count_failed_tests +=
+      run_suite(test_s21_is_equal_suite(), "test/logs/test_s21_is_equal.log");
+  count_failed_tests += run_suite(test_s21_from_decimal_to_int_suite(),
+                                  "test/logs/test_s21_from_decimal_to_int.log");
 
-    return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
+  return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
