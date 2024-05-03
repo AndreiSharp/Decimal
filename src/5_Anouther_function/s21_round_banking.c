@@ -13,9 +13,9 @@ s21_decimal s21_round_banking(s21_decimal value, s21_decimal drobnay_chast) {
   s21_decimal result;
   s21_decimal_init(&result);
   // создаем децимал 0.5 для сравнения с другими децималами
-  s21_decimal zero_dot_five = {5, 0, 0, 0b00000000000000001000000000000000};
+  s21_decimal zero_dot_five = {{5, 0, 0, 0b00000000000000001000000000000000}};
   // создаем децимал = 1 для сравнения с другими децималами
-  s21_decimal decimal_one = {1, 0, 0, 0};
+  s21_decimal decimal_one = {{1, 0, 0, 0}};
   // проверка на равенство 0.5
   if (s21_is_equal(drobnay_chast, zero_dot_five)) {
     // проверка на нечетное и четное число

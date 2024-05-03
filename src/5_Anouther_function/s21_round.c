@@ -11,8 +11,7 @@
 int s21_round(s21_decimal value, s21_decimal *result) {
   int flag = 0;
   // нужно добавить проверку на корректность числа!!!!!
-
-  s21_decimal_init(&result);
+  s21_decimal_init(result);
   // считывем знак
   int sign = s21_decimal_sign(value);
   // создаем децимал без знака
@@ -21,10 +20,11 @@ int s21_round(s21_decimal value, s21_decimal *result) {
   // создаем децимал без знака с отбрасыванием дробной части
   s21_decimal value_without_sign_truncated;
   s21_truncate(value_without_sign, &value_without_sign_truncated);
-  // создаем дцемал для записи дробной части
+  // создаем децемал для записи дробной части
   s21_decimal drobnay_chast;
+    s21_decimal_init(&drobnay_chast);
   flag =
-      s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast)
+      s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast);
       // делаем округление с учетом дробной части
       value_without_sign_truncated =
           s21_round_banking(value_without_sign_truncated, drobnay_chast);
