@@ -43,4 +43,6 @@ s21_decimal s21_decimal_set_exp(s21_decimal decimal, unsigned int exp);
 
 int s21_mantis_is_equal_null(s21_decimal decimal);
 
+s21_decimal s21_decimal_invert(s21_decimal decimal);
+
 /*----------------------------------------------------------------------*/

@@ -11,7 +11,5 @@ s21_decimal s21_decimal_init(s21_decimal *decimal) {
     decimal->bits[i] = BIN_ZERO;
   }
 
-  *decimal = s21_decimal_set_bit(*decimal, DECIMAL_EXP_POS_L, 1);
-
   return *decimal;
 }
