@@ -20,12 +20,12 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
 
   if (sign_value1 == 0 && sign_value2 == 0) {
     // Нормализация Экспонента
-    flag = s21_normalization(&value_1, &value_2, result);
+    flag = s21_normalization(&value_1, &value_2);
     // Сложение мантис
     flag = s21_add_two_mantis(value_1, value_2, result);
   } else if (sign_value1 == 1 && sign_value2 == 1) {
     // Нормализация Экспонента
-    flag = s21_normalization(&value_1, &value_2, result);
+    flag = s21_normalization(&value_1, &value_2);
     // Сложение мантис
     flag = s21_add_two_mantis(value_1, value_2, result);
   }

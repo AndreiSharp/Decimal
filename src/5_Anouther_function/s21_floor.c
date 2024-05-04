@@ -22,11 +22,11 @@ int s21_floor(s21_decimal value, s21_decimal *result) {
   if (sign == 1) {
     s21_decimal bufer;
     s21_decimal_init(&bufer);
-    flag = s21_sub(value, result, &bufer);
+    flag = s21_sub(value, *result, &bufer);
     if (s21_mantis_is_equal_null(bufer) != 1) {
       s21_decimal_init(&bufer);
       bufer.bits[0] = 0b0000000000000000000000000000001;
-      flag = s21_add(result, bufer, *result);
+      flag = s21_add(*result, bufer, result);
     }
   }
   return flag;

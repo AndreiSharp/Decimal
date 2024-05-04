@@ -339,8 +339,7 @@ int s21_decimal_is_equal_null(s21_decimal decimal) {
 }
 
 int s21_truncate(s21_decimal value, s21_decimal *result) {
-  int flag = 0; //// добавить ошибки при вычислении (если переменные не по
-                /// формату и тп)
+  int flag = 0; // добавить ошибки при вычислении (если переменные не по формату и тп)
   int exp = s21_decimal_exp(value);
   for (int i = exp; i > 0; i--) {
     value = s21_decimal_div_10(value);
@@ -365,7 +364,7 @@ int s21_sub_two_mantis(s21_decimal value_1, s21_decimal value_2,
       *res = s21_decimal_set_bit(*res, i, 1);
     }
     // *res = s21_decimal_set_bit(*res, i, res_div - flag);
-    printf ("res = %d\n", res->bits[0]);
+    // printf ("res = %d\n", res->bits[0]);
   }
   return flag;
 }
@@ -380,6 +379,27 @@ int s21_add_two_mantis(s21_decimal value_1, s21_decimal value_2,
     flag = flag / 2;
   }
   return flag; // изменить
+}
+
+int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+  s21_arithmetic_result_t flag = S21_ARITHMETIC_OK;
+
+  int sign_value1 = s21_decimal_sign(value_1);
+  int sign_value2 = s21_decimal_sign(value_2);
+
+  if (sign_value1 == 0 && sign_value2 == 0) {
+    // Нормализация Экспонента
+    flag = s21_normalization(&value_1, &value_2);
+    // Сложение мантис
+    flag = s21_add_two_mantis(value_1, value_2, result);
+  } else if (sign_value1 == 1 && sign_value2 == 1) {
+    // Нормализация Экспонента
+    flag = s21_normalization(&value_1, &value_2);
+    // Сложение мантис
+    flag = s21_add_two_mantis(value_1, value_2, result);
+  }
+
+  return flag;
 }
 
 int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
@@ -466,11 +486,32 @@ int s21_round(s21_decimal value, s21_decimal *result) {
   return flag;
 }
 
+int s21_floor(s21_decimal value, s21_decimal *result) {
+  int flag = 0; // для возврата
+  // добавить проверку на корректность децимала
+  s21_decimal_init(result);
+  (*result).bits[3] = value.bits[3];
+  change_sign_if_zero(result);
+  int sign = s21_decimal_sign(value);
+  flag = s21_truncate(value, result);
+  if (sign == 1) {
+    s21_decimal bufer;
+    s21_decimal_init(&bufer);
+    flag = s21_sub(value, *result, &bufer);
+    if (s21_mantis_is_equal_null(bufer) != 1) {
+      s21_decimal_init(&bufer);
+      bufer.bits[0] = 0b0000000000000000000000000000001;
+      flag = s21_add(*result, bufer, result);
+    }
+  }
+  return flag;
+}
+
 int main() {
   s21_decimal decimal;
   // s21_decimal decimal2;
   s21_decimal decimal3;
-  decimal.bits[0] = 0b00000000000000000001100000000000;
+  decimal.bits[0] = 0b00000000000000000001110000000000;
   decimal.bits[1] = 0b00000000000000000000000000000000;
   decimal.bits[2] = 0b00000000000000000000000000000000;
   decimal.bits[3] = 0b10000000000000010000000000000000;
@@ -507,7 +548,7 @@ int main() {
   // printf("%d\n", sign_3);
   printf("\n");
   // s21_floor(decimal, &decimal3);
-  s21_round(decimal, &decimal3);
+  s21_floor(decimal, &decimal3);
   printf("new number - %d\n", decimal3.bits[0]);
   int exp_3 = s21_decimal_exp(decimal3);
   printf("exp_result - %d\n", exp_3);
