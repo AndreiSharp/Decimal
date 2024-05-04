@@ -10,15 +10,18 @@ SRCDIR += ./binary
 SRCDIR += ./comprasion
 SRCDIR += ./convertation
 SRCDIR += ./helper
+SRCEXT := c
+SRC := $(shell find $(SRCDIR) -depth -name '*.$(SRCEXT)')
 
-SRC := $(shell find $(SRCDIR) -depth -name '*.c')
+HDEXT := h
+HEADERS := $(shell find ./include -depth -name '*.$(HDEXT)')
 
-HEADERS := $(shell find ./include -depth -name '*.h')
-
-OBJECT := $(shell find . -name '*.o')
+OBJEXT := o
+OBJECT := $(shell find . -name '*.$(OBJEXT)')
 
 TSTDIR := ./test
-TST := $(shell find $(TSTDIR) -depth -name '*.c')
+TSTEXT := $(SRCEXT)
+TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
 
 LFLAGS := -lcheck
@@ -32,18 +35,17 @@ STYLE := '{BasedOnStyle: Google}'
 
 RM := rm
 
-all: clean $(target)
+all: clean $(TARGET)
 
-$(OBJECT): $(SRC)
-	$(CC) -c $(CFLAGS) $(SOURCE)
-
-$(TARGET): $(OBJECT)
+$(TARGET): $(SRC)
+	$(CC) -c $(CFLAGS) $(SRC)
 	ar rc $(OBJECT)
 	ranlib 	$(TARGET) $(OBJECT)
 	cp $(TARGET) lib$(TARGET)
 
 test: $(TST) $(TARGET)
-	$(CC) $(CFLAGS) -o $(TESTER) $(LFLAGS)
+	$(CC) $(CFLAGS) $(LFLAGS) -o $(TESTER) $(TST) -L. -l$(TARGET) 
+	./$(TESTER)
 
 gcov_report:
 	
