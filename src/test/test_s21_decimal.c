@@ -21,6 +21,16 @@ int main() {
 
   count_failed_tests +=
       run_suite(test_s21_is_equal_suite(), "test/logs/test_s21_is_equal.log");
-
+  count_failed_tests +=
+      run_suite(test_s21_is_not_equal_suite(), "test/logs/test_s21_is_not_equal.log");
+  count_failed_tests +=
+      run_suite(test_s21_is_less_suite(), "test/logs/test_s21_is_less.log");
+  count_failed_tests +=
+      run_suite(test_s21_is_less_or_equal_suite(), "test/logs/test_s21_is_less_or_equal.log");
+  count_failed_tests +=
+      run_suite(test_s21_is_greater_suite(), "test/logs/test_s21_is_greater.log");
+  count_failed_tests +=
+      run_suite(test_s21_is_greater_or_equal_suite(), "test/logs/test_s21_is_greater_or_equal.log");
+      
   return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
