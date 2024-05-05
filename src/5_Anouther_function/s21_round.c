@@ -22,12 +22,12 @@ int s21_round(s21_decimal value, s21_decimal *result) {
   s21_truncate(value_without_sign, &value_without_sign_truncated);
   // создаем децемал для записи дробной части
   s21_decimal drobnay_chast;
-    s21_decimal_init(&drobnay_chast);
+  s21_decimal_init(&drobnay_chast);
   flag =
       s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast);
-      // делаем округление с учетом дробной части
-      value_without_sign_truncated =
-          s21_round_banking(value_without_sign_truncated, drobnay_chast);
+  // делаем округление с учетом дробной части
+  value_without_sign_truncated =
+      s21_round_banking(value_without_sign_truncated, drobnay_chast);
   // возращаем знак и записываем децимал в результат
   *result = s21_decimal_set_bit(value_without_sign_truncated, 127, sign);
   return flag;

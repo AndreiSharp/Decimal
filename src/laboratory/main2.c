@@ -32,11 +32,11 @@ typedef uint32_t
     [31] - contains the sign
 */
 enum s21_arithm_result {
-  S21_SUCCES = 0,       // OK
-  S21_TOO_LARGE = 1,    // The number is too large or equal to infinity
-  S21_TOO_SMALL = 2,    // The number is too small or equal to negative infinity
-  S21_DEV_BY_ZERO = 3,  // Division by 0
-  S21_ERROR = 4         // Another Error
+  S21_SUCCES = 0,      // OK
+  S21_TOO_LARGE = 1,   // The number is too large or equal to infinity
+  S21_TOO_SMALL = 2,   // The number is too small or equal to negative infinity
+  S21_DEV_BY_ZERO = 3, // Division by 0
+  S21_ERROR = 4        // Another Error
 };
 
 typedef enum {
@@ -219,13 +219,11 @@ void compare_mantis(s21_decimal value_1, s21_decimal value_2, int *first_number,
   }
 }
 
-
 void compare_decimal(s21_decimal value_1, s21_decimal value_2,
                      int *first_number, int *second_number) {
   s21_normalization(&value_1, &value_2);
   compare_mantis(value_1, value_2, first_number, second_number);
 }
-
 
 void function_compare(s21_decimal value_1, s21_decimal value_2,
                       int *first_number, int *second_number) {
@@ -339,7 +337,8 @@ int s21_decimal_is_equal_null(s21_decimal decimal) {
 }
 
 int s21_truncate(s21_decimal value, s21_decimal *result) {
-  int flag = 0; // добавить ошибки при вычислении (если переменные не по формату и тп)
+  int flag =
+      0; // добавить ошибки при вычислении (если переменные не по формату и тп)
   int exp = s21_decimal_exp(value);
   for (int i = exp; i > 0; i--) {
     value = s21_decimal_div_10(value);
@@ -354,8 +353,7 @@ int s21_sub_two_mantis(s21_decimal value_1, s21_decimal value_2,
   int flag = 0;
   int res_div = 0;
   for (int i = 0; i <= SIZE_MANTIS; i++) {
-    res_div =
-        s21_decimal_get_bit(value_1, i) - s21_decimal_get_bit(value_2, i);
+    res_div = s21_decimal_get_bit(value_1, i) - s21_decimal_get_bit(value_2, i);
     if (res_div - flag >= 0) {
       *res = s21_decimal_set_bit(*res, i, res_div - flag);
       flag = 0;
@@ -471,16 +469,16 @@ int s21_round(s21_decimal value, s21_decimal *result) {
   s21_truncate(value_without_sign, &value_without_sign_truncated);
   // создаем децемал для записи дробной части
   s21_decimal drobnay_chast;
-    s21_decimal_init(&drobnay_chast);
+  s21_decimal_init(&drobnay_chast);
   flag =
       s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast);
   //         int exp_3 = s21_decimal_exp(drobnay_chast);
   // printf("exp_result - %d\n", exp_3);
-    // printf("exp_result - %d\n", value_without_sign.bits[0]);
-    // printf("exp_result - %d\n", value_without_sign_truncated.bits[0]);
-      // делаем округление с учетом дробной части
-      value_without_sign_truncated =
-          s21_round_banking(value_without_sign_truncated, drobnay_chast);
+  // printf("exp_result - %d\n", value_without_sign.bits[0]);
+  // printf("exp_result - %d\n", value_without_sign_truncated.bits[0]);
+  // делаем округление с учетом дробной части
+  value_without_sign_truncated =
+      s21_round_banking(value_without_sign_truncated, drobnay_chast);
   // возращаем знак и записываем децимал в результат
   *result = s21_decimal_set_bit(value_without_sign_truncated, 127, sign);
   return flag;
