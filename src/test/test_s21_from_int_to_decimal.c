@@ -12,8 +12,8 @@ END_TEST
 START_TEST(test_s21_from_int_to_decimal_2) {
   // тест 2
   s21_decimal dst;
-  int src = 4294967295;
-  s21_decimal decimal = {{4294967295, 0, 0, 0}};
+  int src = 2147483647;
+  s21_decimal decimal = {{2147483647, 0, 0, 0}};
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
@@ -26,8 +26,8 @@ END_TEST
 START_TEST(test_s21_from_int_to_decimal_3) {
   // тест 3
   s21_decimal dst;
-  int src = -4294967295;
-  s21_decimal decimal = {{4294967295, 0, 0, 0}};
+  int src = -2147483647;
+  s21_decimal decimal = {{2147483647, 0, 0, 0}};
   s21_negate(decimal, &decimal);
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
