@@ -18,6 +18,5 @@ int s21_truncate(s21_decimal value, s21_decimal *result) {
     exp_plus(&value, -1);
   }
   *result = value;
-  change_sign_if_zero(result);
   return flag;
 }

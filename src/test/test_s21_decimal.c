@@ -31,8 +31,11 @@ int main() {
                                   "test/logs/test_s21_is_greater.log");
   count_failed_tests += run_suite(test_s21_is_greater_or_equal_suite(),
                                   "test/logs/test_s21_is_greater_or_equal.log");
-  // ANOUTHER_FUNCTION
+  // CONVERTATION_FUNCTIONS
   count_failed_tests += run_suite(test_s21_from_int_to_decimal_suite(),
                                   "test/logs/test_s21_from_int_to_decimal.log");
+  count_failed_tests += run_suite(test_s21_from_float_to_decimal_suite(),
+                                  "test/logs/test_s21_from_float_to_decimal.log");
+
   return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
