@@ -7,7 +7,7 @@
  * @return int s21_decimal exponent
  */
 
-int s21_decimal_exp(s21_decimal decimal) {
+unsigned int s21_decimal_exp(s21_decimal decimal) {
   if (s21_decimal_sign(decimal)) {
     decimal = s21_decimal_abs(decimal);
   }

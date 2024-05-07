@@ -4,13 +4,13 @@
 /*-------------------------Helper function------------------------------*/
 
 // get sign of s21_decimal
-int s21_decimal_sign(s21_decimal decimal);
+unsigned int s21_decimal_sign(s21_decimal decimal);
 
 // get absolutely value of s21_decimal
 s21_decimal s21_decimal_abs(s21_decimal decimal);
 
 // get exponent value of s21_decimal
-int s21_decimal_exp(s21_decimal decimal);
+unsigned int s21_decimal_exp(s21_decimal decimal);
 
 // multiplicate s21_decimal by 10
 s21_decimal s21_decimal_mul_10(s21_decimal decimal);
@@ -48,4 +48,6 @@ s21_decimal s21_decimal_invert(s21_decimal decimal);
 s21_decimal s21_round_banking(s21_decimal value, s21_decimal drobnay_chast);
 
 void change_sign_if_zero(s21_decimal *value);
+
+int exp_plus(s21_decimal *value_1, int count);
 /*----------------------------------------------------------------------*/
