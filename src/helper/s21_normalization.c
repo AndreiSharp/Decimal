@@ -17,7 +17,7 @@ int exp_plus(s21_decimal *value_1, int count) {
   //Сдвигаем третий блок на 15 позиций обратно
   (*value_1).bits[DATA_INDEX] <<= EXP_POS_L - 1;
   //Возращаем знак числа
-  *value_1 = s21_decimal_set_bit(*value_1, SIGN_POS, sign);
+  *value_1 = s21_decimal_set_bit(*value_1, DECIMAL_SIGN_POS, sign);
   return flag;
 }
 

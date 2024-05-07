@@ -1,4 +1,4 @@
-#include "./../6_Headers/s21_convertation_and_parsers.h"
+#include "../include/s21_decimal.h"
 
 int s21_from_int_to_decimal(int src, s21_decimal *dst) {
   int flag = S21_SUCCES;

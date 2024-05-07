@@ -10,14 +10,13 @@ enum sizes {
 };
 
 enum position {
-  EXP_POS_L = 16,  // left positon of exponent in bits[DATA_INDEX]
-  EXP_POS_R = 23,  // right positon of exponent in bits[DATA_INDEX]
-  DECIMAL_EXP_POS_L = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_L - 1,
-  DECIMAL_EXP_POS_R = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_R - 1,
-  SIGN_POS =
-      SIZE_BLOCK - 1,  // position of s21_decimal sign in bits[DATA_INDEX]
-  DATA_INDEX =
-      MAX_BLOCKS - 1  // index of bits where exponent and sign of s21_decimal
+  EXP_POS_L = 16,  // left position of exponent in bits[DATA_INDEX]
+  EXP_POS_R = 23,  // right position of exponent in bits[DATA_INDEX]
+  DECIMAL_EXP_POS_L = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_L - 1, // left position of exponent in decimal 
+  DECIMAL_EXP_POS_R = (MAX_BLOCKS - 1) * SIZE_BLOCK + EXP_POS_R - 1, // right position of exponent in decimal 
+  SIGN_POS = SIZE_BLOCK - 1,  // position of s21_decimal sign in bits[DATA_INDEX]
+  DECIMAL_SIGN_POS = MAX_BLOCKS * SIZE_BLOCK - 1, // position of s21_decimal sign in decimal
+  DATA_INDEX = MAX_BLOCKS - 1  // index of bits where exponent and sign of s21_decimal
 };
 
 #define MAX_MANTIS ((MAX_BLOCKS - 1) * SIZE_BLOCK)  // maximum value of mantis

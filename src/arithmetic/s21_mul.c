@@ -26,5 +26,7 @@ int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
 
   *result = s21_decimal_set_exp(*result, exp_result);
 
+  // TODO: написать функцию s21_decimal_set_sign
+  *result = s21_decimal_set_bit(*result, DECIMAL_SIGN_POS, sign_result);
   return error_code;
 }

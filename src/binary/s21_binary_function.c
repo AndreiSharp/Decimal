@@ -9,7 +9,7 @@
                     0 - no bit,
                     1 - bit here.
 */
-int s21_get_bit(int number, int index) {
+bit_t s21_get_bit(int number, int index) {
   return ((0b1 << index) & number) >> index;
 }
 
@@ -40,10 +40,9 @@ int s21_reset_bit(int number, int index) { return number & ~(0b1 << index); }
                     0 - no bit,
                     1 - bit here.
 */
-// int s21_decimal_is_set_bit(s21_decimal decimal, int index) {
-//   return s21_is_set_bit(decimal.bits[index / MAX_BLOCKS], index %
-//   MAX_BLOCKS);
-// }
+bit_t s21_decimal_is_set_bit(s21_decimal decimal, int index) {
+  return s21_get_bit(decimal.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
+}
 
 /**
  * @brief Set bit in decimal with index of bit with value 1
@@ -53,7 +52,7 @@ int s21_reset_bit(int number, int index) { return number & ~(0b1 << index); }
  * @param bit type operation set or reset bit
  * @return s21_decimal value with setting bit
  */
-s21_decimal s21_decimal_set_bit(s21_decimal decimal, int index, int bit) {
+s21_decimal s21_decimal_set_bit(s21_decimal decimal, int index, bit_t bit) {
   if (bit == 0) {
     decimal.bits[index / SIZE_BLOCK] =
         s21_reset_bit(decimal.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
