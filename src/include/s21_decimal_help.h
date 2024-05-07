@@ -45,4 +45,7 @@ int s21_mantis_is_equal_null(s21_decimal decimal);
 
 s21_decimal s21_decimal_invert(s21_decimal decimal);
 
+s21_decimal s21_round_banking(s21_decimal value, s21_decimal drobnay_chast);
+
+void change_sign_if_zero(s21_decimal *value);
 /*----------------------------------------------------------------------*/
