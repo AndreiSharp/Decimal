@@ -13,7 +13,7 @@ bit_t s21_get_bit(int number, int index);
 int s21_set_bit(int number, int index);
 
 // reset bit on index
-int s21_reset_bit(int number, int index);
+bit_t s21_reset_bit(bit32_t number, int index);
 
 // get bit from index in s21_decimal
 bit_t s21_decimal_is_set_bit(s21_decimal decimal, int index);

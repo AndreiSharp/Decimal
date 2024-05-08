@@ -1,4 +1,4 @@
-#include "../include/s21_decimal_help.h"
+#include "../include/s21_decimal.h"
 
 /**
  * @brief sub prefix of first n bin digits in decimal and 10
@@ -9,7 +9,7 @@
  */
 static int s21_get_sub_10(bit_t prefix[], size_t n) {
   unsigned int prefix10 = 0;
-  for (int i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
+  for (size_t i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
     prefix10 += prefix[i] * pow;
   }
   return prefix10 - 10;
@@ -24,7 +24,7 @@ static int s21_get_sub_10(bit_t prefix[], size_t n) {
  * @return static bit_t[] new prefix
  */
 static bit_t *s21_sub_to_bin(bit_t prefix[], size_t n, unsigned int sub) {
-  for (int i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
+  for (size_t i = 0, pow = 1 << (n - 1); i < n; ++i, pow >>= 1) {
     prefix[i] = sub / pow;
     sub %= pow;
   }

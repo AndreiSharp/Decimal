@@ -17,7 +17,7 @@ HDEXT := h
 HEADERS := $(shell find ./include -depth -name '*.$(HDEXT)')
 
 OBJEXT := o
-OBJECT := $(shell find . -name '*.$(OBJEXT)')
+OBJECT := *.o
 
 TSTDIR := ./test
 TSTEXT := $(SRCEXT)
@@ -39,8 +39,8 @@ all: clean $(TARGET)
 
 $(TARGET): $(SRC)
 	$(CC) -c $(CFLAGS) $(SRC)
-	ar rc $(OBJECT)
-	ranlib 	$(TARGET) $(OBJECT)
+	ar rc $(TARGET) $(OBJECT)
+	ranlib 	$(TARGET)
 	cp $(TARGET) lib$(TARGET)
 
 test: $(TST) $(TARGET)

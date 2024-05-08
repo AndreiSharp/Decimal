@@ -1,4 +1,4 @@
-#include "../include/s21_decimal_help.h"
+#include "../include/s21_decimal.h"
 
 /**
  * @brief Get sign of s21_decimal

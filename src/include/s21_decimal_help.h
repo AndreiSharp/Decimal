@@ -25,6 +25,19 @@ bit_t s21_decimal_get_bit(s21_decimal decimal, int index);
 
 s21_decimal s21_decimal_init(s21_decimal *decimal);
 
+
+
+int s21_mantis_is_equal_null(s21_decimal decimal);
+
+void change_sign_if_zero(s21_decimal *value);
+
+void compare_mantis(s21_decimal value_1, s21_decimal value_2, int *first_number, int *second_number);
+
+void compare_decimal(s21_decimal value_1, s21_decimal value_2,
+                     int *first_number, int *second_number);
+
+void change_sign_if_zero(s21_decimal *value);
+
 void function_compare(s21_decimal value_1, s21_decimal value_2,
                       int *first_number, int *second_number);
 
@@ -40,8 +53,6 @@ int s21_decimal_mul_two_mantis(s21_decimal value_1, s21_decimal value_2,
                                s21_decimal *res);
 
 s21_decimal s21_decimal_set_exp(s21_decimal decimal, unsigned int exp);
-
-int s21_mantis_is_equal_null(s21_decimal decimal);
 
 s21_decimal s21_decimal_invert(s21_decimal decimal);
 

@@ -46,7 +46,7 @@ void compare_decimal(s21_decimal value_1, s21_decimal value_2,
 void change_sign_if_zero(s21_decimal *value) {
   int check_zero = s21_mantis_is_equal_null(*value);
   if (check_zero == 1) {
-    *value = s21_decimal_set_bit(*value, 127, 0);
+    *value = s21_decimal_set_bit(*value, DECIMAL_SIGN_POS, 0);
   }
 }
 

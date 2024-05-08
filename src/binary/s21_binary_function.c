@@ -29,7 +29,7 @@ int s21_set_bit(int number, int index) { return number | (0b1 << index); }
  * @param index index of bit in number where reseting bit
  * @return int value with reseting bit
  */
-int s21_reset_bit(int number, int index) { return number & ~(0b1 << index); }
+bit_t s21_reset_bit(bit32_t number, int index) { return number & ~(0b1 << index); }
 
 /**
   * @brief Get value from decimal with index of bit
