@@ -41,7 +41,6 @@ $(TARGET): $(SRC)
 	$(CC) -c $(CFLAGS) $(SRC)
 	ar rc $(TARGET) $(OBJECT)
 	ranlib 	$(TARGET)
-	cp $(TARGET) lib$(TARGET)
 
 test: $(TST) $(TARGET)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(TESTER) $(TST) -L. -l$(TARGET) 
