@@ -24,4 +24,6 @@ s21_decimal s21_decimal_set_bit(s21_decimal decimal, int index, bit_t bit);
 // find first no zero bit in s21_decimal
 int s21_no_zero_bit(s21_decimal decimal);
 
+bit_t s21_decimal_get_bit(s21_decimal decimal, int index);
+
 /*----------------------------------------------------------------------*/
