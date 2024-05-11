@@ -1,8 +1,10 @@
 #pragma once
+
 #include <stddef.h>
 #include <stdint.h>
 
 /*--------------------------------CONST---------------------------------*/
+
 enum sizes {
   MAX_BLOCKS = 4,   // count of bits
   SIZE_BLOCK = 32,  // count of bits in one block
@@ -19,9 +21,11 @@ enum position {
   DATA_INDEX = MAX_BLOCKS - 1  // index of bits where exponent and sign of s21_decimal
 };
 
-#define MAX_MANTIS ((MAX_BLOCKS - 1) * SIZE_BLOCK)  // maximum value of mantis
-#define MAX_EXP 28
-#define NO_BIT_VALUE 2  // not 1 or 2
+enum maximus {
+	MAX_MANTIS = (MAX_BLOCKS - 1) * SIZE_BLOCK, // lenght of mantis
+	MAX_EXP = 28 // max exponent (from the task)
+};
+
 
 /*--------------------------------STRUCT--------------------------------*/
 
