@@ -30,5 +30,7 @@ int main() {
       run_suite(test_s21_from_decimal_to_float_suite(),
                 "./test/logs/test_s21_from_decimal_to_float.log");
 
+  count_failed_tests += run_suite(test_s21_add_suite(), "./test/logs/test_s21_add.log");
+
   return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }

@@ -42,13 +42,14 @@ COMP += $(COMPDIR)/s21_is_less.c
 COMP += $(COMPDIR)/s21_is_less_or_equal.c 
 COMP += $(COMPDIR)/s21_is_not_equal.c
 
-# ----------------- objects -----------------  
-OBJS_BIN = $(patsubst %.c, %.o, $(BIN))
-OBJS_HELP = $(patsubst %.c, %.o, $(HELP))
-OBJS_CONV = $(patsubst %.c, %.o, $(CONV))
-OBJS_ARITHM = $(patsubst %.c, %.o, $(ARITHM))
-OBJS_ANOTHER = $(patsubst %.c, %.o, $(ANOTHER))
-OBJS_COMP = $(patsubst %.c, %.o, $(COMP))
+# ----------------- objects -----------------
+OBJS_BIN = $(patsubst %.c,%.o,$(BIN:$(.c=.o)))
+OBJS_HELP = $(patsubst %.c,%.o,$(HELP:$(.c=.o)))
+OBJS_CONV = $(patsubst %.c,%.o,$(CONV:$(.c=.o)))
+OBJS_ARITHM = $(patsubst %.c,%.o,$(ARITHM:$(.c=.o)))
+OBJS_ANOTHER = $(patsubst %.c,%.o,$(ANOTHER:$(.c=.o)))
+OBJS_COMP = $(patsubst %.c,%.o,$(COMP:$(.c=.o)))
+OBJS = $(OBJS_BIN) $(OBJS_HELP) $(OBJS_CONV) $(OBJS_ARITHM) $(OBJS_ANOTHER) $(OBJS_COMP)
 
 # ----------------- tests -----------------
 TSTDIR := ./test
@@ -56,25 +57,29 @@ TSTEXT := $(SRCEXT)
 TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
 
-
 # ---------------- targets -----------------
 $(OBJS_BIN): $(BIN)
+	@echo "Binary functions" $@
 	$(CC) -c $^ -o $@
 $(OBJS_HELP): $(HELP)
+	@echo "Helper functions" $@
 	$(CC) -c $^ -o $@
 $(OBJS_ARITHM): $(ARITHM)
+	@echo "Arithmetic functions" $@
 	$(CC) -c $^ -o $@
 $(OBJS_CONV): $(CONV)
+	@echo "Convertation functions" $@
 	$(CC) -c $^ -o $@
 $(OBJS_COMP): $(COMP)
+	@echo "Comprasions functions" $@
 	$(CC) -c $^ -o $@
 $(OBJS_ANOTHER): $(ANOTHER) 
+	@echo "Another functions" $@
 	$(CC) -c $^ -o $@
 
-$(NAME).a: $(OBJS_BIN) $(OBJS_HELP) $(OBJS_ARITHM) $(OBJS_CONV) $(OBJS_COMP) $(OBJS_ANOTHER)
-	$(CC)
-
+$(NAME).a: $(OBJS)
 
 clean:
+	rm -rf $(OBJS_BIN) $(OBJS_HELP) $(OBJS_ARITHM) $(OBJS_CONV) $(OBJS_COMP) $(OBJS_ANOTHER)
 
-.PHONY all clean test
+#.PHONY all clean test
