@@ -25,9 +25,18 @@ int s21_round(s21_decimal value, s21_decimal *result) {
   s21_decimal_init(&drobnay_chast);
   flag =
       s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast);
-  // делаем округление с учетом дробной части
-  value_without_sign_truncated =
-      s21_round_banking(value_without_sign_truncated, drobnay_chast);
+  // создаем децимал 0.5 для сравнения с другими децималами
+  s21_decimal zero_dot_five = {{5, 0, 0, 0b00000000000000001000000000000000}};
+  // создаем децимал = 1 для сравнения с другим децималом
+  s21_decimal decimal_one = {{1, 0, 0, 0}};
+  // проверка на равенство 0.5
+  if (s21_is_greater_or_equal(drobnay_chast, zero_dot_five)) {
+    // если функция возращает 1, то оно больше или равно ,5 и мы прибавляем 1
+    s21_add_two_mantis(value_without_sign_truncated, decimal_one, result);
+  } else {
+    // в ином случае оставляем число без изменений
+    *result = value_without_sign_truncated;
+  }
   // возращаем знак и записываем децимал в результат
   *result = s21_decimal_set_bit(value_without_sign_truncated, 127, sign);
   return flag;

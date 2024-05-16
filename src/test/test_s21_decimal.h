@@ -8,6 +8,7 @@
 Suite *test_s21_sub_suite();
 Suite *test_s21_mul_suite();
 Suite *test_s21_add_suite();
+Suite *test_s21_div_suite();
 
 // COMPARE_FUNCTIONS
 Suite *test_s21_is_equal_suite();

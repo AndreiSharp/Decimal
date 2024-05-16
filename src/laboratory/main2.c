@@ -426,33 +426,15 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   return flag;
 }
 
-s21_decimal s21_round_banking(s21_decimal value, s21_decimal drobnay_chast) {
-  // создаем децимал, который будем возращать
-  s21_decimal result;
-  s21_decimal_init(&result);
-  // создаем децимал 0.5 для сравнения с другими децималами
-  s21_decimal zero_dot_five = {{5, 0, 0, 0b00000000000000001000000000000000}};
-  // создаем децимал = 1 для сравнения с другими децималами
-  s21_decimal decimal_one = {{1, 0, 0, 0}};
-  // проверка на равенство 0.5
-  if (s21_is_equal(drobnay_chast, zero_dot_five)) {
-    // проверка на нечетное и четное число
-    if (s21_decimal_get_bit(value, 0)) {
-      // если функция возращает 1, то оно нечетное и мы прибавляем 1
-      s21_add_two_mantis(value, decimal_one, &result);
-    } else {
-      // в ином случае оставляем число без изменений
-      result = value;
-    }
-    // Если дробная часть больше 0.5, то прибавляем 1
-  } else if (s21_is_greater(drobnay_chast, zero_dot_five)) {
-    // printf("%d!!!!\n", drobnay_chast.bits[0]);
-    s21_add_two_mantis(value, decimal_one, &result);
-  } else {
-    // в ином случае оставляем число без изменений
-    result = value;
+int s21_is_greater_or_equal(s21_decimal value_1, s21_decimal value_2) {
+  int first = 0;
+  int second = 0;
+  function_compare(value_1, value_2, &first, &second);
+  int flag = S21_FALSE;
+  if (first == 1 || first == second) {
+    flag = S21_TRUE;
   }
-  return result;
+  return flag;
 }
 
 int s21_round(s21_decimal value, s21_decimal *result) {
@@ -472,36 +454,20 @@ int s21_round(s21_decimal value, s21_decimal *result) {
   s21_decimal_init(&drobnay_chast);
   flag =
       s21_sub(value_without_sign, value_without_sign_truncated, &drobnay_chast);
-  //         int exp_3 = s21_decimal_exp(drobnay_chast);
-  // printf("exp_result - %d\n", exp_3);
-  // printf("exp_result - %d\n", value_without_sign.bits[0]);
-  // printf("exp_result - %d\n", value_without_sign_truncated.bits[0]);
-  // делаем округление с учетом дробной части
-  value_without_sign_truncated =
-      s21_round_banking(value_without_sign_truncated, drobnay_chast);
+  // создаем децимал 0.5 для сравнения с другими децималами
+  s21_decimal zero_dot_five = {{5, 0, 0, 0b00000000000000001000000000000000}};
+  // создаем децимал = 1 для сравнения с другим децималом
+  s21_decimal decimal_one = {{1, 0, 0, 0}};
+  // проверка на равенство 0.5
+  if (s21_is_greater_or_equal(drobnay_chast, zero_dot_five)) {
+    // если функция возращает 1, то оно больше или равно ,5 и мы прибавляем 1
+    s21_add_two_mantis(value_without_sign_truncated, decimal_one, result);
+  } else {
+    // в ином случае оставляем число без изменений
+    *result = value_without_sign_truncated;
+  }
   // возращаем знак и записываем децимал в результат
   *result = s21_decimal_set_bit(value_without_sign_truncated, 127, sign);
-  return flag;
-}
-
-int s21_floor(s21_decimal value, s21_decimal *result) {
-  int flag = 0; // для возврата
-  // добавить проверку на корректность децимала
-  s21_decimal_init(result);
-  (*result).bits[3] = value.bits[3];
-  change_sign_if_zero(result);
-  int sign = s21_decimal_sign(value);
-  flag = s21_truncate(value, result);
-  if (sign == 1) {
-    s21_decimal bufer;
-    s21_decimal_init(&bufer);
-    flag = s21_sub(value, *result, &bufer);
-    if (s21_mantis_is_equal_null(bufer) != 1) {
-      s21_decimal_init(&bufer);
-      bufer.bits[0] = 0b0000000000000000000000000000001;
-      flag = s21_add(*result, bufer, result);
-    }
-  }
   return flag;
 }
 
@@ -546,7 +512,7 @@ int main() {
   // printf("%d\n", sign_3);
   printf("\n");
   // s21_floor(decimal, &decimal3);
-  s21_floor(decimal, &decimal3);
+  s21_round(decimal, &decimal3);
   printf("new number - %d\n", decimal3.bits[0]);
   int exp_3 = s21_decimal_exp(decimal3);
   printf("exp_result - %d\n", exp_3);

@@ -26,6 +26,8 @@ int main() {
       run_suite(test_s21_mul_suite(), "test/logs/test_s21_mul.log");
   count_failed_tests +=
       run_suite(test_s21_add_suite(), "test/logs/s21_add.log");
+  count_failed_tests +=
+      run_suite(test_s21_div_suite(), "test/logs/s21_div.log");
 
   // COMPARE_FUNCTIONS
   count_failed_tests +=

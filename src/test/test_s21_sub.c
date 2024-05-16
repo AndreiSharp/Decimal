@@ -1,13 +1,5 @@
 #include "test_s21_decimal.h"
 
-enum s21_arithmetic_result {
-  S21_SUCCES = 0,      // OK
-  S21_TOO_LARGE = 1,   // The number is too large or equal to infinity
-  S21_TOO_SMALL = 2,   // The number is too small or equal to negative infinity
-  S21_DEV_BY_ZERO = 3, // Division by 0
-  S21_ERROR = 4        // Another Error
-};
-
 START_TEST(test_s21_sub_1) {
   // тест 1
   s21_decimal decimal1 = {{0, 0, 0, 0}};
@@ -95,7 +87,7 @@ END_TEST
 START_TEST(test_s21_sub_7) {
   // тест 7
   s21_decimal decimal1 = {{0, 0, 0, 0}};
-  s21_decimal decimal2 = {{2147483648, 2147483647, 2147483647, 0}};
+  s21_decimal decimal2 = {{2147483648, 2147483647, 2147483647, 1}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_ERROR);
