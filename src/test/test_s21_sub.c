@@ -49,8 +49,9 @@ END_TEST
 
 START_TEST(test_s21_sub_4) {
   // тест 4
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
-  s21_decimal decimal2 = {{2147483647, 2147483647, 2147483647, 0}};
+      int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 0}};
   s21_decimal decimal3 = {{0, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
@@ -64,8 +65,9 @@ END_TEST
 
 START_TEST(test_s21_sub_5) {
   // тест 5
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
-  s21_decimal decimal2 = {{2147483647, 2147483647, 2147483647, 0}};
+        int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 0}};
   s21_decimal decimal3 = {{0, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal1, &decimal1);
@@ -76,8 +78,9 @@ END_TEST
 
 START_TEST(test_s21_sub_6) {
   // тест 6
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
-  s21_decimal decimal2 = {{2147483647, 2147483647, 2147483647, 89678}};
+  int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 89678}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_ERROR);
@@ -86,8 +89,9 @@ END_TEST
 
 START_TEST(test_s21_sub_7) {
   // тест 7
+   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{0, 0, 0, 0}};
-  s21_decimal decimal2 = {{2147483648, 2147483647, 2147483647, 1}};
+  s21_decimal decimal2 = {{max, max, max, 1}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_ERROR);
@@ -96,9 +100,10 @@ END_TEST
 
 START_TEST(test_s21_sub_8) {
   // тест 8
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
+    int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{0, 0, 0, 0}};
-  s21_decimal decimal3 = {{2147483647, 2147483647, 2147483647, 0}};
+  s21_decimal decimal3 = {{max, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
@@ -111,9 +116,11 @@ END_TEST
 
 START_TEST(test_s21_sub_9) {
   // тест 9
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
+  int max = 0b11111111111111111111111111111111;
+  int result1 = 0b11111111111111111111111110011011;
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{100, 0, 0, 0}};
-  s21_decimal decimal3 = {{2147483647, 2147483647, 2147483547, 0}};
+  s21_decimal decimal3 = {{result1, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
@@ -126,9 +133,11 @@ END_TEST
 
 START_TEST(test_s21_sub_10) {
   // тест 10
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483547, 0}};
+  int max = 0b11111111111111111111111111111111;
+  int result1 = 0b11111111111111111111111110011011;
+  s21_decimal decimal1 = {{result1, max, max, 0}};
   s21_decimal decimal2 = {{100, 0, 0, 0}};
-  s21_decimal decimal3 = {{2147483647, 2147483647, 2147483647, 0}};
+  s21_decimal decimal3 = {{max, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal1, &decimal1);
   s21_negate(decimal3, &decimal3);
@@ -143,7 +152,8 @@ END_TEST
 
 START_TEST(test_s21_sub_11) {
   // тест 11
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483548, 0}};
+    int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{100, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal1, &decimal1);
@@ -154,7 +164,8 @@ END_TEST
 
 START_TEST(test_s21_sub_12) {
   // тест 12
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483548, 0}};
+  int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{100, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal2, &decimal2);
@@ -165,8 +176,9 @@ END_TEST
 
 START_TEST(test_s21_sub_13) {
   // тест 13
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
-  s21_decimal decimal2 = {{2147483647, 2147483647, 2147483647, 0}};
+  int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal2, &decimal2);
   int check = s21_sub(decimal1, decimal2, &result);
@@ -176,9 +188,10 @@ END_TEST
 
 START_TEST(test_s21_sub_14) {
   // тест 14
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483547, 0}};
-  s21_decimal decimal2 = {{2147483647, 2147483647, 0, 0}};
-  s21_decimal decimal3 = {{2147483647, 0, 0, 0}};
+    int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, 0, 0}};
+  s21_decimal decimal3 = {{0, 0, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
@@ -191,9 +204,10 @@ END_TEST
 
 START_TEST(test_s21_sub_15) {
   // тест 15
-  s21_decimal decimal1 = {{2147483647, 2147483647, 2147483547, 0}};
-  s21_decimal decimal2 = {{2147483647, 0, 0, 0}};
-  s21_decimal decimal3 = {{2147483647, 2147483647, 0, 0}};
+  int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, 0, 0, 0}};
+  s21_decimal decimal3 = {{0, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
