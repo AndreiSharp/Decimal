@@ -1,14 +1,4 @@
 #include "test_s21_decimal.h"
-s21_from_float_to_decimal(src, &dst);
-s21_from_int_to_decimal(src, &dst);
-
-enum s21_arithmetic_result {
-  S21_SUCCES = 0,      // OK
-  S21_TOO_LARGE = 1,   // The number is too large or equal to infinity
-  S21_TOO_SMALL = 2,   // The number is too small or equal to negative infinity
-  S21_DEV_BY_ZERO = 3, // Division by 0
-  S21_ERROR = 4        // Another Error
-};
 
 START_TEST(test_s21_div_1) {
   s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
