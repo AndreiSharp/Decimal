@@ -7,6 +7,8 @@
 
 /*--------------------------------CONST---------------------------------*/
 
+#define NEGATIVE 1
+
 enum sizes {
   COUNT_BLOCKS = 4,                                // count of decimal blocks
   COUNT_BLOCKS_MANTIS = 3,                         // count of mantis blocks

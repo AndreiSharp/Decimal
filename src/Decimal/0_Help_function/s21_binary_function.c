@@ -1,4 +1,4 @@
-#include "./../../Headers/s21_binary_function.h"
+#include "./../../Headers/s21_decimal.h"
 
 // работает
 bit_t s21_get_bit(bit32_t number, int index) {
