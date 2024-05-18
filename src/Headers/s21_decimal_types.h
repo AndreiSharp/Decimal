@@ -3,28 +3,36 @@
 
 /*--------------------------------SYS_HEADERS---------------------------*/
 
-#include <stdint.h>
 #include <stdio.h>
 
 /*--------------------------------CONST---------------------------------*/
 
 enum sizes {
-  COUNT_BLOCKS = 4,                        // count of decimal blocks
-  SIZE_BLOCK = 32,                         // size of one block
-  SIZE_MANTIS = 96,                        // size of mantis
-  SIZE_DECIMAL = SIZE_BLOCK * SIZE_MANTIS  // size of decimal
+  COUNT_BLOCKS = 4,                                // count of decimal blocks
+  COUNT_BLOCKS_MANTIS = 3,                         // count of mantis blocks
+  SIZE_BLOCK = 32,                                 // size of one block
+  SIZE_MANTIS = COUNT_BLOCKS_MANTIS * SIZE_BLOCK,  // size of mantis
+  SIZE_DECIMAL = SIZE_BLOCK * COUNT_BLOCKS         // size of decimal
 };
 
 enum position {
-  MAX_NUM_MANTIS = 95,  // index of high bit
-  SIGN_POS = 31,        // position of s21_decimal sign in bits[DATA_INDEX]
-  DATA_INDEX = 3,       // index of bits where exponent and sign of s21_decimal
-  EXP_POS_L = 16,       // start positon of exponent in bits[DATA_INDEX]
-  EXP_POS_R = 23,       // end position of exponent in bits[DATA_INDEX]
-  MAX_EXP = 28
+  MAX_NUM_MANTIS = SIZE_MANTIS - 1,  // index of high bit
+  SIGN_POS =
+      SIZE_BLOCK - 1,  // position of s21_decimal sign in bits[DATA_INDEX]
+  DATA_INDEX =
+      COUNT_BLOCKS - 1,  // index of bits where exponent and sign of s21_decimal
+  SCALE_POS_L = 16,      // start positon of exponent in bits[DATA_INDEX]
+  SCALE_POS_R = 23,      // end position of exponent in bits[DATA_INDEX]
+  MAX_SCALE = 28
 };
 
 /*--------------------------------STRUCT--------------------------------*/
+
+typedef unsigned char bit_t;  // 1 or 0
+
+typedef unsigned int
+    bit32_t;  // 32 bit in bits[i], bits[i] - one block in s21_decimal
+
 /* main struct of decimal:
   in 0 bit [0..31] contain low bits of 96-bit integer
   in 1 bit [32..63] contain middle bits of 96-bit integer
@@ -36,13 +44,15 @@ enum position {
   zero [31] - contains the sign
 */
 typedef struct {
-  unsigned int bits[SIZE_BLOCK];
+  bit32_t bits[SIZE_BLOCK];
 } s21_decimal;
 
-typedef uint8_t bit_t;  // 1 or 0
-
-typedef uint32_t
-    bit32_t;  // 32 bit in bits[i], bits[i] - one block in s21_decimal
+typedef struct s21_decimal_data {
+  s21_decimal value;
+  bit_t sign;
+  int scale;
+  bit32_t high_bit;
+} s21_DecData;
 
 /*-------------------------Arithmetic function---------------------------*/
 

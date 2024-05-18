@@ -242,9 +242,50 @@ d. [Division of two decimals](#division-of-two-decimals)
 
 Заглавие функции:
 
-> unsigned int s21_decimal_is_correct(s21_decimal value);
+> unsigned int s21_decimal_is_correct(s21_decimal value).
 
 Функция использует следующие подфункции:
+
+* [Check null stack](#check-null-stack);
+* [Get exp](#get-exp).
+
+#### **Check null stack**
+
+Заглавие функции:
+
+> unsigned int s21_check_null_stack(s21_decimal value).
+
+#### **Decimal init**
+
+Заглавие функции:
+
+> unsigned int s21_decimal_init(s21_decimal *decimal).
+
+Функция использует следующие подфункцию:
+
+s21_decimal_set_bit(*decimal, EXP_POS_L, 1).
+
+#### **Decimal copy**
+
+Заглавие функции:
+
+> unsigned int s21_decimal_copy(s21_decimal src, s21_decimal *dest).
+
+#### **Get sub 10**
+
+Заглавие функции:
+
+> static int s21_get_sub_10(bit_t prefix[], size_t n).
+
+#### **Get sub to bin**
+
+Заглавие функции:
+
+> static bit_t *s21_sub_to_bin(bit_t prefix[], size_t n, unsigned int sub).
+
+
+#### **Div 10**
+> s21_decimal s21_decimal_div_10(s21_decimal decimal)
 
 #### **Normalization**
 
@@ -253,6 +294,10 @@ d. [Division of two decimals](#division-of-two-decimals)
 > unsigned int s21_normalization(s21_decimal *value_1, s21_decimal *value_2);
 
 Функция использует следующие подфункции:
+
+* [Get exp](#get-exp);
+* [Count mul 10](#count-mul-10);
+* [Add exp](#add-exp).
 
 #### 
 ***
