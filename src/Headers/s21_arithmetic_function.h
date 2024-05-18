@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef S21_ARITH_FUNC
 #define S21_ARITH_FUNC
 

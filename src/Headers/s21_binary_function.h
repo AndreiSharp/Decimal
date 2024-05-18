@@ -9,17 +9,17 @@
 
 /*----------------------------Number function---------------------------*/
 
-bit32_t s21_get_bit(int number, int index);
+bit_t s21_get_bit(bit32_t number, int index);
 
-bit32_t s21_set_bit(int number, int index);
+bit32_t s21_set_bit(bit32_t number, int index);
 
-bit32_t s21_reset_bit(int number, int index);
+bit32_t s21_reset_bit(bit32_t number, int index);
 
-bit32_t s21_get_high_bit(int value);
+bit32_t s21_get_high_bit(bit32_t value);
 
 /*----------------------------Decimal function---------------------------*/
 
-bit32_t s21_decimal_get_bit(s21_decimal value, int index);
+bit_t s21_decimal_get_bit(s21_decimal value, int index);
 
 s21_decimal s21_decimal_set_bit(s21_decimal value, int index, bit_t bit);
 
