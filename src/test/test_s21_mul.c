@@ -90,11 +90,41 @@ START_TEST(test_s21_mul_8) {
   ck_assert_int_eq(status, S21_SUCCES);
 }
 
+START_TEST(test_s21_mul_9) {
+int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 0}};
+  s21_decimal result = {{0, 0, 0, 0}};
+  int check = s21_div(decimal1, decimal2, &result);
+  ck_assert_int_eq(check, S21_TOO_LARGE);
+}
+
+START_TEST(test_s21_mul_10) {
+int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 0}};
+  s21_negate(decimal2, &decimal2);
+  s21_decimal result = {{0, 0, 0, 0}};
+  int check = s21_div(decimal1, decimal2, &result);
+  ck_assert_int_eq(check, S21_TOO_SMALL);
+}
+
+
 Suite *test_s21_mul_suite() {
   Suite *suite = suite_create("s21_mul");
   TCase *tc_core = tcase_create("core_of_s21_mul");
 
   tcase_add_test(tc_core, test_s21_mul_1);
+  tcase_add_test(tc_core, test_s21_mul_2);
+  tcase_add_test(tc_core, test_s21_mul_3);
+  tcase_add_test(tc_core, test_s21_mul_4);
+  tcase_add_test(tc_core, test_s21_mul_5);
+  tcase_add_test(tc_core, test_s21_mul_6);
+  tcase_add_test(tc_core, test_s21_mul_7);
+  tcase_add_test(tc_core, test_s21_mul_8);
+  tcase_add_test(tc_core, test_s21_mul_9);
+  tcase_add_test(tc_core, test_s21_mul_10);
+
 
   suite_add_tcase(suite, tc_core);
 

@@ -68,7 +68,6 @@ START_TEST(test_s21_sub_5) {
         int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, max, max, 0}};
-  s21_decimal decimal3 = {{0, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal1, &decimal1);
   int check = s21_sub(decimal1, decimal2, &result);

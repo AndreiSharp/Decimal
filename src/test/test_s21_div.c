@@ -74,7 +74,7 @@ END_TEST
 
 START_TEST(test_s21_div_6) {
   int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, max}};
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_from_float_to_decimal(0.5, &decimal2);
   s21_decimal result = {{0, 0, 0, 0}};
@@ -85,8 +85,8 @@ END_TEST
 
 START_TEST(test_s21_div_7) {
   int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, max}};
-  s21_decimal decimal2 = {{max, max, max, max}};
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{max, max, max, 0}};
   s21_from_float_to_decimal(-0.5, &decimal2);
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_div(decimal1, decimal2, &result);
@@ -96,8 +96,8 @@ END_TEST
 
 START_TEST(test_s21_div_8) {
   int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, max}};
-  s21_decimal decimal2 = {{max, max, max, max}};
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_from_float_to_decimal(-0.7, &decimal2);
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_div(decimal1, decimal2, &result);
@@ -107,8 +107,8 @@ END_TEST
 
 START_TEST(test_s21_div_9) {
     int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, max}};
-  s21_decimal decimal2 = {{max, max, max, max}};
+  s21_decimal decimal1 = {{max, max, max, 0}};
+  s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_from_float_to_decimal(-0.99, &decimal2);
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_div(decimal1, decimal2, &result);
@@ -118,7 +118,7 @@ END_TEST
 
 START_TEST(test_s21_div_10) {
   int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, max}};
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_from_float_to_decimal(0.3, &decimal2);
   s21_decimal result = {{0, 0, 0, 0}};
@@ -129,7 +129,7 @@ END_TEST
 
 START_TEST(test_s21_div_11) {
     int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, max}};
+  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_from_float_to_decimal(0.9, &decimal2);
   s21_decimal result = {{0, 0, 0, 0}};
@@ -228,7 +228,6 @@ Suite *test_s21_div_suite() {
   tcase_add_test(tc_core, test_s21_div_13);
   tcase_add_test(tc_core, test_s21_div_14);
   tcase_add_test(tc_core, test_s21_div_15);
-  v
 
       return suite;
 }
