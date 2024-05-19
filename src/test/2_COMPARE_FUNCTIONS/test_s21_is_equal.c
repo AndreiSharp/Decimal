@@ -1,4 +1,4 @@
-#include "test_s21_decimal.h"
+#include "../test_s21_decimal.h"
 
 START_TEST(test_s21_is_equal_1) {
   // тест 1

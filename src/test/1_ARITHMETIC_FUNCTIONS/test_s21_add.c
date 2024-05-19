@@ -1,4 +1,4 @@
-#include "test_s21_decimal.h"
+#include "../test_s21_decimal.h"
 
 START_TEST(test_s21_add_1) {
   s21_decimal a, b;

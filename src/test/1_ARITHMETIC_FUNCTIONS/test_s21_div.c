@@ -1,4 +1,4 @@
-#include "test_s21_decimal.h"
+#include "../test_s21_decimal.h"
 
 START_TEST(test_s21_div_1) {
   s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
