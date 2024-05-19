@@ -1,29 +1,16 @@
 #include "./../../Headers/s21_decimal.h"
 
-int s21_from_decimal_to_int(s21_decimal src, int *dst) {
-s21_DecData src_DecData = s21_from_decimal_to_DecData(src); // Андрей, где функция??
-
-  int flag = S21_SUCCES;
+int s21_from_int_to_decimal(int src, s21_decimal *dst) {
+  s21_DecData dst_DecData = s21_decimal_null_data();
+  int error_code = S21_CONV_SUCCESS;
   if (dst) {
-    int index_low_bit = src_DecData.scale;
-    int index_high_bit = src_DecData.high_bit;
-    int size_int_mantis = index_high_bit - index_low_bit;
-    if ((size_t) size_int_mantis > sizeof(int)) {
-      while (size_int_mantis >= 0) {
-        (*dst) <<= size_int_mantis;
-        (*dst) &= s21_decimal_get_bit(src_DecData.value, size_int_mantis);
-        (*dst) >>= size_int_mantis;
-        size_int_mantis--;
-      }
-      if (src_DecData.sign) {
-        (*dst) *= -1;
-      }
-    } else {
-      flag = S21_CONV_ERROR;
+    if (src < 0) {
+      bit32_t src_abs = abs(src);
+      dst_DecData.sign = 1;
     }
+    dst->bits[0] = src;
   } else {
-    flag = S21_CONV_ERROR;
+    error_code = S21_CONV_ERROR;
   }
-
-  return flag;
+  return error_code;
 }
