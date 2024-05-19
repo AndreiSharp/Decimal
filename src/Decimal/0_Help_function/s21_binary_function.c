@@ -1,7 +1,7 @@
 #include "./../../Headers/s21_binary_function.h"
 
 // работает
-bit_t s21_get_bit(bit32_t number, int index) {
+bit32_t s21_get_bit(bit32_t number, int index) {
   return ((0b1 << index) & number) >> index;
 }
 
@@ -25,7 +25,7 @@ bit32_t s21_get_high_bit(bit32_t value) {
 }
 
 // работает
-bit_t s21_decimal_get_bit(s21_decimal value, int index) {
+bit32_t s21_decimal_get_bit(s21_decimal value, int index) {
   return s21_get_bit(value.bits[index / SIZE_BLOCK], index % SIZE_BLOCK);
 }
 

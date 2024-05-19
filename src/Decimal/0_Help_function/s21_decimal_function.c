@@ -16,7 +16,7 @@ s21_decimal s21_decimal_copy(s21_decimal value) {
   return result;
 }
 
-bit32_t s21_decimal_is_equal_null(s21_decimal value) {
+bit32_t s21_decimal_is_null(s21_decimal value) {
   return !(value.bits[0] || value.bits[1] || value.bits[2] || value.bits[3]);
 }
 

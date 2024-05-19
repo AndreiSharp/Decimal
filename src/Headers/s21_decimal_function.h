@@ -28,7 +28,7 @@ s21_decimal s21_decimal_copy(s21_decimal value);
  * 1 - если число равно нулю;
  * 0 - если число не равно нулю.
  */
-bit32_t s21_decimal_is_equal_null(s21_decimal value);
+bit32_t s21_decimal_is_null(s21_decimal value);
 
 /**
  * @brief Функция по инверсии мантисы числа типа decimal
