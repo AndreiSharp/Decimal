@@ -34,9 +34,9 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
 
 bit32_t s21_decimal_norm(s21_DecData *result);
 
-bit32_t s21_normalize(s21_DecData *val_data_1, s21_DecData *val_data_2);
+void s21_normalize(s21_DecData *val_data_1, s21_DecData *val_data_2);
 
-bit32_t s21_normalize_base(s21_DecData *val_data_1, s21_DecData *val_data_2);
+void s21_normalize_base(s21_DecData *val_data_1, s21_DecData *val_data_2);
 
 bit32_t s21_max(bit32_t val_1, bit32_t val_2);
 

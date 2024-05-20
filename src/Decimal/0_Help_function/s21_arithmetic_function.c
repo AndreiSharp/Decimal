@@ -1,18 +1,15 @@
 #include "./../../Headers/s21_arithmetic_function.h"
 
-bit32_t s21_normalize(s21_DecData *val_data_1, s21_DecData *val_data_2) {
-  bit32_t error_code = S21_TRUE;
+void s21_normalize(s21_DecData *val_data_1, s21_DecData *val_data_2) {
   if (val_data_1->scale > val_data_2->scale) {
-    error_code = s21_normalize_base(val_data_1, val_data_2);
+    s21_normalize_base(val_data_1, val_data_2);
   } else if (val_data_1->scale < val_data_2->scale) {
-    error_code = s21_normalize_base(val_data_2, val_data_1);
+    s21_normalize_base(val_data_2, val_data_1);
   }
-  return error_code;
 }
 
 // найти случаи когда возможна ошибка и добавить изменение степени
-bit32_t s21_normalize_base(s21_DecData *val_data_1, s21_DecData *val_data_2) {
-  bit32_t error_code = S21_SUCCES;
+void s21_normalize_base(s21_DecData *val_data_1, s21_DecData *val_data_2) {
   bit32_t count_scale =
       val_data_1->scale - val_data_2->scale; // разница в степени
   bit32_t need_bits =
@@ -34,7 +31,6 @@ bit32_t s21_normalize_base(s21_DecData *val_data_1, s21_DecData *val_data_2) {
     // оставшееся делим с банковским округлением
     s21_count_div_10(val_data_1, (count_scale - count_free));
   }
-  return error_code;
 }
 
 bit32_t s21_max(bit32_t val_1, bit32_t val_2) {
@@ -227,27 +223,24 @@ bit32_t s21_count_div_10(s21_DecData *value, bit32_t count) {
 
 bit32_t s21_basic_add(s21_DecData value_1, s21_DecData value_2,
                       s21_DecData *result) {
-  bit32_t error_code = s21_normalize(&value_1, &value_2);
+  bit32_t error_code = S21_SUCCES;
+  s21_normalize(&value_1, &value_2);
+  if (value_1.sign == value_2.sign) {
+    result->sign = value_1.sign;
+    error_code = s21_add_mantis(value_1, value_2, result);
+  } else {
+    bit32_t result_compare = s21_decimal_compare_mantis(value_1, value_2);
+    if (result_compare == 1) {
+      error_code = s21_sub_mantis(value_1, value_2, result);
+    } else if (result_compare == 2) {
+      error_code = s21_sub_mantis(value_1, value_2, result);
+    } else {
+      *result = s21_decimal_copy_data(value_1);
+      result->value = s21_decimal_null();
+    }
+  }
   if (error_code == S21_SUCCES) {
-    if (value_1.sign == value_2.sign) {
-      result->sign = value_1.sign;
-      error_code = s21_add_mantis(value_1, value_2, result);
-    } else {
-      bit32_t result_compare = s21_decimal_compare_mantis(value_1, value_2);
-      if (result_compare == 1) {
-        error_code = s21_sub_mantis(value_1, value_2, result);
-      } else if (result_compare == 2) {
-        error_code = s21_sub_mantis(value_1, value_2, result);
-      } else {
-        *result = s21_decimal_copy_data(value_1);
-        result->value = s21_decimal_null();
-      }
-    }
-    if (error_code == S21_SUCCES) {
-      error_code = s21_decimal_norm(result);
-    } else {
-      *result = s21_decimal_null_data();
-    }
+    error_code = s21_decimal_norm(result);
   } else {
     *result = s21_decimal_null_data();
   }
@@ -278,33 +271,30 @@ bit32_t s21_decimal_norm(s21_DecData *result) {
 // с учетом переполнения
 bit32_t s21_basic_sub(s21_DecData value_1, s21_DecData value_2,
                       s21_DecData *result) {
-  bit32_t error_code = s21_normalize(&value_1, &value_2);
+  bit32_t error_code = S21_SUCCES;
+  s21_normalize(&value_1, &value_2);
+  if (value_1.sign == value_2.sign) {
+    bit32_t result_compare = s21_decimal_compare_mantis(value_1, value_2);
+    if (result_compare == 1) {
+      error_code = s21_sub_mantis(value_1, value_2, result);
+    } else if (result_compare == 2) {
+      error_code = s21_sub_mantis(value_1, value_2, result);
+    } else {
+      *result = s21_decimal_copy_data(value_1);
+      result->value = s21_decimal_null();
+    }
+  } else {
+    error_code = s21_add_mantis(value_1, value_2, result);
+    if (error_code != S21_SUCCES) {
+      bit32_t shift = result->high_bit - SIZE_MANTIS;
+      bit32_t count_div = shift / 3 + (shift % 3 != 0);
+      s21_count_div_10(result, count_div);
+      result->scale = value_1.scale;
+      result->sign = value_1.sign;
+    }
+  }
   if (error_code == S21_SUCCES) {
-    if (value_1.sign == value_2.sign) {
-      bit32_t result_compare = s21_decimal_compare_mantis(value_1, value_2);
-      if (result_compare == 1) {
-        error_code = s21_sub_mantis(value_1, value_2, result);
-      } else if (result_compare == 2) {
-        error_code = s21_sub_mantis(value_1, value_2, result);
-      } else {
-        *result = s21_decimal_copy_data(value_1);
-        result->value = s21_decimal_null();
-      }
-    } else {
-      error_code = s21_add_mantis(value_1, value_2, result);
-      if (error_code != S21_SUCCES) {
-        bit32_t shift = result->high_bit - SIZE_MANTIS;
-        bit32_t count_div = shift / 3 + (shift % 3 != 0);
-        s21_count_div_10(result, count_div);
-        result->scale = value_1.scale;
-        result->sign = value_1.sign;
-      }
-    }
-    if (error_code == S21_SUCCES) {
-      error_code = s21_decimal_norm(result);
-    } else {
-      *result = s21_decimal_null_data();
-    }
+    error_code = s21_decimal_norm(result);
   } else {
     *result = s21_decimal_null_data();
   }
@@ -336,6 +326,10 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
     if (error_code != S21_SUCCES) {
       s21_count_div_10(result, (result->high_bit - SIZE_MANTIS) / 3 + 1);
     }
+    error_code = s21_decimal_norm(result);
+    if (error_code != S21_SUCCES) {
+      *result = s21_decimal_null_data();
+    }
   } else {
     s21_DecData residue = s21_decimal_null_data();
     if (value_1.high_bit > value_2.high_bit) {
@@ -362,6 +356,42 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
   return error_code;
 }
 
-// // с учетом округления
-// bit32_t s21_basic_div(s21_DecData value_1, s21_DecData value_2,
-//                       s21_DecData *result) {}
+// с учетом округления
+bit32_t s21_basic_div(s21_DecData value_1, s21_DecData value_2,
+                      s21_DecData *result) {
+  bit32_t error_code = S21_SUCCES;
+  result->scale = value_1.scale - value_2.scale;
+  result->sign = value_1.sign || value_2.sign;
+  s21_DecData residue = s21_decimal_null_data();
+  bit32_t free_bit = SIZE_MANTIS - value_1.high_bit;
+  bit32_t count_mul = free_bit / 3 + (free_bit % 3 != 0);
+  s21_count_mul_10(&value_1, count_mul);
+  residue = s21_div_mantis(value_1, value_2, result);
+  free_bit = SIZE_MANTIS - result->high_bit;
+  count_mul = free_bit / 3 + (free_bit % 3 != 0);
+  s21_count_mul_10(result, count_mul);
+  if (result->high_bit > SIZE_MANTIS) {
+    free_bit = result->high_bit - SIZE_MANTIS;
+    count_mul = free_bit / 3 + (free_bit % 3 != 0);
+    s21_count_div_10(result, count_mul);
+    count_mul--;
+  }
+  s21_count_mul_10(&residue, count_mul);
+  if (residue.high_bit > SIZE_MANTIS) {
+    free_bit = residue.high_bit - SIZE_MANTIS;
+    count_mul = free_bit / 3 + (free_bit % 3 != 0);
+    s21_count_div_10(&residue, 1);
+  }
+  s21_DecData residue_2 = s21_div_mantis(residue, value_2, &residue);
+  s21_bank_round_data(&residue, value_2, residue_2);
+  if (s21_add_mantis(*result, residue, result)) {
+    free_bit = result->high_bit - SIZE_MANTIS;
+    count_mul = free_bit / 3 + (free_bit % 3 != 0);
+    s21_count_div_10(result, count_mul);
+  }
+  error_code = s21_decimal_norm(result);
+  if (error_code != S21_SUCCES) {
+    *result = s21_decimal_null_data();
+  }
+  return error_code;
+}
