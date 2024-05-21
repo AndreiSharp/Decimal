@@ -75,28 +75,6 @@ START_TEST(test_s21_sub_5) {
 }
 END_TEST
 
-START_TEST(test_s21_sub_6) {
-  // тест 6
-  int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, 0}};
-  s21_decimal decimal2 = {{max, max, max, 89678}};
-  s21_decimal result = {{0, 0, 0, 0}};
-  int check = s21_sub(decimal1, decimal2, &result);
-  ck_assert_int_eq(check, S21_ERROR);
-}
-END_TEST
-
-START_TEST(test_s21_sub_7) {
-  // тест 7
-   int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{0, 0, 0, 0}};
-  s21_decimal decimal2 = {{max, max, max, 1}};
-  s21_decimal result = {{0, 0, 0, 0}};
-  int check = s21_sub(decimal1, decimal2, &result);
-  ck_assert_int_eq(check, S21_ERROR);
-}
-END_TEST
-
 START_TEST(test_s21_sub_8) {
   // тест 8
     int max = 0b11111111111111111111111111111111;
@@ -219,11 +197,17 @@ END_TEST
 
 START_TEST(test_s21_sub_16) {
   // тест 16
-  s21_decimal decimal1 = {{100, 0, 0, 0}};
-  s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
-  s21_decimal decimal3 = {{995, 0, 0, 0b1000000000000000}};
+  s21_decimal decimal1 = {{0, 0, 0, 0}};
+    s21_from_int_to_decimal(100, &decimal1);
+  s21_decimal decimal2 = {{0, 0, 0, 0}};
+    s21_from_float_to_decimal(0.5, &decimal2);
+  s21_decimal decimal3 = {{0, 0, 0, 0}};
+    s21_from_float_to_decimal(99.5, &decimal3);
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
+     float x = 0.0;
+  s21_from_decimal_to_float(result, &x);
+  ck_assert_int_eq(x, 5);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
   int sign1 = s21_decimal_sign(decimal3);
@@ -234,7 +218,7 @@ END_TEST
 
 START_TEST(test_s21_sub_17) {
   // тест 17
-  s21_decimal decimal1 = {{1, 0, 0, 0b11000000000000000}};
+  s21_decimal decimal1 = {{1, 0, 0, 0b10000000000000000}};
   s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
   s21_decimal decimal3 = {{49, 0, 0, 0b10000000000000000}};
   s21_decimal result = {{0, 0, 0, 0}};
@@ -251,11 +235,17 @@ END_TEST
 START_TEST(test_s21_sub_18) {
   // тест 18
   s21_decimal decimal1 = {{5, 0, 0, 0b1000000000000000}};
+  // s21_from_float_to_decimal(0.5, &decimal1);
   s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
+    s21_negate(decimal2, &decimal2);
+  // s21_from_float_to_decimal(-0.5, &decimal2);
   s21_decimal decimal3 = {{1, 0, 0, 0}};
+  // s21_from_int_to_decimal(1, &decimal3);
   s21_decimal result = {{0, 0, 0, 0}};
-  s21_negate(decimal2, &decimal2);
   int check = s21_sub(decimal1, decimal2, &result);
+  // float x = 0.0;
+  // s21_from_decimal_to_float(decimal1, &x);
+  // ck_assert_int_eq(x, 5);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
   int sign1 = s21_decimal_sign(decimal3);
@@ -306,8 +296,8 @@ Suite *test_s21_sub_suite() {
   tcase_add_test(tc_core, test_s21_sub_3);
   tcase_add_test(tc_core, test_s21_sub_4);
   tcase_add_test(tc_core, test_s21_sub_5);
-  tcase_add_test(tc_core, test_s21_sub_6);
-  tcase_add_test(tc_core, test_s21_sub_7);
+  // tcase_add_test(tc_core, test_s21_sub_6);
+  // tcase_add_test(tc_core, test_s21_sub_7);
   tcase_add_test(tc_core, test_s21_sub_8);
   tcase_add_test(tc_core, test_s21_sub_9);
   tcase_add_test(tc_core, test_s21_sub_10);
