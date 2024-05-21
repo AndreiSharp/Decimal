@@ -76,9 +76,21 @@ AR := ar
 ARFLAGS := rc	
 RLLIB := ranlib
 
+all: clean $(TARGET)
+
 $(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
 	$(AR) $(ARFLAGS) $@ %.o
 	$(RLIB) $(TARGET)
+	@cp $(TARGET) lib$(TARGET)
+
+TSTDIR := ./test
+TSTEXT := .c
+TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
+TESTER := test_$(NAME)
+
+test: $(TST)
+	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
+	./$(TESTER)
 
 clean:
 	rm -f *.o
