@@ -1,6 +1,10 @@
 {
   "files.associations": {
     "s21_help_function.h": "c",
-    "s21_another_function.h": "c"
+    "s21_another_function.h": "c",
+    "chrono": "c",
+    "cmath": "c",
+    "complex": "c",
+    "cstdlib": "c"
   }
 }
