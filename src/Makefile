@@ -80,7 +80,7 @@ all: clean $(TARGET)
 
 $(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
 	$(AR) $(ARFLAGS) $@ %.o
-	$(RLIB) $(TARGET)
+	$(RLLIB) $(TARGET)
 	@cp $(TARGET) lib$(TARGET)
 
 TSTDIR := ./test
