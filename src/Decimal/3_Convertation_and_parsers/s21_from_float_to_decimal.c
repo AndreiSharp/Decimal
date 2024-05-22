@@ -8,13 +8,13 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
       dst_DecData.sign = 1;
       src *= -1;
     }
-    int i = 0;
-    for (i; i < FLOAT_LEN; ++i) {
+    for (dst_DecData.scale; dst_DecData.scale < FLOAT_LEN;
+         ++dst_DecData.scale) {
       src *= 10;
     }
-    dst_DecData.scale = i;
     error_code = s21_from_int_to_decimal((int)src, &dst_DecData.value);
     if (!error_code) {
+      dst_DecData.high_bit = s21_decimal_get_high_bit(dst_DecData.value);
       *dst = s21_decimal_set_data(dst_DecData);
     } else {
       *dst = s21_decimal_null();
