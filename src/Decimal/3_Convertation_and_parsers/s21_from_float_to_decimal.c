@@ -1,5 +1,5 @@
 #include "./../../Headers/s21_convertation_and_parsers.h"
-
+// переполнение инта
 int s21_from_float_to_decimal(float src, s21_decimal *dst) {
   s21_DecData dst_DecData = s21_decimal_null_data();
   unsigned int error_code = S21_CONV_SUCCESS;

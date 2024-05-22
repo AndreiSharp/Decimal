@@ -1,5 +1,5 @@
 #include "./../../Headers/s21_convertation_and_parsers.h"
-
+// hernya
 int s21_from_decimal_to_float(s21_decimal src, float *dst) {
   s21_DecData src_DecData = s21_decimal_get_data(src);
 
