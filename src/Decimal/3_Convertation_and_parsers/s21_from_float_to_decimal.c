@@ -8,9 +8,9 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
       dst_DecData.sign = 1;
       src *= -1;
     }
-    for (dst_DecData.scale; dst_DecData.scale < FLOAT_LEN;
-         ++dst_DecData.scale) {
+    for (int i = 0; i < FLOAT_LEN; ++i) {
       src *= 10;
+      dst_DecData.scale++;
     }
     error_code = s21_from_int_to_decimal((int)src, &dst_DecData.value);
     if (!error_code) {

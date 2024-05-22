@@ -16,14 +16,13 @@ DECDIR := ./Decimal
 HELPDIR := $(DECDIR)/0_Help_function
 ARITHMDIR := $(DECDIR)/1_Arithmetic
 COMPDIR := $(DECDIR)/2_Comprasion_operators
-CONVDIR := $(DECDIR)/3_Convertation_and_parser
+CONVDIR := $(DECDIR)/3_Convertation_and_parsers
 ANOTHERDIR := $(DECDIR)/4_Anouther_function
 
-HELP = $(HELPDIR)/s21_arithmetic_function.c 
-HELP += $(HELPDIR)/s21_binary_function.c     
-HELP += $(HELPDIR)/s21_comrasion_function.c  
-HELP += $(HELPDIR)/s21_decimal_function.c    
-HELP += $(HELPDIR)/s21_decimal_norm.c
+HELP = $(HELPDIR)/s21_arithmetic_function.c
+HELP += $(HELPDIR)/s21_binary_function.c  
+HELP += $(HELPDIR)/s21_comrasion_function.c
+HELP += $(HELPDIR)/s21_decimal_function.c  
 
 ARITH = $(ARITHMDIR)/s21_add.c 
 ARITH += $(ARITHMDIR)/s21_div.c 
@@ -35,7 +34,7 @@ COMP += $(COMPDIR)/s21_is_greater_or_equal.c
 COMP += $(COMPDIR)/s21_is_not_equal.c
 COMP += $(COMPDIR)/s21_is_greater.c          
 COMP += $(COMPDIR)/s21_is_less.c             
-COMP += $(COMPDIR)/s21_less_or_equal.c
+COMP += $(COMPDIR)/s21_is_less_or_equal.c
 
 CONV = $(CONVDIR)/s21_from_decimal_to_float.c 
 CONV += $(CONVDIR)/s21_from_decimal_to_int.c  
@@ -53,7 +52,7 @@ TARGET := $(NAME).a
 
 SRCEXT := .c
 SRC := 
-OBJDIR := ./obj
+OBJDIR := ./Bin
 
 all: clean $(TARGET)
 
@@ -74,25 +73,25 @@ obj_another: $(ANOTHER)
 
 AR := ar
 ARFLAGS := rc	
-RLLIB := ranlib
+RLIB := ranlib
 
 all: clean $(TARGET)
 
 $(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
-	$(AR) $(ARFLAGS) $@ %.o
-	$(RLIB) $(TARGET)
-	@cp $(TARGET) lib$(TARGET)
+	$(AR) $(ARFLAGS) $@ *.o
+	$(RLIB) $@ 
+	@cp $@  lib$(TARGET)
 
-TSTDIR := ./test
+TSTDIR := ./Tests
 TSTEXT := .c
 TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
 
-test: $(TST)
+test: $(TST) $(TARGET)
 	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
 	./$(TESTER)
 
 clean:
-	rm -f *.o
+	rm -f *.o *.a
 
 .PHONY: clean all

@@ -195,7 +195,6 @@ bit32_t s21_bank_ten_round_data(s21_DecData *num, s21_DecData residue) {
 }
 
 s21_DecData s21_div_10(s21_DecData *value) {
-  bit_t error_code = S21_SUCCES;
   s21_DecData ten = s21_decimal_null_data();
   ten.value.bits[0] = 10;
   ten.high_bit = s21_decimal_get_high_bit(ten.value);
