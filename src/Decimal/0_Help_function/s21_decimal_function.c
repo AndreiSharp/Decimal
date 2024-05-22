@@ -37,7 +37,8 @@ s21_decimal s21_decimal_lshift(s21_decimal value) {
 
 s21_decimal s21_decimal_rshift(s21_decimal value) {
   s21_decimal result = s21_decimal_null();
-  for (bit32_t i = 0; i < s21_decimal_get_high_bit(value); i++) {
+  bit32_t high_bit = s21_decimal_get_high_bit(value);
+  for (bit32_t i = 0; i < high_bit; i++) {
     result = s21_decimal_set_bit(result, i, s21_decimal_get_bit(value, i + 1));
   }
   return result;

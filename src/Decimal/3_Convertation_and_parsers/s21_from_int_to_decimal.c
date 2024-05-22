@@ -1,0 +1,6 @@
+#include "./../../Headers/s21_convertation_and_parsers.h"
+
+int s21_from_int_to_decimal(int src, s21_decimal *dst) {
+  bit32_t error_code = S21_TRUE;
+  return error_code;
+}

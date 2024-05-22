@@ -1,4 +1,4 @@
-#include "./../../Headers/s21_arithmetic_function.h"
+#include "./../../Headers/s21_help_function.h"
 
 void s21_normalize(s21_DecData *val_data_1, s21_DecData *val_data_2) {
   if (val_data_1->scale > val_data_2->scale) {
@@ -11,14 +11,14 @@ void s21_normalize(s21_DecData *val_data_1, s21_DecData *val_data_2) {
 // найти случаи когда возможна ошибка и добавить изменение степени
 void s21_normalize_base(s21_DecData *val_data_1, s21_DecData *val_data_2) {
   bit32_t count_scale =
-      val_data_1->scale - val_data_2->scale; // разница в степени
+      val_data_1->scale - val_data_2->scale;  // разница в степени
   bit32_t need_bits =
-      count_scale * 3; // количество бит для предполагаемого сдвига
+      count_scale * 3;  // количество бит для предполагаемого сдвига
   bit32_t free_bits =
-      SIZE_MANTIS - val_data_2->high_bit; // количество свободных бит
-  bit32_t count_free = free_bits / 3; // возможное возведение в степень
+      SIZE_MANTIS - val_data_2->high_bit;  // количество свободных бит
+  bit32_t count_free = free_bits / 3;  // возможное возведение в степень
 
-  if (need_bits < free_bits) { // провряем возможность умножения
+  if (need_bits < free_bits) {  // провряем возможность умножения
     // умножаем пока не заполним мантису
     count_free = s21_count_mul_10(val_data_2, count_scale);
     // делим с банковским округлением, если мантиса переполнилась
@@ -41,7 +41,7 @@ bit32_t s21_max(bit32_t val_1, bit32_t val_2) {
 bit32_t s21_add_mantis(s21_DecData value_1, s21_DecData value_2,
                        s21_DecData *result) {
   bit32_t error_code = S21_SUCCES;
-  bit_t bit = 0; // переходный бит
+  bit_t bit = 0;  // переходный бит
   s21_decimal new = s21_decimal_null();
   for (bit32_t i = 0; i <= s21_max(value_1.high_bit, value_2.high_bit); i++) {
     bit = s21_decimal_get_bit(value_1.value, i) +
