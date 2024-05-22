@@ -7,6 +7,8 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
     if (src < 0) {
       bit32_t src_abs = abs(src);
       dst_DecData.sign = 1;
+    } else {
+      
     }
     dst->bits[0] = src_abs;
   } else {
