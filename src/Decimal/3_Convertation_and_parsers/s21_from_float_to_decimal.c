@@ -10,6 +10,7 @@ int s21_from_float_to_decimal(float src, s21_decimal *dst) {
     }
     for (int i = 0; i < FLOAT_LEN; ++i) {
       src *= 10;
+      ++dst_DecData.scale;
     }
     s21_from_int_to_decimal((int)src, &dst_DecData.value);
   } else {

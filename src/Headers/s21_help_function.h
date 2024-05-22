@@ -55,8 +55,7 @@ bit32_t s21_add_mantis(s21_DecData value_1, s21_DecData value_2,
 /*-------------------------2_Comprasion function------------------------*/
 
 bit32_t s21_decimal_compare_mantis(s21_DecData value_1, s21_DecData value_2);
-
+bit32_t s21_function_compare(s21_decimal value_1, s21_decimal value_2);
 /*------------------3_Convertation_and_parsers_function-----------------*/
-
 /*---------------------------4_Another_function-------------------------*/
 #endif
