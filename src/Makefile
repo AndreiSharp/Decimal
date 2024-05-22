@@ -23,6 +23,7 @@ HELP = $(HELPDIR)/s21_arithmetic_function.c
 HELP += $(HELPDIR)/s21_binary_function.c     
 HELP += $(HELPDIR)/s21_comrasion_function.c  
 HELP += $(HELPDIR)/s21_decimal_function.c    
+HELP += $(HELPDIR)/s21_decimal_norm.c
 
 ARITH = $(ARITHMDIR)/s21_add.c 
 ARITH += $(ARITHMDIR)/s21_div.c 
@@ -87,8 +88,8 @@ TSTEXT := .c
 TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
 
-test: $(TST)
-	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
+test: $(TST) $(TARGET)
+	$(CC) $(CFLAGS) $^ -lcheck $^ -o $(TESTER)
 	./$(TESTER)
 
 clean:
