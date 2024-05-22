@@ -171,7 +171,7 @@ bit32_t s21_bank_round_data(s21_DecData *num, s21_DecData divider,
       (s21_decimal_get_bit(num->value, 0) || s21_decimal_is_null(num->value))) {
     s21_DecData new = s21_decimal_null_data();
     new.value.bits[0] = 1;
-    new.high_bit = 0;
+    new.high_bit = 1;
     error_code = s21_add_mantis(new, *num, num);
   }
   return error_code;

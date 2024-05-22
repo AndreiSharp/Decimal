@@ -59,4 +59,14 @@ bit32_t s21_decimal_compare_mantis(s21_DecData value_1, s21_DecData value_2);
 /*------------------3_Convertation_and_parsers_function-----------------*/
 
 /*---------------------------4_Another_function-------------------------*/
+
+/**
+ * @brief функция для сравнения остатка деления на 10 с 5
+ * @return если остаток больше возвращает 1, если меньше 2, если равен 0
+ */
+bit32_t s21_compare_residue_10(s21_DecData residue) {
+  s21_DecData five = s21_decimal_null_data();
+  five.value.bits[0] = 5;
+  return s21_decimal_compare_mantis(residue, five);
+}
 #endif
