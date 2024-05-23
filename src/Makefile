@@ -1,85 +1,102 @@
+CC := gcc
+CFLAGS := -Wall -Werror -Wextra
+
 NAME := s21_decimal
 
-# ----------------- compiler -----------------  
-CC ?= gcc
-CFLAGS ?= -Wall -Werror -Wextra
+INCDIR := ./Headers
+INC := $(INCDIR)/s21_arithmetic_function.h 
+INC += $(INCDIR)/s21_comprasion_function.h  
+INC += $(INCDIR)/s21_decimal.h 
+INC += $(INCDIR)/s21_decimal_types.h 
+INC += $(INCDIR)/s21_binary_function.h 
+INC += $(INCDIR)/s21_convertation_function.h 
+INC += $(INCDIR)/s21_decimal_function.h
 
-# ----------------- includes -----------------  
-INCDIR := ./include
-INC := s21_decimal.h s21_decimal_another.h s21_decimal_arithmetic.h s21_decimal_binary.h s21_decimal_comprasion.h s21_decimal_convertation.h s21_decimal_help.h s21_decimal_types.h 
+DECDIR := ./Decimal
+HELPDIR := $(DECDIR)/0_Help_function
+ARITHMDIR := $(DECDIR)/1_Arithmetic
+COMPDIR := $(DECDIR)/2_Comprasion_operators
+CONVDIR := $(DECDIR)/3_Convertation_and_parsers
+ANOTHERDIR := $(DECDIR)/4_Anouther_function
 
-# ----------------- C files -------------------
-BINDIR := ./binary
-HELPDIR := ./helper
-CONVDIR := ./convertation
-ARITHMDIR := ./arithmetic
-COMPDIR := ./comprasion
-ANOTHERDIR := ./another
+HELP = $(HELPDIR)/s21_arithmetic_function.c
+HELP += $(HELPDIR)/s21_binary_function.c  
+HELP += $(HELPDIR)/s21_comrasion_function.c
+HELP += $(HELPDIR)/s21_decimal_function.c  
 
-BIN := $(BINDIR)/s21_binary_function.c
+ARITH = $(ARITHMDIR)/s21_add.c 
+ARITH += $(ARITHMDIR)/s21_div.c 
+ARITH += $(ARITHMDIR)/s21_mul.c
+ARITH += $(ARITHMDIR)/s21_sub.c
 
-HELP := 
+COMP = $(COMPDIR)/s21_is_equal.c            
+COMP += $(COMPDIR)/s21_is_greater_or_equal.c 
+COMP += $(COMPDIR)/s21_is_not_equal.c
+COMP += $(COMPDIR)/s21_is_greater.c          
+COMP += $(COMPDIR)/s21_is_less.c             
+COMP += $(COMPDIR)/s21_is_less_or_equal.c
 
-CONV := $(CONVDIR)/s21_from_decimal_to_float.c
-CONV += $(CONVDIR)/s21_from_decimal_to_int.c 
-CONV += $(CONVDIR)/s21_from_float_to_decimal.c
+CONV = $(CONVDIR)/s21_from_decimal_to_float.c 
+CONV += $(CONVDIR)/s21_from_decimal_to_int.c  
+CONV += $(CONVDIR)/s21_from_float_to_decimal.c 
 CONV += $(CONVDIR)/s21_from_int_to_decimal.c
 
-ARITHM := $(ARITHMDIR)/s21_add.c
-ARITHM += $(ARITHMDIR)/s21_mul.c
-ARITHM += $(ARITHMDIR)/s21_div.c
-ARITHM += $(ARITHMDIR)/s21_sub.c
-
-ANOTHER := $(ANOTHERDIR)/s21_floor.c
-ANOTHER += $(ANOTHERDIR)/s21_negate.c
-ANOTHER += $(ANOTHERDIR)/s21_round.c
+ANOTHER = $(ANOTHERDIR)/s21_floor.c    
+ANOTHER += $(ANOTHERDIR)/s21_negate.c   
+ANOTHER += $(ANOTHERDIR)/s21_round.c    
 ANOTHER += $(ANOTHERDIR)/s21_truncate.c
 
-COMP := $(COMPDIR)/s21_is_equal.c 
-COMP += $(COMPDIR)/s21_is_greater.c 
-COMP += $(COMPDIR)/s21_is_greater_or_equal.c 
-COMP += $(COMPDIR)/s21_is_less.c 
-COMP += $(COMPDIR)/s21_is_less_or_equal.c 
-COMP += $(COMPDIR)/s21_is_not_equal.c
+SOURCE := $(HELP) $(ARITH) $(COMP) $(CONV) $(ANOTHER)
 
-# ----------------- objects -----------------
-OBJS_BIN = $(patsubst %.c,%.o,$(BIN:$(.c=.o)))
-OBJS_HELP = $(patsubst %.c,%.o,$(HELP:$(.c=.o)))
-OBJS_CONV = $(patsubst %.c,%.o,$(CONV:$(.c=.o)))
-OBJS_ARITHM = $(patsubst %.c,%.o,$(ARITHM:$(.c=.o)))
-OBJS_ANOTHER = $(patsubst %.c,%.o,$(ANOTHER:$(.c=.o)))
-OBJS_COMP = $(patsubst %.c,%.o,$(COMP:$(.c=.o)))
-OBJS = $(OBJS_BIN) $(OBJS_HELP) $(OBJS_CONV) $(OBJS_ARITHM) $(OBJS_ANOTHER) $(OBJS_COMP)
+TARGET := $(NAME).a
 
-# ----------------- tests -----------------
-TSTDIR := ./test
-TSTEXT := $(SRCEXT)
-TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
+SRCEXT := .c
+SRC := 
+OBJDIR := ./Bin
+
+all: clean $(TARGET)
+
+obj_help: $(HELP)
+	$(CC) $(CFLAGS) -c $^
+
+obj_arith: $(ARITH)
+	$(CC) $(CFLAGS) -c $^
+ 
+obj_comp: $(COMP)
+	$(CC) $(CFLAGS) -c $^
+
+obj_conv: $(CONV)
+	$(CC) $(CFLAGS) -c $^
+
+obj_another: $(ANOTHER)
+	$(CC) $(CFLAGS) -c $^
+
+AR := ar
+ARFLAGS := rc	
+RLIB := ranlib
+
+all: clean $(TARGET)
+
+$(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
+	$(AR) $(ARFLAGS) $@ *.o
+	$(RLIB) $@ 
+
+TSTDIR := ./Tests
+TST := $(shell find $(TSTDIR) -depth -name '*.c')
 TESTER := test_$(NAME)
 
-# ---------------- targets -----------------
-$(OBJS_BIN): $(BIN)
-	@echo "Binary functions" $@
-	$(CC) -c $^ -o $@
-$(OBJS_HELP): $(HELP)
-	@echo "Helper functions" $@
-	$(CC) -c $^ -o $@
-$(OBJS_ARITHM): $(ARITHM)
-	@echo "Arithmetic functions" $@
-	$(CC) -c $^ -o $@
-$(OBJS_CONV): $(CONV)
-	@echo "Convertation functions" $@
-	$(CC) -c $^ -o $@
-$(OBJS_COMP): $(COMP)
-	@echo "Comprasions functions" $@
-	$(CC) -c $^ -o $@
-$(OBJS_ANOTHER): $(ANOTHER) 
-	@echo "Another functions" $@
-	$(CC) -c $^ -o $@
+test: $(TST) $(TARGET)
+	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
+	./$(TESTER)
 
-$(NAME).a: $(OBJS)
+GFLAGS = -fprofile-arcs -ftest-coverage --coverage
+
+gcov_report:
+	$(CC) -c $(CFLAGS) $(GCOV_FLAGS) $(SOURCE)
+	$(AR) $(ARFLAGS) $(TARGET) *.o
+	$(CC) -c $(CFLAGS)  
 
 clean:
-	rm -rf $(OBJS_BIN) $(OBJS_HELP) $(OBJS_ARITHM) $(OBJS_CONV) $(OBJS_COMP) $(OBJS_ANOTHER)
+	rm -f *.o *.a
 
-#.PHONY all clean test
+.PHONY: clean all
