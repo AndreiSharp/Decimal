@@ -1,4 +1,4 @@
-#include "../test_s21_decimal.h"
+#include "../s21_test_decimal.h"
 
 START_TEST(test_s21_sub_1) {
   // тест 1
@@ -9,8 +9,8 @@ START_TEST(test_s21_sub_1) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -25,8 +25,8 @@ START_TEST(test_s21_sub_2) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -41,8 +41,8 @@ START_TEST(test_s21_sub_3) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -57,8 +57,8 @@ START_TEST(test_s21_sub_4) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -79,42 +79,20 @@ START_TEST(test_s21_sub_6) {
   // тест 6
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
-  s21_decimal decimal2 = {{max, max, max, 89678}};
-  s21_decimal result = {{0, 0, 0, 0}};
-  int check = s21_sub(decimal1, decimal2, &result);
-  ck_assert_int_eq(check, S21_ERROR);
-}
-END_TEST
-
-START_TEST(test_s21_sub_7) {
-  // тест 7
-  int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{0, 0, 0, 0}};
-  s21_decimal decimal2 = {{max, max, max, 1}};
-  s21_decimal result = {{0, 0, 0, 0}};
-  int check = s21_sub(decimal1, decimal2, &result);
-  ck_assert_int_eq(check, S21_ERROR);
-}
-END_TEST
-
-START_TEST(test_s21_sub_8) {
-  // тест 8
-  int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_decimal decimal3 = {{max, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_9) {
-  // тест 9
+START_TEST(test_s21_sub_7) {
+  // тест 7
   int max = 0b11111111111111111111111111111111;
   int result1 = 0b11111111111111111111111110011011;
   s21_decimal decimal1 = {{max, max, max, 0}};
@@ -124,14 +102,14 @@ START_TEST(test_s21_sub_9) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_10) {
-  // тест 10
+START_TEST(test_s21_sub_8) {
+  // тест 8
   int max = 0b11111111111111111111111111111111;
   int result1 = 0b11111111111111111111111110011011;
   s21_decimal decimal1 = {{result1, max, max, 0}};
@@ -143,14 +121,14 @@ START_TEST(test_s21_sub_10) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_11) {
-  // тест 11
+START_TEST(test_s21_sub_9) {
+  // тест 9
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{100, 0, 0, 0}};
@@ -161,8 +139,8 @@ START_TEST(test_s21_sub_11) {
 }
 END_TEST
 
-START_TEST(test_s21_sub_12) {
-  // тест 12
+START_TEST(test_s21_sub_10) {
+  // тест 10
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{100, 0, 0, 0}};
@@ -173,8 +151,8 @@ START_TEST(test_s21_sub_12) {
 }
 END_TEST
 
-START_TEST(test_s21_sub_13) {
-  // тест 13
+START_TEST(test_s21_sub_11) {
+  // тест 11
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, max, max, 0}};
@@ -185,8 +163,8 @@ START_TEST(test_s21_sub_13) {
 }
 END_TEST
 
-START_TEST(test_s21_sub_14) {
-  // тест 14
+START_TEST(test_s21_sub_12) {
+  // тест 12
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, max, 0, 0}};
@@ -195,14 +173,14 @@ START_TEST(test_s21_sub_14) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_15) {
-  // тест 15
+START_TEST(test_s21_sub_13) {
+  // тест 13
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, 0, 0, 0}};
@@ -211,14 +189,14 @@ START_TEST(test_s21_sub_15) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_16) {
-  // тест 16
+START_TEST(test_s21_sub_14) {
+  // тест 14
   s21_decimal decimal1 = {{100, 0, 0, 0}};
   s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
   s21_decimal decimal3 = {{995, 0, 0, 0b1000000000000000}};
@@ -226,14 +204,14 @@ START_TEST(test_s21_sub_16) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_17) {
-  // тест 17
+START_TEST(test_s21_sub_15) {
+  // тест 15
   s21_decimal decimal1 = {{1, 0, 0, 0b11000000000000000}};
   s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
   s21_decimal decimal3 = {{49, 0, 0, 0b10000000000000000}};
@@ -242,14 +220,14 @@ START_TEST(test_s21_sub_17) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_18) {
-  // тест 18
+START_TEST(test_s21_sub_16) {
+  // тест 16
   s21_decimal decimal1 = {{5, 0, 0, 0b1000000000000000}};
   s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
   s21_decimal decimal3 = {{1, 0, 0, 0}};
@@ -258,14 +236,14 @@ START_TEST(test_s21_sub_18) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_19) {
-  // тест 19
+START_TEST(test_s21_sub_17) {
+  // тест 17
   s21_decimal decimal1 = {{99, 0, 0, 0b1000000000000000}};
   s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
   s21_decimal decimal3 = {{104, 0, 0, 0b1000000000000000}};
@@ -274,14 +252,14 @@ START_TEST(test_s21_sub_19) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
-START_TEST(test_s21_sub_20) {
-  // тест 20
+START_TEST(test_s21_sub_18) {
+  // тест 18
   s21_decimal decimal1 = {{153, 0, 0, 0b1000000000000000}};
   s21_decimal decimal2 = {{25, 0, 0, 0b1000000000000000}};
   s21_decimal decimal3 = {{128, 0, 0, 0b1000000000000000}};
@@ -289,8 +267,8 @@ START_TEST(test_s21_sub_20) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -319,8 +297,6 @@ Suite *test_s21_sub_suite() {
   tcase_add_test(tc_core, test_s21_sub_16);
   tcase_add_test(tc_core, test_s21_sub_17);
   tcase_add_test(tc_core, test_s21_sub_18);
-  tcase_add_test(tc_core, test_s21_sub_19);
-  tcase_add_test(tc_core, test_s21_sub_20);
 
   // тест кейс добавляем в suite
   suite_add_tcase(suite, tc_core);

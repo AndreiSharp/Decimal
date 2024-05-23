@@ -1,4 +1,4 @@
-#include "../test_s21_decimal.h"
+#include "../s21_test_decimal.h"
 
 START_TEST(test_s21_div_1) {
   s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
@@ -19,8 +19,8 @@ START_TEST(test_s21_div_2) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -33,8 +33,8 @@ START_TEST(test_s21_div_3) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -50,8 +50,8 @@ START_TEST(test_s21_div_4) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -66,8 +66,8 @@ START_TEST(test_s21_div_5) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -149,8 +149,8 @@ START_TEST(test_s21_div_12) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -166,8 +166,8 @@ START_TEST(test_s21_div_13) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -183,8 +183,8 @@ START_TEST(test_s21_div_14) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -202,8 +202,8 @@ START_TEST(test_s21_div_15) {
   int check = s21_div(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_sign(decimal3);
-  int sign2 = s21_decimal_sign(result);
+  int sign1 = s21_decimal_get_sign(decimal3);
+  int sign2 = s21_decimal_get_sign(result);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST

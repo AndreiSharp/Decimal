@@ -1,8 +1,8 @@
-#include "../test_s21_decimal.h"
+#include "../s21_test_decimal.h"
 
 START_TEST(test_s21_from_decimal_to_int1) {
   s21_decimal decimal;
-  s21_decimal_init(&decimal);
+  decimal = s21_decimal_null();
 
   int result, error_code;
 
@@ -15,8 +15,8 @@ END_TEST
 
 START_TEST(test_s21_from_decimal_to_int2) {
   s21_decimal decimal;
-  s21_decimal_init(&decimal);
-  decimal_1 = s21_decimal_set_bit(decimal, 0, 1);
+  decimal = s21_decimal_null();
+  decimal = s21_decimal_set_bit(decimal, 0, 1);
 
   int result, error_code;
 
@@ -29,8 +29,8 @@ END_TEST
 
 START_TEST(test_s21_from_decimal_to_int3) {
   s21_decimal decimal;
-  s21_decimal_init(&decimal);
-  decimal = s21_decimal_invert(decimal);
+  decimal = s21_decimal_null();
+  decimal = s21_decimal_invert(decimal, SIZE_MANTIS);
 
   int result, error_code;
   error_code = s21_from_decimal_to_int(decimal, &result);
@@ -40,8 +40,8 @@ START_TEST(test_s21_from_decimal_to_int3) {
 END_TEST
 
 START_TEST(test_s21_from_decimal_to_int4) {
-  s21_decima decimal;
-  s21_decimal_init(&decimal);
+  s21_decimal decimal;
+  decimal = s21_decimal_null();
 
   int error_code;
   error_code = s21_from_decimal_to_int(decimal, NULL);

@@ -1,10 +1,10 @@
-#include "../test_s21_decimal.h"
+#include "../s21_test_decimal.h"
 
 START_TEST(test_s21_is_greater_or_equal_1) {
   // тест 1
   s21_decimal decimal_1, decimal_2;
-  s21_decimal_init(&decimal_1);
-  s21_decimal_init(&decimal_2);
+  decimal_1 = s21_decimal_null();
+  decimal_2 = s21_decimal_null();
 
   int result_s21_is_greater_or_equal =
       s21_is_greater_or_equal(decimal_1, decimal_2);
@@ -15,8 +15,8 @@ END_TEST
 START_TEST(test_s21_is_greater_or_equal_2) {
   // тест 2
   s21_decimal decimal_1, decimal_2;
-  s21_decimal_init(&decimal_1);
-  s21_decimal_init(&decimal_2);
+  decimal_1 = s21_decimal_null();
+  decimal_2 = s21_decimal_null();
   decimal_2 = s21_decimal_set_bit(decimal_2, 10, 1);
 
   int result_s21_is_greater_or_equal =
@@ -28,8 +28,8 @@ END_TEST
 START_TEST(test_s21_is_greater_or_equal_3) {
   // тест 3
   s21_decimal decimal_1, decimal_2;
-  s21_decimal_init(&decimal_1);
-  s21_decimal_init(&decimal_2);
+  decimal_1 = s21_decimal_null();
+  decimal_2 = s21_decimal_null();
   decimal_1 = s21_decimal_set_bit(decimal_1, 127, 1);
 
   int result_s21_is_greater_or_equal =
@@ -41,8 +41,8 @@ END_TEST
 START_TEST(test_s21_is_greater_or_equal_4) {
   // тест 4
   s21_decimal decimal_1, decimal_2;
-  s21_decimal_init(&decimal_1);
-  s21_decimal_init(&decimal_2);
+  decimal_1 = s21_decimal_null();
+  decimal_2 = s21_decimal_null();
   decimal_1 = s21_decimal_set_bit(decimal_1, 0, 1);
 
   int result_s21_is_greater_or_equal =
@@ -54,8 +54,8 @@ END_TEST
 START_TEST(test_s21_is_greater_or_equal_5) {
   // тест 5
   s21_decimal decimal_1, decimal_2;
-  s21_decimal_init(&decimal_1);
-  s21_decimal_init(&decimal_2);
+  decimal_1 = s21_decimal_null();
+  decimal_2 = s21_decimal_null();
   decimal_1 = s21_decimal_set_bit(decimal_1, 10, 1);
   decimal_2 = s21_decimal_set_bit(decimal_2, 10, 1);
   decimal_1 = s21_decimal_set_bit(decimal_1, 127, 1);

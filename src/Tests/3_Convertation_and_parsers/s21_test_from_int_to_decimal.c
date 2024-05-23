@@ -1,4 +1,4 @@
-#include "../test_s21_decimal.h"
+#include "../s21_test_decimal.h"
 
 START_TEST(test_s21_from_int_to_decimal_1) {
   // тест 1
@@ -17,8 +17,8 @@ START_TEST(test_s21_from_int_to_decimal_2) {
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
-  int sign1 = s21_decimal_sign(dst);
-  int sign2 = s21_decimal_sign(decimal);
+  int sign1 = s21_decimal_get_sign(dst);
+  int sign2 = s21_decimal_get_sign(decimal);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -32,8 +32,8 @@ START_TEST(test_s21_from_int_to_decimal_3) {
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
-  int sign1 = s21_decimal_sign(dst);
-  int sign2 = s21_decimal_sign(decimal);
+  int sign1 = s21_decimal_get_sign(dst);
+  int sign2 = s21_decimal_get_sign(decimal);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -46,8 +46,8 @@ START_TEST(test_s21_from_int_to_decimal_4) {
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
-  int sign1 = s21_decimal_sign(dst);
-  int sign2 = s21_decimal_sign(decimal);
+  int sign1 = s21_decimal_get_sign(dst);
+  int sign2 = s21_decimal_get_sign(decimal);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -61,8 +61,8 @@ START_TEST(test_s21_from_int_to_decimal_5) {
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
-  int sign1 = s21_decimal_sign(dst);
-  int sign2 = s21_decimal_sign(decimal);
+  int sign1 = s21_decimal_get_sign(dst);
+  int sign2 = s21_decimal_get_sign(decimal);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
@@ -76,8 +76,8 @@ START_TEST(test_s21_from_int_to_decimal_6) {
   int result = s21_from_int_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_TRUE);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
-  int sign1 = s21_decimal_sign(dst);
-  int sign2 = s21_decimal_sign(decimal);
+  int sign1 = s21_decimal_get_sign(dst);
+  int sign2 = s21_decimal_get_sign(decimal);
   ck_assert_int_eq(sign1, sign2);
 }
 END_TEST

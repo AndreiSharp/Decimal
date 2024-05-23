@@ -6,11 +6,12 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
   if (dst) {
     if (src < 0) {
       bit32_t src_abs = abs(src + 1);
-      dst->bits[0] = src_abs + 1;
+      dst_DecData.value.bits[0] = src_abs + 1;
       dst_DecData.sign = 1;
     } else {
-      dst->bits[0] = src;
+      dst_DecData.value.bits[0] = src;
     }
+    *dst = s21_decimal_set_data(dst_DecData);
   } else {
     error_code = S21_CONV_ERROR;
   }

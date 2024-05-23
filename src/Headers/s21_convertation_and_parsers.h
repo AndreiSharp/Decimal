@@ -1,5 +1,5 @@
-#ifndef S21_ANOTHER_FUNC
-#define S21_ANOTHER_FUNC
+#ifndef S21_CONV_FUNC
+#define S21_CONV_FUNC
 
 /*--------------------------------HEADERS-------------------------------*/
 

@@ -76,7 +76,7 @@ bit32_t s21_decimal_is_correct(s21_decimal value) {
   if (!s21_check_null_stack(value)) {
     flag = S21_FALSE;
   } else {
-    bit32_t scale = s21_decimal_get_scale(value);
+    int scale = s21_decimal_get_scale(value);
     if (scale < 0 || scale > 28) {
       flag = S21_FALSE;
     }

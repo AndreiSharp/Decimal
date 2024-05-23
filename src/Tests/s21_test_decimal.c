@@ -1,4 +1,4 @@
-#include "test_s21_decimal.h"
+#include "s21_test_decimal.h"
 
 unsigned int run_suite(Suite *suite, char *file_logs) {
   // создаем раней

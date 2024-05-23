@@ -17,7 +17,7 @@ bit32_t s21_reset_bit(bit32_t number, int index) {
 
 // работает
 bit32_t s21_get_high_bit(bit32_t value) {
-  bit32_t index = SIZE_BLOCK;
+  int index = SIZE_BLOCK;
   while (index >= 0 && !s21_get_bit(value, index)) {
     index--;
   }
