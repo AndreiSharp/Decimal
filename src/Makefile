@@ -79,22 +79,19 @@ all: clean $(TARGET)
 
 $(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
 	$(AR) $(ARFLAGS) $@ *.o
-	$(RLIB) $@ 
+	# $(RLIB) $@ 
+	# @cp $@  lib$(TARGET)
+	rm -f *.o
 
 TSTDIR := ./Tests
-TST := $(shell find $(TSTDIR) -depth -name '*.c')
+TSTEXT := c
+TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
+CHECK := -lcheck -pthread -lcheck_pic -pthread -lrt -lm -lsubunit
 
 test: $(TST) $(TARGET)
-	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
+	$(CC) $(CFLAGS) $(CHECK) $^ -o $(TESTER)
 	./$(TESTER)
-
-GFLAGS = -fprofile-arcs -ftest-coverage --coverage
-
-gcov_report:
-	$(CC) -c $(CFLAGS) $(GCOV_FLAGS) $(SOURCE)
-	$(AR) $(ARFLAGS) $(TARGET) *.o
-	$(CC) -c $(CFLAGS)  
 
 clean:
 	rm -f *.o *.a
