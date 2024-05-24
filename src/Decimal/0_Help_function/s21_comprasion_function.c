@@ -42,7 +42,7 @@ bit32_t s21_function_compare(s21_decimal value_1, s21_decimal value_2) {
       result = s21_decimal_compare_mantis(val_1, val_2);
     }
   } else {
-    result = null_1 * 2 + null_1;
+    result = !null_1 * 2 + !null_1;
   }
   return result;
 }

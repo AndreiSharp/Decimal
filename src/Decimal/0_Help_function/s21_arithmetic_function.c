@@ -79,15 +79,20 @@ bit32_t s21_basic_sub(s21_DecData value_1, s21_DecData value_2,
 bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
                       s21_DecData *result) {
   bit32_t error_code = S21_SUCCES;
-  // заполнение результата
+
   result->scale = value_1.scale + value_2.scale;
   result->sign = value_1.sign || value_2.sign;
-  // проверка на результат умножения
+  bit32_t count_div = 0;
   bit32_t result_hight_bit = value_1.high_bit + value_2.high_bit;
-  bit32_t excess = result_hight_bit - SIZE_MANTIS;
-  bit32_t count_div = excess / 3 + (excess % 3 != 0);
+  if (result_hight_bit > SIZE_MANTIS) {
+    bit32_t excess = SIZE_MANTIS - result_hight_bit;
+    count_div = excess / 3 + (excess % 3 != 0);
+  }
+  printf("HERE count_div = %d\n", count_div);
   if (count_div == 0) {
+    // print_dec_data(*result, "before mul");
     error_code = s21_mul_mantis(value_1, value_2, result);
+    // print_dec_data(*result, "after mul");
     if (error_code != S21_SUCCES) {
       s21_count_div_10(result, (result->high_bit - SIZE_MANTIS) / 3 + 1);
     }
@@ -95,8 +100,10 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
     if (error_code != S21_SUCCES) {
       *result = s21_decimal_null_data();
     }
-  } else {
+  } else if ((bit32_t)result->scale >= count_div) {
     s21_DecData residue = s21_decimal_null_data();
+    // print_dec_data(*result, "after mul");
+    printf("RESIDUE\n");
     if (value_1.high_bit > value_2.high_bit) {
       s21_create_residue(&value_1, &residue, count_div);
       error_code = s21_mul_mantis(residue, value_2, &residue);
@@ -117,7 +124,16 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
     if (error_code != S21_SUCCES) {
       *result = s21_decimal_null_data();
     }
+  } else {
+    if (result->sign) {
+      error_code = S21_TOO_SMALL;
+    } else {
+      error_code = S21_TOO_LARGE;
+    }
   }
+  // print_dec_data(*result, "before check");
+  // print_dec_data(*result, "after check");
+  printf("ERROR_CODE = %d\n", error_code);
   return error_code;
 }
 
