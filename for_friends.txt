@@ -1,0 +1,16 @@
+// Шаблон описания функции
+/**
+  * @brief "short definition of function"
+  * @author "your nickname"
+  * @param "short definition of parametr"
+  * ...
+  * @return "short definition of returned value"
+*/
+
+/*
+& - побитовое И
+| - побитовое ИЛИ
+>> - побитовый сдвиг вправо аналогично делению на 2
+<< - побитовый сдвиг влево аналогично умножению на 2
+~ - побитовое отрицание
+*/
