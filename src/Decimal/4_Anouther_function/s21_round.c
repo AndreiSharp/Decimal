@@ -8,10 +8,7 @@ int s21_round(s21_decimal value, s21_decimal *result) {
     s21_DecData res = s21_decimal_get_data(*result);
     s21_sub_mantis(val, res, &val);
     if (s21_compare_residue_10(res) != 2) {
-      s21_DecData new = s21_decimal_null_data();
-      new.value.bits[0] = 1;
-      new.high_bit = 1;
-      error_code = s21_add_mantis(new, res, &res);
+      error_code = s21_decimal_add_one(res, &res);
     }
     if (!error_code) {
       *result = s21_decimal_set_data(res);
