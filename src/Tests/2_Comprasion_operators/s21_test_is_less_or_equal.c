@@ -19,7 +19,7 @@ START_TEST(test_s21_is_less_or_equal_2) {
   decimal_2 = s21_decimal_set_bit(decimal_2, 10, 1);
 
   int result_s21_is_less_or_equal = s21_is_less_or_equal(decimal_1, decimal_2);
-  ck_assert_int_eq(result_s21_is_less_or_equal, S21_FALSE);
+  ck_assert_int_eq(result_s21_is_less_or_equal, S21_TRUE);
 }
 END_TEST
 

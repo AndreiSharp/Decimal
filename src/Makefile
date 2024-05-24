@@ -80,7 +80,7 @@ all: clean $(TARGET)
 $(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
 	$(AR) $(ARFLAGS) $@ *.o
 	$(RLIB) $@ 
-	# @cp $@  lib$(TARGET)
+  # @cp $@  lib$(TARGET)
 	rm -f *.o
 
 TSTDIR := ./Tests

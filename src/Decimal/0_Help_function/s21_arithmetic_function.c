@@ -54,9 +54,7 @@ bit32_t s21_basic_sub(s21_DecData value_1, s21_DecData value_2,
       result->sign = value_2.sign;
       error_code = s21_sub_mantis(value_2, value_1, result);
     } else {
-      result->sign = value_1.sign;
-      *result = s21_decimal_copy_data(value_1);
-      result->value = s21_decimal_null();
+      *result = s21_decimal_null_data();
     }
   } else {
     error_code = s21_add_mantis(value_1, value_2, result);

@@ -69,6 +69,19 @@ START_TEST(test_s21_floor_7) {
   ck_assert_int_eq(status, S21_SUCCES);
 }
 
+START_TEST(test_s21_floor_8) {
+  s21_decimal decimal = {{1, 0, 0, 0}};
+  s21_negate(decimal, &decimal);
+  s21_decimal decimal_required = {{1, 0, 0, 0}};
+  s21_negate(decimal_required, &decimal_required);
+  print_decimal(decimal_required, "result");
+  s21_decimal result;
+  int status = s21_floor(decimal, &result);
+  print_decimal(result, "result");
+  ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
+  ck_assert_int_eq(status, S21_SUCCES);
+}
+
 Suite *test_s21_floor_suite() {
   Suite *suite = suite_create("s21_floor");
   TCase *tc_core = tcase_create("core_of_s21_floor");
@@ -80,6 +93,7 @@ Suite *test_s21_floor_suite() {
   tcase_add_test(tc_core, test_s21_floor_5);
   tcase_add_test(tc_core, test_s21_floor_6);
   tcase_add_test(tc_core, test_s21_floor_7);
+  tcase_add_test(tc_core, test_s21_floor_8);
 
   suite_add_tcase(suite, tc_core);
 

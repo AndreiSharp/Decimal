@@ -27,22 +27,28 @@ bit32_t s21_function_compare(s21_decimal value_1, s21_decimal value_2) {
   if (!null_1 && !null_2) {
     s21_DecData val_1 = s21_decimal_get_data(value_1);
     s21_DecData val_2 = s21_decimal_get_data(value_2);
-
-    int high_bit_pos_norm_1 = val_1.high_bit - 3 * val_1.scale;
-    int high_bit_pos_norm_2 = val_2.high_bit - 3 * val_2.scale;
-
-    if (high_bit_pos_norm_1 > high_bit_pos_norm_2) {
-      result = 1;
-    } else if (high_bit_pos_norm_1 < high_bit_pos_norm_2) {
-      result = 2;
-    } else {
-      if (val_1.scale != val_2.scale) {
-        s21_normalize(&val_1, &val_2);
+    if (val_1.sign == val_2.sign) {
+      int high_bit_pos_norm_1 = val_1.high_bit - 3 * val_1.scale;
+      int high_bit_pos_norm_2 = val_2.high_bit - 3 * val_2.scale;
+      if (high_bit_pos_norm_1 > high_bit_pos_norm_2) {
+        result = 1;
+      } else if (high_bit_pos_norm_1 < high_bit_pos_norm_2) {
+        result = 2;
+      } else {
+        if (val_1.scale != val_2.scale) {
+          s21_normalize(&val_1, &val_2);
+        }
+        print_dec_data(val_1, "val_1");
+        print_dec_data(val_2, "val_2");
+        result = s21_decimal_compare_mantis(val_1, val_2);
+        printf("RESULT_COMPARE = %d\n", result);
       }
-      result = s21_decimal_compare_mantis(val_1, val_2);
+    } else {
+      result = !val_2.sign * 2 + !val_1.sign;
     }
   } else {
-    result = !null_1 * 2 + !null_1;
+    result = !null_2 * 2 + !null_1;
+    printf("NULL RESULT_COMPARE = %d\n", result);
   }
   return result;
 }

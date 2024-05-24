@@ -56,21 +56,33 @@ START_TEST(test_s21_add_3) {
 END_TEST
 
 START_TEST(test_s21_add_4) {
-  float float_a = 3.0032, float_b = 23.0010;
-  s21_decimal a, b;
+  // 3.0032 + 23.001
+  int mantis_a = 30032, mantis_b = 23001;
+  int normal_a = mantis_a, normal_b = mantis_b * 10;  // после нормализации
 
-  s21_from_float_to_decimal(float_a, &a);
-  s21_from_float_to_decimal(float_b, &b);
+  s21_DecData a_data, b_data;
+  a_data = s21_decimal_null_data();
+  b_data = s21_decimal_null_data();
+
+  a_data.value.bits[0] = mantis_a;
+  a_data.scale = 4;
+  b_data.value.bits[0] = mantis_b;
+  b_data.scale = 3;
+
+  s21_decimal a = s21_decimal_set_data(a_data);
+  s21_decimal b = s21_decimal_set_data(b_data);
 
   s21_decimal result;
   int error_code = s21_add(a, b, &result);
 
   ck_assert_int_eq(error_code, S21_SUCCES);
 
-  float float_result;
-  s21_from_decimal_to_float(result, &float_result);
-
-  ck_assert_float_eq((float_a + float_b) - float_result, 1);
+  s21_DecData result_data = s21_decimal_get_data(result);
+  ck_assert_uint_eq(result.bits[0], normal_a + normal_b);
+  ck_assert_uint_eq(result.bits[1], 0);
+  ck_assert_uint_eq(result.bits[2], 0);
+  ck_assert_uint_eq(result_data.scale, 4);
+  ck_assert_uint_eq(result_data.sign, 0);
 }
 END_TEST
 
@@ -98,7 +110,7 @@ START_TEST(test_s21_add_6) {
   int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, 0, 0}};
   s21_decimal decimal2 = {{max, 0, 0, 0}};
-  s21_decimal decimal3 = {{max, max, max, 0}};
+  s21_decimal decimal3 = {{0b11111111111111111111111111111110, 0, 0b1, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
