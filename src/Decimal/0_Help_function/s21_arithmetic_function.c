@@ -48,10 +48,13 @@ bit32_t s21_basic_sub(s21_DecData value_1, s21_DecData value_2,
   if (value_1.sign == value_2.sign) {
     bit32_t result_compare = s21_decimal_compare_mantis(value_1, value_2);
     if (result_compare == 1) {
+      result->sign = value_1.sign;
       error_code = s21_sub_mantis(value_1, value_2, result);
     } else if (result_compare == 2) {
+      result->sign = value_2.sign;
       error_code = s21_sub_mantis(value_2, value_1, result);
     } else {
+      result->sign = value_1.sign;
       *result = s21_decimal_copy_data(value_1);
       result->value = s21_decimal_null();
     }
@@ -65,9 +68,8 @@ bit32_t s21_basic_sub(s21_DecData value_1, s21_DecData value_2,
       result->sign = value_1.sign;
     }
   }
-  if (error_code == S21_SUCCES) {
-    error_code = s21_decimal_check_result(result);
-  } else {
+  error_code = s21_decimal_check_result(result);
+  if (error_code != S21_SUCCES) {
     *result = s21_decimal_null_data();
   }
   return error_code;
