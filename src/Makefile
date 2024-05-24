@@ -80,8 +80,8 @@ all: clean $(TARGET)
 $(TARGET): obj_help obj_arith obj_comp obj_conv obj_another
 	$(AR) $(ARFLAGS) $@ *.o
 	$(RLIB) $@ 
-  # @cp $@  lib$(TARGET)
 	rm -f *.o
+
 
 TSTDIR := ./Tests
 TSTEXT := c
@@ -92,9 +92,28 @@ test: $(TST) $(TARGET)
 	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
 	./$(TESTER)
 
+
+GCOV := gcovr
+GCOV_CFLAGS := -fprofile-arcs -ftest-coverage --coverage
+GCOV_RFLAGS := -r . --html --html-details 
+REPORT = report.html
+OPEN_REPORT = open $(REPORT)
+GCOV_EXTS := *.gcno *.gcda *.gcov *.css *.html
+
+gcov_report:
+	$(CC) -c $(CFLAGS) $(GCOV_CFLAGS) $(SOURCE)
+	$(AR) $(ARFLAGS) $(TARGET) *.o
+	$(RLIB) $(TARGET)
+	$(CC) -lcheck $(GCOV_CFLAGS) $(TST) $(TARGET) -o $(TESTER)
+	./$(TESTER)
+	$(GCOV) $(GCOV_RFLAGS) -o $(REPORT)
+	$(OPEN_REPORT)
+	
+
 clean:
-	rm -f *.o $(TARGET) $(TESTER) logs/*.log
+	rm -f *.o $(TARGET) $(TESTER) logs/*.log $(GCOV_EXTS)
+	rm -rf *.dSYM
 
 rebuild: clean test
 
-.PHONY: clean all
+.PHONY: clean all rebuild gcov_report
