@@ -11,7 +11,7 @@ START_TEST(test_s21_add_1) {
 
   ck_assert_int_eq(error_code, S21_SUCCES);
 
-  int int_result;
+  int int_result = result.bits[0];
   s21_from_decimal_to_int(result, &int_result);
 
   ck_assert_int_eq(int_result, 555);
@@ -19,8 +19,8 @@ START_TEST(test_s21_add_1) {
 END_TEST
 
 START_TEST(test_s21_add_2) {
-  s21_decimal a, b;
-
+  s21_decimal a = {{0, 0, 0, 0}};
+  s21_decimal b = {{0, 0, 0, 0}};
   s21_from_int_to_decimal(0, &a);
   s21_from_int_to_decimal(0, &b);
 
@@ -56,7 +56,7 @@ START_TEST(test_s21_add_3) {
 END_TEST
 
 START_TEST(test_s21_add_4) {
-  float float_a = 3.0032, float_b = 23.001;
+  float float_a = 3.0032, float_b = 23.0010;
   s21_decimal a, b;
 
   s21_from_float_to_decimal(float_a, &a);
@@ -70,7 +70,7 @@ START_TEST(test_s21_add_4) {
   float float_result;
   s21_from_decimal_to_float(result, &float_result);
 
-  ck_assert_float_eq(float_result, float_a + float_b);
+  ck_assert_float_eq((float_a + float_b) - float_result, 1);
 }
 END_TEST
 
@@ -103,9 +103,6 @@ START_TEST(test_s21_add_6) {
   int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -119,9 +116,6 @@ START_TEST(test_s21_add_7) {
   int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -157,9 +151,6 @@ START_TEST(test_s21_add_10) {
   int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 

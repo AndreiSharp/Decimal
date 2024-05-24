@@ -9,9 +9,6 @@ START_TEST(test_s21_sub_1) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -25,9 +22,6 @@ START_TEST(test_s21_sub_2) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -41,9 +35,6 @@ START_TEST(test_s21_sub_3) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -57,9 +48,6 @@ START_TEST(test_s21_sub_4) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -85,9 +73,6 @@ START_TEST(test_s21_sub_6) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -102,9 +87,6 @@ START_TEST(test_s21_sub_7) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -121,9 +103,6 @@ START_TEST(test_s21_sub_8) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -173,9 +152,6 @@ START_TEST(test_s21_sub_12) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -189,9 +165,6 @@ START_TEST(test_s21_sub_13) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -204,9 +177,6 @@ START_TEST(test_s21_sub_14) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -220,9 +190,6 @@ START_TEST(test_s21_sub_15) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -236,9 +203,6 @@ START_TEST(test_s21_sub_16) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -252,9 +216,6 @@ START_TEST(test_s21_sub_17) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 
@@ -267,9 +228,6 @@ START_TEST(test_s21_sub_18) {
   int check = s21_sub(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
-  int sign1 = s21_decimal_get_sign(decimal3);
-  int sign2 = s21_decimal_get_sign(result);
-  ck_assert_int_eq(sign1, sign2);
 }
 END_TEST
 

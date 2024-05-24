@@ -95,4 +95,6 @@ test: $(TST) $(TARGET)
 clean:
 	rm -f *.o $(TARGET) $(TESTER) logs/*.log
 
+rebuild: clean test
+
 .PHONY: clean all
