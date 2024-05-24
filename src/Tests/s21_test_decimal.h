@@ -27,7 +27,6 @@ Suite *test_s21_from_decimal_to_float_suite();
 
 // ANOTHER_FUNCTIONS
 Suite *test_s21_round_suite();
-Suite *test_s21_round_banking_suite();
 Suite *test_s21_floor_suite();
 Suite *test_s21_negate_suite();
 Suite *test_s21_truncate_suite();

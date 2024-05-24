@@ -228,6 +228,7 @@ Suite *test_s21_div_suite() {
   tcase_add_test(tc_core, test_s21_div_13);
   tcase_add_test(tc_core, test_s21_div_14);
   tcase_add_test(tc_core, test_s21_div_15);
+   suite_add_tcase(suite, tc_core);
 
   return suite;
 }

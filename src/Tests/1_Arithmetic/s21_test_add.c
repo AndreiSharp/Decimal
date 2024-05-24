@@ -100,7 +100,7 @@ START_TEST(test_s21_add_6) {
   s21_decimal decimal2 = {{max, 0, 0, 0}};
   s21_decimal decimal3 = {{max, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
-  int check = s21_sub(decimal1, decimal2, &result);
+  int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
   int sign1 = s21_decimal_get_sign(decimal3);
@@ -116,7 +116,7 @@ START_TEST(test_s21_add_7) {
   s21_decimal decimal3 = {{0, max, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal2, &decimal2);
-  int check = s21_sub(decimal1, decimal2, &result);
+  int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
   int sign1 = s21_decimal_get_sign(decimal3);
@@ -132,7 +132,7 @@ START_TEST(test_s21_add_8) {
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal1, &decimal1);
   s21_negate(decimal2, &decimal2);
-  int check = s21_sub(decimal1, decimal2, &result);
+  int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_TOO_SMALL);
 }
 END_TEST
@@ -142,7 +142,7 @@ START_TEST(test_s21_add_9) {
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, max, max, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
-  int check = s21_sub(decimal1, decimal2, &result);
+  int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_TOO_LARGE);
 }
 END_TEST
@@ -154,7 +154,7 @@ START_TEST(test_s21_add_10) {
   s21_decimal decimal3 = {{0, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal2, &decimal2);
-  int check = s21_sub(decimal1, decimal2, &result);
+  int check = s21_add(decimal1, decimal2, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
   int sign1 = s21_decimal_get_sign(decimal3);
@@ -177,6 +177,8 @@ Suite *test_s21_add_suite() {
   tcase_add_test(tc_core, test_s21_add_8);
   tcase_add_test(tc_core, test_s21_add_9);
   tcase_add_test(tc_core, test_s21_add_10);
+
+  suite_add_tcase(suite, tc_core);
 
   return suite;
 }

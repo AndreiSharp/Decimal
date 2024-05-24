@@ -93,6 +93,6 @@ test: $(TST) $(TARGET)
 	./$(TESTER)
 
 clean:
-	rm -f *.o *.a
+	rm -f *.o $(TARGET) $(TESTER) logs/*.log
 
 .PHONY: clean all

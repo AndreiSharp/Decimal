@@ -43,17 +43,6 @@ START_TEST(test_s21_from_decimal_to_float3) {
 }
 END_TEST
 
-// START_TEST(test_s21_from_decimal_to_float4) {
-//   s21_decimal decimal;
-//   decimal = s21_decimal_null();
-//   int error_code;
-
-//   error_code = s21_from_decimal_to_float(decimal, NULL);
-
-//   ck_assert_int_eq(error_code, S21_CONV_ERROR);
-// }
-// END_TEST
-
 Suite *test_s21_from_decimal_to_float_suite() {
   Suite *suite = suite_create("s21_from_decimal_to_float");
   TCase *tc_core = tcase_create("core_of_s21_decimal_to_float");
@@ -61,7 +50,8 @@ Suite *test_s21_from_decimal_to_float_suite() {
   tcase_add_test(tc_core, test_s21_from_decimal_to_float1);
   tcase_add_test(tc_core, test_s21_from_decimal_to_float2);
   tcase_add_test(tc_core, test_s21_from_decimal_to_float3);
-  // tcase_add_test(tc_core, test_s21_from_decimal_to_float4);
+  
+  suite_add_tcase(suite, tc_core);
 
   return suite;
 }
