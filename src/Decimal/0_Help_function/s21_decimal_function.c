@@ -61,10 +61,10 @@ s21_decimal s21_decimal_rshift_count(s21_decimal value, bit32_t count) {
 bit32_t s21_check_null_stack(s21_decimal value) {
   bit32_t bits = 0;
   for (bit32_t i = 0; i < SCALE_POS_L - 1 && !bits; i++) {
-    bits += s21_decimal_get_bit(value, i + SIZE_MANTIS);
+    bits |= s21_decimal_get_bit(value, i + SIZE_MANTIS);
   }
   if (!bits) {
-    for (bit32_t i = SCALE_POS_L; i < SIGN_POS; i++) {
+    for (bit32_t i = SCALE_POS_R; i < SIGN_POS; i++) {
       bits |= s21_decimal_get_bit(value, i + SIZE_MANTIS);
     }
   }
@@ -75,6 +75,7 @@ bit32_t s21_decimal_is_correct(s21_decimal value) {
   bit32_t flag = S21_TRUE;
   if (!s21_check_null_stack(value)) {
     flag = S21_FALSE;
+    printf("NOT NULL STACKS\n");
   } else {
     int scale = s21_decimal_get_scale(value);
     if (scale < 0 || scale > 28) {
