@@ -356,12 +356,15 @@ bit32_t s21_bank_round_data(s21_DecData *num, s21_DecData divider,
 
 bit32_t s21_bank_ten_round_data(s21_DecData *num, s21_DecData residue) {
   bit_t error_code = S21_SUCCES;
-  residue.value = s21_decimal_lshift(residue.value);
-  residue.high_bit++;
   bit_t res = s21_compare_residue_10(residue);
-  if (res != 2 &&
-      (s21_decimal_get_bit(num->value, 0) || s21_decimal_is_null(num->value))) {
-    error_code = s21_decimal_add_one(*num, num);
+  if (s21_decimal_get_bit(num->value, 0)) {
+    if (res != 2) {
+      error_code = s21_decimal_add_one(*num, num);
+    }
+  } else {
+    if (res == 1) {
+      error_code = s21_decimal_add_one(*num, num);
+    }
   }
   return error_code;
 }
