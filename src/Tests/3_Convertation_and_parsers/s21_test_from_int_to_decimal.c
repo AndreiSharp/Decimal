@@ -5,7 +5,7 @@ START_TEST(test_s21_from_int_to_decimal_1) {
   int src = 5000;
   int result = s21_from_int_to_decimal(src, NULL);
 
-  ck_assert_int_eq(result, S21_FALSE);
+  ck_assert_int_eq(result, S21_CONV_ERROR);
 }
 END_TEST
 
@@ -15,7 +15,7 @@ START_TEST(test_s21_from_int_to_decimal_2) {
   int src = 2147483647;
   s21_decimal decimal = {{2147483647, 0, 0, 0}};
   int result = s21_from_int_to_decimal(src, &dst);
-  ck_assert_int_eq(result, S21_TRUE);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
   int sign1 = s21_decimal_get_sign(dst);
   int sign2 = s21_decimal_get_sign(decimal);
@@ -30,7 +30,7 @@ START_TEST(test_s21_from_int_to_decimal_3) {
   s21_decimal decimal = {{2147483648, 0, 0, 0}};
   s21_negate(decimal, &decimal);
   int result = s21_from_int_to_decimal(src, &dst);
-  ck_assert_int_eq(result, S21_TRUE);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
   int sign1 = s21_decimal_get_sign(dst);
   int sign2 = s21_decimal_get_sign(decimal);
@@ -44,7 +44,7 @@ START_TEST(test_s21_from_int_to_decimal_4) {
   int src = 5000;
   s21_decimal decimal = {{5000, 0, 0, 0}};
   int result = s21_from_int_to_decimal(src, &dst);
-  ck_assert_int_eq(result, S21_TRUE);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
   int sign1 = s21_decimal_get_sign(dst);
   int sign2 = s21_decimal_get_sign(decimal);
@@ -59,7 +59,7 @@ START_TEST(test_s21_from_int_to_decimal_5) {
   s21_decimal decimal = {{5000, 0, 0, 0}};
   s21_negate(decimal, &decimal);
   int result = s21_from_int_to_decimal(src, &dst);
-  ck_assert_int_eq(result, S21_TRUE);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
   int sign1 = s21_decimal_get_sign(dst);
   int sign2 = s21_decimal_get_sign(decimal);
@@ -74,7 +74,7 @@ START_TEST(test_s21_from_int_to_decimal_6) {
   s21_decimal decimal = {{56738287, 0, 0, 0}};
   s21_negate(decimal, &decimal);
   int result = s21_from_int_to_decimal(src, &dst);
-  ck_assert_int_eq(result, S21_TRUE);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
   ck_assert_int_eq(s21_is_equal(decimal, dst), 1);
   int sign1 = s21_decimal_get_sign(dst);
   int sign2 = s21_decimal_get_sign(decimal);
