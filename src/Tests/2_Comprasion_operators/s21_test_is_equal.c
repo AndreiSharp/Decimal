@@ -55,7 +55,6 @@ START_TEST(test_s21_is_equal_5) {
   decimal_1 = s21_decimal_set_bit(decimal_1, 10, 1);
   decimal_2 = s21_decimal_set_bit(decimal_2, 10, 1);
   decimal_2 = s21_decimal_set_bit(decimal_2, 127, 1);
-  print_decimal(decimal_2, "is_equal");
   int result_s21_is_equal = s21_is_equal(decimal_1, decimal_2);
   ck_assert_int_eq(result_s21_is_equal, S21_FALSE);
 }

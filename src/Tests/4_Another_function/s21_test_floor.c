@@ -74,10 +74,8 @@ START_TEST(test_s21_floor_8) {
   s21_negate(decimal, &decimal);
   s21_decimal decimal_required = {{1, 0, 0, 0}};
   s21_negate(decimal_required, &decimal_required);
-  print_decimal(decimal_required, "result");
   s21_decimal result;
   int status = s21_floor(decimal, &result);
-  print_decimal(result, "result");
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }

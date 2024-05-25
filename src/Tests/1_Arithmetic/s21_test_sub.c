@@ -171,10 +171,11 @@ END_TEST
 START_TEST(test_s21_sub_14) {
   // тест 14
   s21_decimal decimal1 = {{100, 0, 0, 0}};
-  s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
-  s21_decimal decimal3 = {{995, 0, 0, 0b1000000000000000}};
+  s21_decimal decimal2 = {{5, 0, 0, 0b10000000000000000}};
+  s21_decimal decimal3 = {{995, 0, 0, 0b10000000000000000}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_sub(decimal1, decimal2, &result);
+  print_decimal(result, "test_sub_14");
   ck_assert_int_eq(s21_is_equal(result, decimal3), 1);
   ck_assert_int_eq(check, S21_SUCCES);
 }
@@ -195,8 +196,8 @@ END_TEST
 
 START_TEST(test_s21_sub_16) {
   // тест 16
-  s21_decimal decimal1 = {{5, 0, 0, 0b1000000000000000}};
-  s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
+  s21_decimal decimal1 = {{5, 0, 0, 0b10000000000000000}};
+  s21_decimal decimal2 = {{5, 0, 0, 0b10000000000000000}};
   s21_decimal decimal3 = {{1, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   s21_negate(decimal2, &decimal2);

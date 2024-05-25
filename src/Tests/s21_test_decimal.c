@@ -21,52 +21,52 @@ int main() {
 
   // ARITHMETIC_FUNCTIONS
   count_failed_tests +=
-      run_suite(test_s21_sub_suite(), "logs/test_s21_sub.log");
+      run_suite(test_s21_add_suite(), "logs/arithmetic/test_s21_add.log");
   count_failed_tests +=
-      run_suite(test_s21_mul_suite(), "logs/test_s21_mul.log");
+      run_suite(test_s21_sub_suite(), "logs/arithmetic/test_s21_sub.log");
   count_failed_tests +=
-      run_suite(test_s21_add_suite(), "logs/s21_add.log");
+      run_suite(test_s21_mul_suite(), "logs/arithmetic/test_s21_mul.log");
   count_failed_tests +=
-      run_suite(test_s21_div_suite(), "logs/s21_div.log");
+      run_suite(test_s21_div_suite(), "logs/arithmetic/test_s21_div.log");
 
   // COMPARE_FUNCTIONS
-  count_failed_tests +=
-      run_suite(test_s21_is_equal_suite(), "logs/test_s21_is_equal.log");
+  count_failed_tests += run_suite(test_s21_is_equal_suite(),
+                                  "logs/compare/test_s21_is_equal.log");
   count_failed_tests += run_suite(test_s21_is_not_equal_suite(),
-                                  "logs/test_s21_is_not_equal.log");
+                                  "logs/compare/test_s21_is_not_equal.log");
   count_failed_tests +=
-      run_suite(test_s21_is_less_suite(), "logs/test_s21_is_less.log");
+      run_suite(test_s21_is_less_suite(), "logs/compare/test_s21_is_less.log");
   count_failed_tests += run_suite(test_s21_is_less_or_equal_suite(),
-                                  "logs/test_s21_is_less_or_equal.log");
+                                  "logs/compare/test_s21_is_less_or_equal.log");
   count_failed_tests += run_suite(test_s21_is_greater_suite(),
-                                  "logs/test_s21_is_greater.log");
+                                  "logs/compare/test_s21_is_greater.log");
   count_failed_tests +=
       run_suite(test_s21_is_greater_or_equal_suite(),
-                "logs/test_s21_is_greater_or_equal.log");
+                "logs/compare/test_s21_is_greater_or_equal.log");
 
   // CONVERTATION_FUNCTIONS
   count_failed_tests +=
       run_suite(test_s21_from_int_to_decimal_suite(),
-                "logs/test_s21_from_int_to_decimal.log");
+                "logs/convertation/test_s21_from_int_to_decimal.log");
   count_failed_tests +=
       run_suite(test_s21_from_float_to_decimal_suite(),
-                "logs/test_s21_from_float_to_decimal.log");
+                "logs/convertation/test_s21_from_float_to_decimal.log");
   count_failed_tests +=
       run_suite(test_s21_from_decimal_to_int_suite(),
-                "logs/test_s21_from_decimal_to_int.log");
+                "logs/convertation/test_s21_from_decimal_to_int.log");
   count_failed_tests +=
       run_suite(test_s21_from_decimal_to_float_suite(),
-                "logs/test_s21_from_decimal_to_float.log");
+                "logs/convertation/test_s21_from_decimal_to_float.log");
 
   // ANOTHER_FUNCTIONS
   count_failed_tests +=
-      run_suite(test_s21_round_suite(), "logs/test_s21_round.log");
+      run_suite(test_s21_round_suite(), "logs/anouther/test_s21_round.log");
 
   count_failed_tests +=
-      run_suite(test_s21_floor_suite(), "logs/test_s21_floor.log");
+      run_suite(test_s21_floor_suite(), "logs/anouther/test_s21_floor.log");
   count_failed_tests +=
-      run_suite(test_s21_negate_suite(), "logs/test_s21_negate.log");
-  count_failed_tests +=
-      run_suite(test_s21_truncate_suite(), "logs/test_s21_truncate.log");
+      run_suite(test_s21_negate_suite(), "logs/anouther/test_s21_negate.log");
+  count_failed_tests += run_suite(test_s21_truncate_suite(),
+                                  "logs/anouther/test_s21_truncate.log");
   return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 }
