@@ -8,7 +8,6 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   s21_DecData result_data = s21_decimal_null_data();
 
   code_error = s21_basic_sub(val_data_1, val_data_2, &result_data);
-  print_dec_data(result_data, "sub");
   *result = s21_decimal_set_data(result_data);
   return code_error;
 }
