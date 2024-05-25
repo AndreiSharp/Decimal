@@ -8,13 +8,6 @@ s21_decimal s21_decimal_null() {
   return new;
 }
 
-s21_decimal s21_decimal_copy(s21_decimal value) {
-  s21_decimal result;
-  for (int i = 0; i < COUNT_BLOCKS; i++) {
-    result.bits[i] = value.bits[i];
-  }
-  return result;
-}
 
 bit32_t s21_decimal_is_null(s21_decimal value) {
   return !(value.bits[0] || value.bits[1] || value.bits[2]);
@@ -71,18 +64,6 @@ bit32_t s21_check_null_stack(s21_decimal value) {
   return !bits;
 }
 
-bit32_t s21_decimal_is_correct(s21_decimal value) {
-  bit32_t flag = S21_TRUE;
-  if (!s21_check_null_stack(value)) {
-    flag = S21_FALSE;
-  } else {
-    int scale = s21_decimal_get_scale(value);
-    if (scale < 0 || scale > 28) {
-      flag = S21_FALSE;
-    }
-  }
-  return flag;
-}
 
 s21_DecData s21_decimal_null_data() {
   s21_DecData data;
@@ -124,22 +105,45 @@ s21_DecData s21_decimal_copy_data(s21_DecData data) {
 
 // Функции для вывода перед сдачей удалить!!
 
-void print_decimal(s21_decimal value, char* name) {
-  printf("decimal : %s\n", name);
-  for (int j = COUNT_BLOCKS - 1; j >= 0; j--) {
-    for (int i = (SIZE_BLOCK) * (j + 1) - 1; i >= SIZE_BLOCK * j; i--) {
-      printf("%u", s21_decimal_get_bit(value, i));
-    }
-    printf(" ");
-  }
-  printf("\n\n");
-}
+// void print_decimal(s21_decimal value, char* name) {
+//   printf("decimal : %s\n", name);
+//   for (int j = COUNT_BLOCKS - 1; j >= 0; j--) {
+//     for (int i = (SIZE_BLOCK) * (j + 1) - 1; i >= SIZE_BLOCK * j; i--) {
+//       printf("%u", s21_decimal_get_bit(value, i));
+//     }
+//     printf(" ");
+//   }
+//   printf("\n\n");
+// }
 
-// работает
-void print_dec_data(s21_DecData data, char* name) {
-  printf("\ndecimal data: %s\n", name);
-  printf("sign = %d\n", data.sign);
-  printf("scale = %d\n", data.scale);
-  printf("high_bit = %d\n", data.high_bit);
-  print_decimal(data.value, "");
+// // работает
+// void print_dec_data(s21_DecData data, char* name) {
+//   printf("\ndecimal data: %s\n", name);
+//   printf("sign = %d\n", data.sign);
+//   printf("scale = %d\n", data.scale);
+//   printf("high_bit = %d\n", data.high_bit);
+//   print_decimal(data.value, "");
+// }
+
+// s21_decimal s21_decimal_copy(s21_decimal value) {
+//   s21_decimal result;
+//   for (int i = 0; i < COUNT_BLOCKS; i++) {
+//     result.bits[i] = value.bits[i];
+//   }
+//   return result;
+// }
+
+
+
+bit32_t s21_decimal_is_correct(s21_decimal value) {
+  bit32_t flag = S21_TRUE;
+  if (!s21_check_null_stack(value)) {
+    flag = S21_FALSE;
+  } else {
+    int scale = s21_decimal_get_scale(value);
+    if (scale < 0 || scale > 28) {
+      flag = S21_FALSE;
+    }
+  }
+  return flag;
 }
