@@ -38,17 +38,13 @@ bit32_t s21_function_compare(s21_decimal value_1, s21_decimal value_2) {
         if (val_1.scale != val_2.scale) {
           s21_normalize(&val_1, &val_2);
         }
-        print_dec_data(val_1, "val_1");
-        print_dec_data(val_2, "val_2");
         result = s21_decimal_compare_mantis(val_1, val_2);
-        printf("RESULT_COMPARE = %d\n", result);
       }
     } else {
       result = !val_2.sign * 2 + !val_1.sign;
     }
   } else {
     result = !null_2 * 2 + !null_1;
-    printf("NULL RESULT_COMPARE = %d\n", result);
   }
   return result;
 }
