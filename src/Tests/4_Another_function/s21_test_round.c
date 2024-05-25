@@ -73,7 +73,7 @@ START_TEST(test_s21_round_7) {
 
 START_TEST(test_s21_round_8) {
   s21_decimal decimal = {{27, 0, 0, 0b00000000000000010000000000000000}};
-  s21_decimal decimal_required = {{2, 0, 0, 0}};
+  s21_decimal decimal_required = {{3, 0, 0, 0}};
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
