@@ -4,40 +4,25 @@ bit32_t s21_basic_add(s21_DecData value_1, s21_DecData value_2,
                       s21_DecData *result) {
   bit32_t error_code = S21_SUCCES;
   s21_normalize(&value_1, &value_2);
-  // print_dec_data(value_1, "after norm value_1");
-  // print_dec_data(value_2, "after norm value_2");
   if (value_1.sign == value_2.sign) {
     result->sign = value_1.sign;
     error_code = s21_add_mantis(value_1, value_2, result);
-    // print_dec_data(*result, "result basic_add");
   } else {
     bit32_t result_compare = s21_decimal_compare_mantis(value_1, value_2);
     if (result_compare == 1) {
-      // printf("result = 1\n");
       result->sign = value_1.sign;
       error_code = s21_sub_mantis(value_1, value_2, result);
-      // print_dec_data(*result, "result basic_add");
     } else if (result_compare == 2) {
       result->sign = value_2.sign;
-      // printf("result = 2\n");
       error_code = s21_sub_mantis(value_2, value_1, result);
-      // print_dec_data(*result, "result basic_add");
     } else {
-      result->sign = 0;
-      // printf("result = 0\n");
-      *result = s21_decimal_copy_data(value_1);
-      result->value = s21_decimal_null();
-      // print_dec_data(*result, "result basic_add");
+      *result = s21_decimal_null_data();
     }
   }
-  // printf("error_code %d\n", error_code);
-  // printf("scale before_check %d\n", result->scale);
   error_code = s21_decimal_check_result(result);
-  // print_dec_data(*result, "result decimal_norm\n");
   if (error_code != S21_SUCCES) {
     *result = s21_decimal_null_data();
   }
-  // printf("scale after_check %d\n", result->scale);
   return error_code;
 }
 // с учетом переполнения
@@ -51,20 +36,14 @@ bit32_t s21_basic_sub(s21_DecData value_1, s21_DecData value_2,
       result->sign = value_1.sign;
       error_code = s21_sub_mantis(value_1, value_2, result);
     } else if (result_compare == 2) {
-      result->sign = value_2.sign;
+      result->sign = !value_2.sign;
       error_code = s21_sub_mantis(value_2, value_1, result);
     } else {
       *result = s21_decimal_null_data();
     }
   } else {
+    result->sign = value_1.sign;
     error_code = s21_add_mantis(value_1, value_2, result);
-    if (error_code != S21_SUCCES) {
-      bit32_t shift = result->high_bit - SIZE_MANTIS;
-      bit32_t count_div = shift / 3 + (shift % 3 != 0);
-      s21_count_div_10(result, count_div);
-      result->scale = value_1.scale;
-      result->sign = value_1.sign;
-    }
   }
   error_code = s21_decimal_check_result(result);
   if (error_code != S21_SUCCES) {
@@ -86,11 +65,9 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
     bit32_t excess = SIZE_MANTIS - result_hight_bit;
     count_div = excess / 3 + (excess % 3 != 0);
   }
-  printf("HERE count_div = %d\n", count_div);
+
   if (count_div == 0) {
-    // print_dec_data(*result, "before mul");
     error_code = s21_mul_mantis(value_1, value_2, result);
-    // print_dec_data(*result, "after mul");
     if (error_code != S21_SUCCES) {
       s21_count_div_10(result, (result->high_bit - SIZE_MANTIS) / 3 + 1);
     }
@@ -100,8 +77,7 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
     }
   } else if ((bit32_t)result->scale >= count_div) {
     s21_DecData residue = s21_decimal_null_data();
-    // print_dec_data(*result, "after mul");
-    printf("RESIDUE\n");
+
     if (value_1.high_bit > value_2.high_bit) {
       s21_create_residue(&value_1, &residue, count_div);
       error_code = s21_mul_mantis(residue, value_2, &residue);
@@ -129,9 +105,7 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
       error_code = S21_TOO_LARGE;
     }
   }
-  // print_dec_data(*result, "before check");
-  // print_dec_data(*result, "after check");
-  printf("ERROR_CODE = %d\n", error_code);
+
   return error_code;
 }
 
@@ -255,6 +229,7 @@ bit32_t s21_sub_mantis(s21_DecData value_1, s21_DecData value_2,
   if (new.value.bits[DATA_INDEX] != 0) {
     error_code = S21_TOO_LARGE;
   }
+  result->scale = value_1.scale;
   result->value = new.value;
   result->high_bit = s21_decimal_get_high_bit(result->value);
   return error_code;
@@ -412,19 +387,14 @@ bit32_t s21_decimal_check_result(s21_DecData *result) {
     if (result->high_bit > SIZE_MANTIS) {
       bit32_t shift = result->high_bit - SIZE_MANTIS;
       bit32_t count = shift / 3 + (shift % 3 != 0);
-      // printf("count = %d, shift = %d\n", count, shift);
-      // printf("new_scale_before_div_10 = %d\n", result->scale);
       if (count <= (bit32_t)result->scale) {
         error_code = s21_count_div_10(result, count);
       } else {
         error_code = S21_TOO_LARGE;
       }
-      // printf("new_scale_after_div_10 = %d\n", result->scale);
-      // printf("error_code = %d\n", error_code);
     }
   } else {
     if (result->scale < 0) {
-      // printf("count = -scale = %d\n", -result->scale);
       error_code = s21_count_mul_10(result, -result->scale);
       if (result->value.bits[DATA_INDEX]) {
         error_code = result->sign ? S21_TOO_SMALL : S21_TOO_LARGE;
