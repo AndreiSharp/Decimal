@@ -111,7 +111,7 @@ gcov_report:
 	
 
 clean:
-	rm -f *.o $(TARGET) $(TESTER) logs/*.log $(GCOV_EXTS)
+	rm -f *.o $(TARGET) $(TESTER) logs/*/*.log $(GCOV_EXTS)
 	rm -rf *.dSYM
 
 rebuild: clean test
