@@ -1,9 +1,13 @@
 #include "./../../Headers/s21_convertation_and_parsers.h"
 
+char s21_is_not_max_float(float x) {
+  return MIN_FLOAT_TO_CONVERT < x && x < MAX_FLOAT_TO_CONVERT;
+}
+
 int s21_from_float_to_decimal(float src, s21_decimal *dst) {
   s21_DecData dst_DecData = s21_decimal_null_data();
   unsigned int error_code = S21_CONV_SUCCESS;
-  if (dst) {
+  if (dst && !isinf(src) && !isnan(src) && s21_is_not_max_float(src)) {
     if (src < 0) {
       dst_DecData.sign = 1;
       src *= -1;

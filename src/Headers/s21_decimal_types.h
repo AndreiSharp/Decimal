@@ -9,6 +9,11 @@
 
 /*--------------------------------CONST---------------------------------*/
 
+#define MAX_FLOAT_TO_CONVERT 79228157791897854723898736640.0f
+#define MIN_FLOAT_TO_CONVERT \
+    0.00000000000000000000000000010000000031710768509710513471352647538147514756461109f
+
+
 enum sizes {
   COUNT_BLOCKS = 4,                                // count of decimal blocks
   COUNT_BLOCKS_MANTIS = 3,                         // count of mantis blocks

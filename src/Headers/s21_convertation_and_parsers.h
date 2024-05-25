@@ -1,6 +1,8 @@
 #ifndef S21_CONV_FUNC
 #define S21_CONV_FUNC
 
+#include <math.h>
+
 /*--------------------------------HEADERS-------------------------------*/
 
 #include "./s21_binary_function.h"

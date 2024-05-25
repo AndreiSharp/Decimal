@@ -11,7 +11,7 @@ END_TEST
 
 START_TEST(test_s21_div_2) {
   s21_decimal decimal1 = {{100, 0, 0, 0}};
-  s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
+  s21_decimal decimal2 = {{5, 0, 0, 0b10000000000000000}};
   s21_decimal decimal3 = {{200, 0, 0, 0}};
   s21_negate(decimal1, &decimal1);
   s21_negate(decimal3, &decimal3);
@@ -27,7 +27,7 @@ END_TEST
 
 START_TEST(test_s21_div_3) {
   s21_decimal decimal1 = {{0, 0, 0, 0}};
-  s21_decimal decimal2 = {{5, 0, 0, 0b1000000000000000}};
+  s21_decimal decimal2 = {{5, 0, 0, 0b10000000000000000}};
   s21_decimal decimal3 = {{0, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
   int check = s21_div(decimal1, decimal2, &result);

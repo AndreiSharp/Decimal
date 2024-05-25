@@ -17,7 +17,6 @@ int s21_floor(s21_decimal value, s21_decimal *result) {
       if (val.sign) {
         error_code = s21_decimal_add_one(res, &res);
       }
-      print_dec_data(res, "full resutl");
       if (!error_code) {
         *result = s21_decimal_set_data(res);
       } else {
