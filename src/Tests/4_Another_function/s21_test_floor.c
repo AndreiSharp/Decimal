@@ -68,8 +68,6 @@ START_TEST(test_s21_floor_7) {
   s21_decimal decimal_required = {
       {2133436963, 429, 0, 0b00000000000000000000000000000000}};
   s21_decimal result;
-  printf("dec_0 = %u, dec_1 = %u, dec_3 = %u\n", decimal.bits[0],
-         decimal.bits[1], decimal.bits[2]);
   int status = s21_floor(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);

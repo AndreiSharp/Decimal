@@ -87,9 +87,14 @@ TSTDIR := ./Tests
 TSTEXT := c
 TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
+CHECK_FLAGS := -lcheck
+
+ifeq ($(UNAME_S),Linux)
+	CHECK_FLAGS +=  -lcheck_pic -pthread -lrt -lm -lsubunit
+endif
 
 test: $(TST) $(TARGET)
-	$(CC) $(CFLAGS) -lcheck $^ -o $(TESTER)
+	$(CC) $(CFLAGS) $^ -o $(TESTER) $(CHECK_FLAGS)
 	./$(TESTER)
 
 
@@ -97,8 +102,12 @@ GCOV := gcovr
 GCOV_CFLAGS := -fprofile-arcs -ftest-coverage --coverage
 GCOV_RFLAGS := -r . --html --html-details 
 REPORT = report.html
-OPEN_REPORT = open $(REPORT)
+OPEN_REPORT := open $(REPORT)
 GCOV_EXTS := *.gcno *.gcda *.gcov *.css *.html
+
+ifeq ($(UNAME_S),Linux)
+	OPEN_REPORT := firefox $(REPORT)
+endif
 
 gcov_report:
 	$(CC) -c $(CFLAGS) $(GCOV_CFLAGS) $(SOURCE)
