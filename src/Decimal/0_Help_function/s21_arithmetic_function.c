@@ -112,39 +112,43 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
 bit32_t s21_basic_div(s21_DecData value_1, s21_DecData value_2,
                       s21_DecData *result) {
   bit32_t error_code = S21_SUCCES;
-  result->scale = value_1.scale - value_2.scale;
-  result->sign = value_1.sign || value_2.sign;
   s21_DecData residue = s21_decimal_null_data();
   bit32_t free_bit = SIZE_MANTIS - value_1.high_bit;
   bit32_t count_mul = free_bit / 3 + (free_bit % 3 != 0);
-  s21_count_mul_10(&value_1, count_mul);
+  if (free_bit > 0) {
+    count_mul = s21_count_mul_10(&value_1, count_mul);
+  }
+  result->scale = value_1.scale - value_2.scale;
+  result->sign = value_1.sign == value_2.sign ? 0 : 1;
   residue = s21_div_mantis(value_1, value_2, result);
-  free_bit = SIZE_MANTIS - result->high_bit;
-  count_mul = free_bit / 3 + (free_bit % 3 != 0);
-  s21_count_mul_10(result, count_mul);
-  if (result->high_bit > SIZE_MANTIS) {
-    free_bit = result->high_bit - SIZE_MANTIS;
+  if (!s21_decimal_is_null(residue.value)) {
+    free_bit = SIZE_MANTIS - result->high_bit;
     count_mul = free_bit / 3 + (free_bit % 3 != 0);
-    s21_count_div_10(result, count_mul);
-    count_mul--;
+    count_mul = s21_count_mul_10(result, count_mul);
+    if (result->high_bit > SIZE_MANTIS) {
+      s21_count_div_10(result, 1);
+      count_mul--;
+    }
+    count_mul = s21_count_mul_10(&residue, count_mul);
+    if (residue.high_bit > SIZE_MANTIS) {
+      s21_count_div_10(&residue, 1);
+      s21_count_div_10(result, 1);
+    }
+    s21_DecData residue_2 = s21_div_mantis(residue, value_2, &residue);
+    s21_bank_round_data(&residue, value_2, residue_2);
+    if (s21_add_mantis(*result, residue, result)) {
+      free_bit = result->high_bit - SIZE_MANTIS;
+      count_mul = free_bit / 3 + (free_bit % 3 != 0);
+      s21_count_div_10(result, count_mul);
+    }
   }
-  s21_count_mul_10(&residue, count_mul);
-  if (residue.high_bit > SIZE_MANTIS) {
-    free_bit = residue.high_bit - SIZE_MANTIS;
-    count_mul = free_bit / 3 + (free_bit % 3 != 0);
-    s21_count_div_10(&residue, 1);
-  }
-  s21_DecData residue_2 = s21_div_mantis(residue, value_2, &residue);
-  s21_bank_round_data(&residue, value_2, residue_2);
-  if (s21_add_mantis(*result, residue, result)) {
-    free_bit = result->high_bit - SIZE_MANTIS;
-    count_mul = free_bit / 3 + (free_bit % 3 != 0);
-    s21_count_div_10(result, count_mul);
-  }
+  print_dec_data(*result, "before check");
   error_code = s21_decimal_check_result(result);
+  print_dec_data(*result, "after check");
   if (error_code != S21_SUCCES) {
     *result = s21_decimal_null_data();
   }
+  print_dec_data(*result, "result");
   return error_code;
 }
 
@@ -299,7 +303,7 @@ bit32_t s21_mul_10(s21_DecData *value) {
   s21_DecData new = s21_decimal_null_data();
   error_code = s21_mul_mantis(*value, ten, &new);
   value->value = new.value;
-  value->high_bit = new.high_bit;
+  value->high_bit = s21_decimal_get_high_bit(value->value);
   value->scale++;
   return error_code;
 }
@@ -311,7 +315,7 @@ s21_DecData s21_div_10(s21_DecData *value) {
   s21_DecData new = s21_decimal_null_data();
   s21_DecData residue = s21_div_mantis(*value, ten, &new);
   value->value = new.value;
-  value->high_bit = new.high_bit;
+  value->high_bit = s21_decimal_get_high_bit(value->value);
   value->scale--;
   return residue;
 }
@@ -323,7 +327,7 @@ bit32_t s21_count_mul_10(s21_DecData *value, bit32_t count) {
   for (; i < count && error_code == S21_SUCCES; i++) {
     error_code = s21_mul_10(value);
   }
-  if (error_code != S21_SUCCES) {
+  if (error_code != S21_SUCCES && count != 0) {
     s21_div_10(value);
     i--;
   }
@@ -398,8 +402,9 @@ bit32_t s21_decimal_check_result(s21_DecData *result) {
     }
   } else {
     if (result->scale < 0) {
-      error_code = s21_count_mul_10(result, -result->scale);
-      if (result->value.bits[DATA_INDEX]) {
+      bit32_t count_mul = -result->scale;
+      error_code = count_mul - s21_count_mul_10(result, count_mul);
+      if (result->value.bits[DATA_INDEX] && count_mul != 0) {
         error_code = result->sign ? S21_TOO_SMALL : S21_TOO_LARGE;
       }
     } else {
