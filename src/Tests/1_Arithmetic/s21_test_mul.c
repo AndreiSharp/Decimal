@@ -109,6 +109,19 @@ START_TEST(test_s21_mul_10) {
   ck_assert_int_eq(check, S21_TOO_SMALL);
 }
 
+START_TEST(test_s21_mul_11) {
+  s21_decimal decimal_first = {
+      {0, 0, 0, 0}};
+  s21_decimal decimal_second = {
+      {324, 0, 0, 0b00000000000000100000000000000000}};
+  s21_decimal decimal_required = {
+      {0, 0, 0, 0}};
+  s21_decimal result;
+  int status = s21_mul(decimal_first, decimal_second, &result);
+  ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
+  ck_assert_int_eq(status, S21_SUCCES);
+}
+
 Suite *test_s21_mul_suite() {
   Suite *suite = suite_create("s21_mul");
   TCase *tc_core = tcase_create("core_of_s21_mul");
@@ -123,6 +136,7 @@ Suite *test_s21_mul_suite() {
   tcase_add_test(tc_core, test_s21_mul_8);
   tcase_add_test(tc_core, test_s21_mul_9);
   tcase_add_test(tc_core, test_s21_mul_10);
+  tcase_add_test(tc_core, test_s21_mul_11);
 
   suite_add_tcase(suite, tc_core);
   return suite;
