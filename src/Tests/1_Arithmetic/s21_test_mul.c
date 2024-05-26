@@ -120,6 +120,28 @@ START_TEST(test_s21_mul_11) {
   ck_assert_int_eq(status, S21_SUCCES);
 }
 
+START_TEST(test_s21_mul_12) {
+  unsigned int max = 0b11111111111111111111111111111111;
+  s21_decimal decimal_first = {
+      {max, max, max, 0}};
+  s21_decimal decimal_second = {
+      {max, max, max, 0}};
+  s21_decimal decimal_required = {
+      {0, 0, 0, 0}};
+
+  decimal_first = s21_decimal_set_scale(decimal_first, 5);
+  decimal_second = s21_decimal_set_scale(decimal_second, 18);
+  s21_decimal result;
+  int status = s21_mul(decimal_first, decimal_second, &result);
+    for (int i = 0; i < 3 ; i++){
+printf("%d\n", result.bits[i]);
+  }
+  printf("%d\n", s21_decimal_get_scale(result));
+  ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
+  ck_assert_int_eq(status, S21_SUCCES);
+}
+
+
 Suite *test_s21_mul_suite() {
   Suite *suite = suite_create("s21_mul");
   TCase *tc_core = tcase_create("core_of_s21_mul");
@@ -135,7 +157,7 @@ Suite *test_s21_mul_suite() {
   tcase_add_test(tc_core, test_s21_mul_9);
   tcase_add_test(tc_core, test_s21_mul_10);
   tcase_add_test(tc_core, test_s21_mul_11);
-
+  tcase_add_test(tc_core, test_s21_mul_12);
   suite_add_tcase(suite, tc_core);
   return suite;
 }
