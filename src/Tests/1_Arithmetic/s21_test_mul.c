@@ -110,12 +110,10 @@ START_TEST(test_s21_mul_10) {
 }
 
 START_TEST(test_s21_mul_11) {
-  s21_decimal decimal_first = {
-      {0, 0, 0, 0}};
+  s21_decimal decimal_first = {{0, 0, 0, 0}};
   s21_decimal decimal_second = {
       {324, 0, 0, 0b00000000000000100000000000000000}};
-  s21_decimal decimal_required = {
-      {0, 0, 0, 0}};
+  s21_decimal decimal_required = {{0, 0, 0, 0}};
   s21_decimal result;
   int status = s21_mul(decimal_first, decimal_second, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);

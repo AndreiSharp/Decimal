@@ -50,7 +50,7 @@ Suite *test_s21_from_decimal_to_float_suite() {
   tcase_add_test(tc_core, test_s21_from_decimal_to_float1);
   tcase_add_test(tc_core, test_s21_from_decimal_to_float2);
   tcase_add_test(tc_core, test_s21_from_decimal_to_float3);
-  
+
   suite_add_tcase(suite, tc_core);
 
   return suite;

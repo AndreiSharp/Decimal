@@ -60,6 +60,18 @@ START_TEST(test_s21_is_equal_5) {
 }
 END_TEST
 
+START_TEST(test_s21_is_equal_6) {
+  s21_decimal a, b;
+  a = s21_decimal_null();
+  b = s21_decimal_null();
+  a = s21_decimal_set_scale(a, 20);
+
+  int error_code = s21_is_equal(a, b);
+
+  ck_assert_int_eq(error_code, S21_TRUE);
+}
+END_TEST
+
 Suite *test_s21_is_equal_suite() {
   // создаем новый набор для тестов функции
   Suite *suite = suite_create("s21_is_equal");
@@ -71,6 +83,7 @@ Suite *test_s21_is_equal_suite() {
   tcase_add_test(tc_core, test_s21_is_equal_3);
   tcase_add_test(tc_core, test_s21_is_equal_4);
   tcase_add_test(tc_core, test_s21_is_equal_5);
+  tcase_add_test(tc_core, test_s21_is_equal_6);
 
   // тест кейс добавляем в suite
   suite_add_tcase(suite, tc_core);

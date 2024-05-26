@@ -116,7 +116,7 @@ int main() {
 
 #if TEST_TRUNCATE
   count_failed_tests += run_suite(test_s21_truncate_suite(),
-                                  "logs/4_anouther/test_s21_truncate.log");
+                                  "logs/4_Anouther/test_s21_truncate.log");
 #endif
 
   return count_failed_tests == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
