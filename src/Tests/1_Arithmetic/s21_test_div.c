@@ -208,6 +208,72 @@ START_TEST(test_s21_div_15) {
 }
 END_TEST
 
+// new tests
+
+START_TEST(test_s21_div_16) {
+  s21_decimal decimal_1 = {{35, 0, 0, 0}};
+  s21_decimal decimal_2 = {{5, 0, 0, 0}};
+  s21_decimal result = {{0, 0, 0, 0}};
+  s21_decimal check = {{70, 0, 0, 0}};
+  decimal_1 = s21_decimal_set_scale(decimal_1, 1);
+  decimal_2 = s21_decimal_set_scale(decimal_2, 2);
+  int return_value = s21_div(decimal_1, decimal_2, &result);
+  ck_assert_int_eq(s21_is_equal(result, check), 1);
+  ck_assert_int_eq(return_value, S21_SUCCES);
+}
+END_TEST
+
+START_TEST(test_s21_div_17) {
+  s21_decimal decimal_1 = {{0x88888888, 0x88888888, 0x88888888, 0}};
+  s21_decimal decimal_2 = {{0x2, 0, 0, 0}};
+  decimal_2 = s21_decimal_set_sign(decimal_2, 1);
+  s21_decimal result = {{0, 0, 0, 0}};
+  s21_decimal check = {{0x44444444, 0x44444444, 0x44444444, 0}};
+  check = s21_decimal_set_sign(check, 1);
+  int return_value = s21_div(decimal_1, decimal_2, &result);
+  ck_assert_int_eq(s21_is_equal(result, check), 1);
+  ck_assert_int_eq(return_value, S21_SUCCES);
+}
+END_TEST
+
+START_TEST(test_s21_div_18) {
+  s21_decimal decimal_1 = {{10, 0, 0, 0}};
+  decimal_1 = s21_decimal_set_sign(decimal_1, 1);
+  s21_decimal decimal_2 = {{8, 0, 0, 0}};
+  decimal_2 = s21_decimal_set_sign(decimal_2, 1);
+  s21_decimal result = {{0, 0, 0, 0}};
+  s21_decimal check = {{1, 0, 0, 0}};
+  check = s21_decimal_set_scale(check, 0);
+  int return_value = s21_div(decimal_1, decimal_2, &result);
+  ck_assert_int_eq(s21_is_equal(result, check), 1);
+  ck_assert_int_eq(return_value, S21_SUCCES);
+}
+END_TEST
+
+START_TEST(test_s21_div_19) {
+  s21_decimal decimal_1 = {{15, 0, 0, 0}};
+  decimal_1 = s21_decimal_set_sign(decimal_1, 1);
+  s21_decimal decimal_2 = {{0, 0, 0, 0}};
+  s21_decimal result = {{0, 0, 0, 0}};
+  s21_decimal check = {{0, 0, 0, 0}};
+  int return_value = s21_div(decimal_1, decimal_2, &result);
+  ck_assert_int_eq(s21_is_equal(result, check), 1);
+  ck_assert_int_eq(return_value, S21_DEV_BY_ZERO);
+}
+END_TEST
+
+START_TEST(test_s21_div_20) {
+  s21_decimal decimal_1 = {{10, 0, 0, 0}};
+  s21_decimal decimal_2 = {{1, 0, 0, 0}};
+  decimal_2 = s21_decimal_set_scale(decimal_2, 2);
+  s21_decimal result = {{0, 0, 0, 0}};
+  s21_decimal check = {{1000u, 0, 0, 0}};
+  int return_value = s21_div(decimal_1, decimal_2, &result);
+  ck_assert_int_eq(s21_is_equal(result, check), 1);
+  ck_assert_int_eq(return_value, S21_SUCCES);
+}
+END_TEST
+
 Suite *test_s21_div_suite() {
   Suite *suite = suite_create("s21_div");
   TCase *tc_core = tcase_create("core_of_s21_div");
@@ -228,6 +294,15 @@ Suite *test_s21_div_suite() {
   tcase_add_test(tc_core, test_s21_div_13);
   tcase_add_test(tc_core, test_s21_div_14);
   tcase_add_test(tc_core, test_s21_div_15);
+
+// new
+
+  tcase_add_test(tc_core, test_s21_div_16);
+  tcase_add_test(tc_core, test_s21_div_17);
+  tcase_add_test(tc_core, test_s21_div_18);
+  tcase_add_test(tc_core, test_s21_div_19);
+  tcase_add_test(tc_core, test_s21_div_20);
+
    suite_add_tcase(suite, tc_core);
 
   return suite;
