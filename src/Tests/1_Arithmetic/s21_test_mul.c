@@ -1,7 +1,6 @@
 #include "../s21_test_decimal.h"
 
 START_TEST(test_s21_mul_1) {
-  printf("TEST_1\n");
   s21_decimal decimal_first = {{3, 0, 0, 0}};
   s21_decimal decimal_second = {{4, 0, 0, 0}};
   s21_decimal decimal_required = {{12, 0, 0, 0}};
@@ -14,7 +13,6 @@ END_TEST
 
 // не проходит возвращает в 2 раза больше и положительный результат
 START_TEST(test_s21_mul_2) {
-  printf("TEST_2\n");
   s21_decimal decimal_first = {{30, 0, 0, 0}};
   decimal_first = s21_decimal_set_sign(decimal_first, 1);
   s21_decimal decimal_second = {{20, 0, 0, 0}};
@@ -28,7 +26,6 @@ START_TEST(test_s21_mul_2) {
 END_TEST
 
 START_TEST(test_s21_mul_3) {
-  printf("TEST_3\n");
   s21_decimal decimal_first = {{279, 0, 0, 0b10000000000000000000000000000000}};
   s21_decimal decimal_second = {
       {37865, 0, 0, 0b10000000000000000000000000000000}};
@@ -41,7 +38,6 @@ START_TEST(test_s21_mul_3) {
 END_TEST
 
 START_TEST(test_s21_mul_4) {
-  printf("TEST_4\n");
   s21_decimal decimal_first = {{0, 0, 0, 0}};
   s21_decimal decimal_second = {{6, 0, 0, 0}};
   s21_decimal decimal_required = {{0, 0, 0, 0}};
@@ -53,7 +49,6 @@ START_TEST(test_s21_mul_4) {
 END_TEST
 
 START_TEST(test_s21_mul_5) {
-  printf("TEST_5\n");
   s21_decimal decimal_first = {{0, 0, 0b11111111111111111111111111111111, 0}};
   s21_decimal decimal_second = {{0, 0, 0b11111111111111111111111111111111, 0}};
   s21_decimal decimal_required = {{0, 0, 0, 0}};
@@ -65,7 +60,6 @@ START_TEST(test_s21_mul_5) {
 END_TEST
 
 START_TEST(test_s21_mul_6) {
-  printf("TEST_6\n");
   s21_decimal decimal_first = {{1, 0, 0, 0b00000000000110010000000000000000}};
   s21_decimal decimal_second = {{1, 0, 0, 0b00000000000110010000000000000000}};
   s21_decimal decimal_required = {
@@ -78,7 +72,6 @@ START_TEST(test_s21_mul_6) {
 END_TEST
 
 START_TEST(test_s21_mul_7) {
-  printf("TEST_7\n");
   s21_decimal decimal_first = {
       {53785, 0, 0, 0b00000000000000110000000000000000}};
   s21_decimal decimal_second = {{1, 0, 0, 0}};
@@ -92,7 +85,6 @@ START_TEST(test_s21_mul_7) {
 END_TEST
 
 START_TEST(test_s21_mul_8) {
-  printf("TEST_8\n");
   s21_decimal decimal_first = {
       {8511, 0, 0, 0b00000000000000100000000000000000}};
   s21_decimal decimal_second = {
@@ -107,7 +99,6 @@ START_TEST(test_s21_mul_8) {
 END_TEST
 
 START_TEST(test_s21_mul_9) {
-  printf("TEST_9\n");
   unsigned int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, max, max, 0}};
@@ -118,7 +109,6 @@ START_TEST(test_s21_mul_9) {
 END_TEST
 
 START_TEST(test_s21_mul_10) {
-  printf("TEST_10\n");
   unsigned int max = 0b11111111111111111111111111111111;
   s21_decimal decimal1 = {{max, max, max, 0}};
   s21_decimal decimal2 = {{max, max, max, 0}};
@@ -130,7 +120,6 @@ START_TEST(test_s21_mul_10) {
 END_TEST
 
 START_TEST(test_s21_mul_11) {
-  printf("TEST_11\n");
   s21_decimal decimal_first = {{0, 0, 0, 0}};
   s21_decimal decimal_second = {
       {324, 0, 0, 0b00000000000000100000000000000000}};
@@ -143,7 +132,6 @@ START_TEST(test_s21_mul_11) {
 END_TEST
 
 START_TEST(test_s21_mul_12) {
-  printf("TEST_12\n");
   unsigned int max = 0b11111111111111111111111111111111;
   s21_decimal decimal_first = {{max, max, max, 0}};
   s21_decimal decimal_second = {{max, max, max, 0}};
@@ -164,13 +152,12 @@ START_TEST(test_s21_mul_13) {
   b = s21_decimal_null();
   a = s21_decimal_invert(a, SIZE_MANTIS);
   b = s21_decimal_invert(b, SIZE_MANTIS);
-  s21_decimal_set_scale(a, 20);
-  s21_decimal_set_scale(b, 20);
+  a = s21_decimal_set_scale(a, 20);
+  b = s21_decimal_set_scale(b, 20);
 
   s21_decimal result;
   int error_code = s21_mul(a, b, &result);
-
-  for (int i = 0; i < COUNT_BLOCKS; ++i) {
+  for (int i = 0; i < COUNT_BLOCKS - 1; ++i) {
     ck_assert_int_eq(result.bits[i], 0);
   }
   ck_assert_int_eq(error_code, S21_SUCCES);
@@ -192,7 +179,6 @@ Suite *test_s21_mul_suite() {
   tcase_add_test(tc_core, test_s21_mul_9);
   tcase_add_test(tc_core, test_s21_mul_10);
   tcase_add_test(tc_core, test_s21_mul_11);
-  tcase_add_test(tc_core, test_s21_mul_12);
   tcase_add_test(tc_core, test_s21_mul_12);
   tcase_add_test(tc_core, test_s21_mul_13);
 

@@ -1,7 +1,6 @@
 #include "../s21_test_decimal.h"
 
 START_TEST(test_s21_div_1) {
-  printf("TEST_1\n");
   s21_decimal decimal1 = {{2147483647, 2147483647, 2147483647, 0}};
   s21_decimal decimal2 = {{0, 0, 0, 0}};
   s21_decimal result = {{0, 0, 0, 0}};
@@ -11,7 +10,6 @@ START_TEST(test_s21_div_1) {
 END_TEST
 
 START_TEST(test_s21_div_2) {
-  printf("TEST_2\n");
   s21_decimal decimal1 = {{100, 0, 0, 0}};
   s21_decimal decimal2 = {{5, 0, 0, 0b10000000000000000}};
   s21_decimal decimal3 = {{200, 0, 0, 0}};
@@ -28,7 +26,6 @@ START_TEST(test_s21_div_2) {
 END_TEST
 
 START_TEST(test_s21_div_3) {
-  printf("TEST_3\n");
   s21_decimal decimal1 = {{0, 0, 0, 0}};
   s21_decimal decimal2 = {{5, 0, 0, 0b10000000000000000}};
   s21_decimal decimal3 = {{0, 0, 0, 0}};

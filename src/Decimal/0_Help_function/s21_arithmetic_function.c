@@ -142,13 +142,10 @@ bit32_t s21_basic_div(s21_DecData value_1, s21_DecData value_2,
       s21_count_div_10(result, count_mul);
     }
   }
-  print_dec_data(*result, "before check");
   error_code = s21_decimal_check_result(result);
-  print_dec_data(*result, "after check");
   if (error_code != S21_SUCCES) {
     *result = s21_decimal_null_data();
   }
-  print_dec_data(*result, "result");
   return error_code;
 }
 
