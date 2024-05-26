@@ -9,6 +9,7 @@ START_TEST(test_s21_negate_1) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_negate_2) {
   s21_decimal decimal = {{9898989, 0, 0, 0b10000000000000000000000000000000}};
@@ -18,6 +19,7 @@ START_TEST(test_s21_negate_2) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_negate_3) {
   s21_decimal decimal = {{3, 0, 0, 0b00000000000101100000000000000000}};

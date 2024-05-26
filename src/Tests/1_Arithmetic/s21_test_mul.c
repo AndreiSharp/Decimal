@@ -9,6 +9,7 @@ START_TEST(test_s21_mul_1) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 // не проходит возвращает в 2 раза больше и положительный результат
 START_TEST(test_s21_mul_2) {
@@ -22,6 +23,7 @@ START_TEST(test_s21_mul_2) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_3) {
   s21_decimal decimal_first = {{279, 0, 0, 0b10000000000000000000000000000000}};
@@ -33,6 +35,7 @@ START_TEST(test_s21_mul_3) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_4) {
   s21_decimal decimal_first = {{0, 0, 0, 0}};
@@ -43,6 +46,7 @@ START_TEST(test_s21_mul_4) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_5) {
   s21_decimal decimal_first = {{0, 0, 0b11111111111111111111111111111111, 0}};
@@ -53,6 +57,7 @@ START_TEST(test_s21_mul_5) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_TOO_LARGE);
 }
+END_TEST
 
 START_TEST(test_s21_mul_6) {
   s21_decimal decimal_first = {{1, 0, 0, 0b00000000000110010000000000000000}};
@@ -64,6 +69,7 @@ START_TEST(test_s21_mul_6) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_7) {
   s21_decimal decimal_first = {
@@ -76,6 +82,7 @@ START_TEST(test_s21_mul_7) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_8) {
   s21_decimal decimal_first = {
@@ -89,6 +96,7 @@ START_TEST(test_s21_mul_8) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_9) {
   unsigned int max = 0b11111111111111111111111111111111;
@@ -98,6 +106,7 @@ START_TEST(test_s21_mul_9) {
   int check = s21_mul(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_TOO_LARGE);
 }
+END_TEST
 
 START_TEST(test_s21_mul_10) {
   unsigned int max = 0b11111111111111111111111111111111;
@@ -108,6 +117,7 @@ START_TEST(test_s21_mul_10) {
   int check = s21_mul(decimal1, decimal2, &result);
   ck_assert_int_eq(check, S21_TOO_SMALL);
 }
+END_TEST
 
 START_TEST(test_s21_mul_11) {
   s21_decimal decimal_first = {{0, 0, 0, 0}};
@@ -119,28 +129,26 @@ START_TEST(test_s21_mul_11) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
+END_TEST
 
 START_TEST(test_s21_mul_12) {
   unsigned int max = 0b11111111111111111111111111111111;
-  s21_decimal decimal_first = {
-      {max, max, max, 0}};
-  s21_decimal decimal_second = {
-      {max, max, max, 0}};
-  s21_decimal decimal_required = {
-      {0, 0, 0, 0}};
+  s21_decimal decimal_first = {{max, max, max, 0}};
+  s21_decimal decimal_second = {{max, max, max, 0}};
+  s21_decimal decimal_required = {{0, 0, 0, 0}};
 
   decimal_first = s21_decimal_set_scale(decimal_first, 5);
   decimal_second = s21_decimal_set_scale(decimal_second, 18);
   s21_decimal result;
   int status = s21_mul(decimal_first, decimal_second, &result);
-    for (int i = 0; i < 3 ; i++){
-printf("%d\n", result.bits[i]);
+  for (int i = 0; i < 3; i++) {
+    printf("%d\n", result.bits[i]);
   }
   printf("%d\n", s21_decimal_get_scale(result));
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
-
+END_TEST
 
 Suite *test_s21_mul_suite() {
   Suite *suite = suite_create("s21_mul");

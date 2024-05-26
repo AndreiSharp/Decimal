@@ -9,6 +9,7 @@ START_TEST(test_s21_round_1) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_2) {
   s21_decimal decimal = {{7778654, 0, 0, 0}};
@@ -18,6 +19,7 @@ START_TEST(test_s21_round_2) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_3) {
   s21_decimal decimal = {{4, 0, 0, 0b00000000000101100000000000000000}};
@@ -28,6 +30,7 @@ START_TEST(test_s21_round_3) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_4) {
   s21_decimal decimal = {{2, 0, 0, 0b10000000000000010000000000000000}};
@@ -37,6 +40,7 @@ START_TEST(test_s21_round_4) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_5) {
   s21_decimal decimal = {{74189, 0, 0, 0b00000000000000110000000000000000}};
@@ -47,6 +51,7 @@ START_TEST(test_s21_round_5) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_6) {
   //
@@ -58,15 +63,12 @@ START_TEST(test_s21_round_6) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_7) {
   s21_decimal decimal = {{80000000, 0b11111111111111111111111111111111,
                           0b00000000000000000000000000000011,
                           0b00000000000001110000000000000000}};
-
-  // 2305843009159476224
-  // 230584300916
-  // 0b11010110101111111001010011010101110100
   s21_decimal decimal_required = {{4238781830, 1717,
                                    0b00000000000000000000000000000000,
                                    0b00000000000000000000000000000000}};
@@ -75,6 +77,7 @@ START_TEST(test_s21_round_7) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_8) {
   s21_decimal decimal = {{27, 0, 0, 0b00000000000000010000000000000000}};
@@ -84,6 +87,7 @@ START_TEST(test_s21_round_8) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_9) {
   s21_decimal decimal = {{36, 0, 0, 0b00000000000000010000000000000000}};
@@ -93,13 +97,15 @@ START_TEST(test_s21_round_9) {
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
+END_TEST
 
 START_TEST(test_s21_round_10) {
   s21_decimal decimal = s21_decimal_null();
   int error_code = s21_round(decimal, NULL);
-  
+
   ck_assert_int_eq(error_code, S21_ANFUNC_ERROR);
 }
+END_TEST
 
 START_TEST(test_s21_round_11) {
   s21_decimal decimal = s21_decimal_null();
@@ -109,9 +115,10 @@ START_TEST(test_s21_round_11) {
 
   s21_decimal result;
   int error_code = s21_round(decimal, &result);
-  
+
   ck_assert_int_eq(error_code, S21_ANFUNC_ERROR);
 }
+END_TEST
 
 Suite *test_s21_round_suite() {
   Suite *suite = suite_create("s21_round");
