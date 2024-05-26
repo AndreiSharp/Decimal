@@ -1,4 +1,5 @@
 #include "../s21_test_decimal.h"
+#include "check.h"
 
 START_TEST(test_s21_round_1) {
   s21_decimal decimal = {{0, 0, 0, 0}};
@@ -6,7 +7,7 @@ START_TEST(test_s21_round_1) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_2) {
@@ -15,7 +16,7 @@ START_TEST(test_s21_round_2) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_3) {
@@ -25,7 +26,7 @@ START_TEST(test_s21_round_3) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_4) {
@@ -34,7 +35,7 @@ START_TEST(test_s21_round_4) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_5) {
@@ -44,7 +45,7 @@ START_TEST(test_s21_round_5) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_6) {
@@ -55,7 +56,7 @@ START_TEST(test_s21_round_6) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_7) {
@@ -72,7 +73,7 @@ START_TEST(test_s21_round_7) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_8) {
@@ -81,7 +82,7 @@ START_TEST(test_s21_round_8) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
 }
 
 START_TEST(test_s21_round_9) {
@@ -90,7 +91,26 @@ START_TEST(test_s21_round_9) {
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-  ck_assert_int_eq(status, S21_SUCCES);
+  ck_assert_int_eq(status, S21_ANFUNC_SUCCESS);
+}
+
+START_TEST(test_s21_round_10) {
+  s21_decimal decimal = s21_decimal_null();
+  int error_code = s21_round(decimal, NULL);
+  
+  ck_assert_int_eq(error_code, S21_ANFUNC_ERROR);
+}
+
+START_TEST(test_s21_round_11) {
+  s21_decimal decimal = s21_decimal_null();
+  for (int i = 0; i < COUNT_BLOCKS; ++i) {
+    decimal.bits[i] = ~decimal.bits[i];
+  }
+
+  s21_decimal result;
+  int error_code = s21_round(decimal, &result);
+  
+  ck_assert_int_eq(error_code, S21_ANFUNC_ERROR);
 }
 
 Suite *test_s21_round_suite() {
@@ -106,6 +126,8 @@ Suite *test_s21_round_suite() {
   tcase_add_test(tc_core, test_s21_round_7);
   tcase_add_test(tc_core, test_s21_round_8);
   tcase_add_test(tc_core, test_s21_round_9);
+  tcase_add_test(tc_core, test_s21_round_10);
+  tcase_add_test(tc_core, test_s21_round_11);
 
   suite_add_tcase(suite, tc_core);
 

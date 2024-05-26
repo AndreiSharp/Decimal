@@ -3,7 +3,7 @@
 int s21_round(s21_decimal value, s21_decimal *result) {
   bit32_t error_code = S21_ANFUNC_SUCCESS;
   error_code = s21_truncate(value, result);
-  if (!error_code) {
+  if (error_code == S21_ANFUNC_SUCCESS) {
     s21_DecData val = s21_decimal_get_data(value);
     if (val.scale) {
       s21_DecData res = s21_decimal_get_data(*result);
@@ -15,14 +15,8 @@ int s21_round(s21_decimal value, s21_decimal *result) {
       if (s21_compare_residue_10(val) != 2) {
         error_code = s21_decimal_add_one(res, &res);
       }
-      if (!error_code) {
-        *result = s21_decimal_set_data(res);
-      } else {
-        *result = s21_decimal_null();
-      }
+      *result = s21_decimal_set_data(res);
     }
-  } else {
-    *result = s21_decimal_null();
   }
   return error_code;
 }
