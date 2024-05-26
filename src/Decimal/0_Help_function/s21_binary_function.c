@@ -43,7 +43,7 @@ s21_decimal s21_decimal_set_bit(s21_decimal value, int index, bit_t bit) {
 
 // работает
 bit32_t s21_decimal_get_high_bit(s21_decimal value) {
-  int index = SIZE_DECIMAL;
+  int index = SIZE_DECIMAL - 1;
   for (int i = DATA_INDEX; i > 0 && !value.bits[i]; i--) {
     if (!value.bits[i]) {
       index -= SIZE_BLOCK;
