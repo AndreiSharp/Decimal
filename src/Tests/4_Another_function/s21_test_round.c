@@ -51,8 +51,7 @@ START_TEST(test_s21_round_6) {
   //
   s21_decimal decimal = {{61490752, 0b11111111111111111111111111111111, 0,
                           0b00000000000001110000000000000000}};
-  s21_decimal decimal_required = {{6, 0b11111111111111111111111111111111, 0,
-                                   0b00000000000000000000000000000000}};
+  s21_decimal decimal_required = {{2133436964, 429, 0, 0}};
   s21_decimal result;
   int status = s21_round(decimal, &result);
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
@@ -63,18 +62,15 @@ START_TEST(test_s21_round_7) {
   s21_decimal decimal = {{80000000, 0b11111111111111111111111111111111,
                           0b00000000000000000000000000000011,
                           0b00000000000001110000000000000000}};
-  // 2305843009159476224  
+
+  // 2305843009159476224
   // 230584300916
   // 0b11010110101111111001010011010101110100
-
-  s21_decimal decimal_required = {{0b10101111111001010011010101110100, 0b110101,
+  s21_decimal decimal_required = {{4238781830, 1717,
                                    0b00000000000000000000000000000000,
                                    0b00000000000000000000000000000000}};
   s21_decimal result;
   int status = s21_round(decimal, &result);
-  for (int i = 0; i < COUNT_BLOCKS; ++i) {
-    printf("%u\n", result.bits[i]);
-  }
   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
   ck_assert_int_eq(status, S21_SUCCES);
 }
