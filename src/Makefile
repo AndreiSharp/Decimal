@@ -89,7 +89,7 @@ TST := $(shell find $(TSTDIR) -depth -name '*.$(TSTEXT)')
 TESTER := test_$(NAME)
 CHECK_FLAGS := -lcheck
 
-ifeq ($(UNAME_S),Linux)
+ifeq ($(shell uname -s),Linux)
 	CHECK_FLAGS +=  -lcheck_pic -pthread -lrt -lm -lsubunit
 endif
 
@@ -105,7 +105,7 @@ REPORT = report.html
 OPEN_REPORT := open $(REPORT)
 GCOV_EXTS := *.gcno *.gcda *.gcov *.css *.html
 
-ifeq ($(UNAME_S),Linux)
+ifeq ($(shell uname -s),Linux)
 	OPEN_REPORT := firefox $(REPORT)
 endif
 
