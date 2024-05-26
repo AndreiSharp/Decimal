@@ -58,14 +58,13 @@ bit32_t s21_basic_mul(s21_DecData value_1, s21_DecData value_2,
   bit32_t error_code = S21_SUCCES;
 
   result->scale = value_1.scale + value_2.scale;
-  result->sign = value_1.sign || value_2.sign;
+  result->sign = value_1.sign == value_2.sign ? 0 : 1;
   bit32_t count_div = 0;
   bit32_t result_hight_bit = value_1.high_bit + value_2.high_bit;
   if (result_hight_bit > SIZE_MANTIS) {
     bit32_t excess = SIZE_MANTIS - result_hight_bit;
     count_div = excess / 3 + (excess % 3 != 0);
   }
-
   if (count_div == 0) {
     error_code = s21_mul_mantis(value_1, value_2, result);
     if (error_code != S21_SUCCES) {
@@ -260,7 +259,8 @@ bit_t s21_mul_mantis(s21_DecData value_1, s21_DecData value_2,
       value_1.high_bit++;
     }
   }
-  *result = new;
+  result->value = new.value;
+  result->high_bit = s21_decimal_get_high_bit(new.value);
   return error_code;
 }
 
