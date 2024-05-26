@@ -35,9 +35,9 @@ Suite *test_s21_truncate_suite();
 unsigned int run_suite(Suite *suite, char *file_logs);
 
 #define TEST_SUB 0  // ok
-#define TEST_MUL 1
+#define TEST_MUL 0  // ok
 #define TEST_ADD 0  // ok
-#define TEST_DIV 1
+#define TEST_DIV 0
 #define TEST_IS_EQUAL 0             // ok
 #define TEST_IS_NOT_EQUAL 0         // ok
 #define TEST_IS_LESS 0              // ok
@@ -45,9 +45,9 @@ unsigned int run_suite(Suite *suite, char *file_logs);
 #define TEST_IS_GREATER 0           // ok
 #define TEST_IS_GREATER_OR_EQUAL 0  // ok
 #define TEST_FROM_INT_TO_DECIMAL 0  // ok
-#define TEST_FROM_FLOAT_TO_DECIMAL 1
-#define TEST_FROM_DECIMAL_TO_INT 1
-#define TEST_FROM_DECIMAL_TO_FLOAT 1
+#define TEST_FROM_FLOAT_TO_DECIMAL 0
+#define TEST_FROM_DECIMAL_TO_INT 0
+#define TEST_FROM_DECIMAL_TO_FLOAT 0
 #define TEST_ROUND 0     // ok
 #define TEST_FLOOR 0     // ok
 #define TEST_NEGATE 0    // ok
