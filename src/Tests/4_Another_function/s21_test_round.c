@@ -1,5 +1,4 @@
 #include "../s21_test_decimal.h"
-#include "check.h"
 
 START_TEST(test_s21_round_1) {
   s21_decimal decimal = {{0, 0, 0, 0}};
@@ -120,6 +119,17 @@ START_TEST(test_s21_round_11) {
 }
 END_TEST
 
+START_TEST(test_s21_round_12) {
+  s21_decimal decimal = s21_decimal_null();
+  decimal = s21_decimal_set_scale(decimal, 30);
+
+  s21_decimal result;
+  int error_code = s21_round(decimal, &result);
+
+  ck_assert_int_eq(error_code, S21_ANFUNC_ERROR);
+}
+END_TEST
+
 Suite *test_s21_round_suite() {
   Suite *suite = suite_create("s21_round");
   TCase *tc_core = tcase_create("core_of_s21_round");
@@ -135,6 +145,7 @@ Suite *test_s21_round_suite() {
   tcase_add_test(tc_core, test_s21_round_9);
   tcase_add_test(tc_core, test_s21_round_10);
   tcase_add_test(tc_core, test_s21_round_11);
+  tcase_add_test(tc_core, test_s21_round_12);
 
   suite_add_tcase(suite, tc_core);
 

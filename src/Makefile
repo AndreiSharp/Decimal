@@ -93,6 +93,10 @@ ifeq ($(shell uname -s),Linux)
 	CHECK_FLAGS +=  -lcheck_pic -pthread -lrt -lm -lsubunit
 endif
 
+ifeq ($(shell uname -o),Linux)
+	CHECK_FLAGS := -lcheck
+endif
+
 test: $(TST) $(TARGET)
 	$(CC) $(CFLAGS) $^ -o $(TESTER) $(CHECK_FLAGS)
 	./$(TESTER)

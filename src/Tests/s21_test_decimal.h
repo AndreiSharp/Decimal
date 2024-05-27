@@ -45,7 +45,7 @@ unsigned int run_suite(Suite *suite, char *file_logs);
 #define TEST_IS_GREATER 1           // ok
 #define TEST_IS_GREATER_OR_EQUAL 1  // ok
 #define TEST_FROM_INT_TO_DECIMAL 1  // ok
-#define TEST_FROM_FLOAT_TO_DECIMAL 0
+#define TEST_FROM_FLOAT_TO_DECIMAL 1
 #define TEST_FROM_DECIMAL_TO_INT 1    // ok
 #define TEST_FROM_DECIMAL_TO_FLOAT 1  // ok
 #define TEST_ROUND 1                  // ok
