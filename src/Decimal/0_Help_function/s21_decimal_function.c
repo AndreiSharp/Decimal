@@ -114,7 +114,7 @@ s21_decimal s21_decimal_set_data(s21_DecData data) {
 //   printf("\n\n");
 // }
 
-// // работает
+// работает
 // void print_dec_data(s21_DecData data, char* name) {
 //   printf("\ndecimal data: %s\n", name);
 //   printf("sign = %d\n", data.sign);
