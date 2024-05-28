@@ -131,36 +131,40 @@ START_TEST(test_s21_mul_11) {
 }
 END_TEST
 
-// START_TEST(test_s21_mul_12) {
-//   bit32_t max = 0b11111111111111111111111111111111;
-//   s21_decimal decimal_first = {{max, max, max, 0}};
-//   s21_decimal decimal_second = {{max, max, max, 0}};
-//   s21_decimal decimal_required = {{7922, 0, 0, 0}};
+START_TEST(test_s21_mul_12) {
+  bit32_t max = 0b11111111111111111111111111111111;
+  s21_decimal decimal_first = {{max, max, max, 0}};
+  s21_decimal decimal_second = {{max, max, max, 0}};
+  s21_decimal decimal_required = {
+      {0b01001011101110101000111100110011, 0b00111000100011101010100011111110,
+       0b11001010110100101111011111110101, 0b00000000000000110000000000000000}};
 
-//   decimal_first = s21_decimal_set_scale(decimal_first, 14);
-//   decimal_second = s21_decimal_set_scale(decimal_second, 18);
-//   s21_decimal result;
-//   int status = s21_mul(decimal_first, decimal_second, &result);
-//   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-//   ck_assert_int_eq(status, S21_SUCCES);
-// }
-// END_TEST
+  decimal_first = s21_decimal_set_scale(decimal_first, 14);
+  decimal_second = s21_decimal_set_scale(decimal_second, 18);
+  s21_decimal result;
+  int status = s21_mul(decimal_first, decimal_second, &result);
+  ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
+  ck_assert_int_eq(status, S21_SUCCES);
+}
+END_TEST
 
-// START_TEST(test_s21_mul_13) {
-//   s21_decimal a, b;
-//   a = s21_decimal_null();
-//   b = s21_decimal_null();
-//   a = s21_decimal_invert(a, SIZE_MANTIS);
-//   b = s21_decimal_invert(b, SIZE_MANTIS);
-//   a = s21_decimal_set_scale(a, 20);
-//   b = s21_decimal_set_scale(b, 20);
-//   s21_decimal decimal_required = {{3148598784, 146150163, 0, 0}};
-//   s21_decimal result;
-//   int error_code = s21_mul(a, b, &result);
-//   ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
-//   ck_assert_int_eq(error_code, S21_SUCCES);
-// }
-// END_TEST
+START_TEST(test_s21_mul_13) {
+  s21_decimal a, b;
+  a = s21_decimal_null();
+  b = s21_decimal_null();
+  a = s21_decimal_invert(a, SIZE_MANTIS);
+  b = s21_decimal_invert(b, SIZE_MANTIS);
+  a = s21_decimal_set_scale(a, 20);
+  b = s21_decimal_set_scale(b, 20);
+  s21_decimal decimal_required = {
+      {0b11010000111110100100100011111100, 0b10010000001000101110001000011000,
+       0b11001010110100101111011111111000, 0b00000000000010110000000000000000}};
+  s21_decimal result;
+  int error_code = s21_mul(a, b, &result);
+  ck_assert_int_eq(s21_is_equal(result, decimal_required), 1);
+  ck_assert_int_eq(error_code, S21_SUCCES);
+}
+END_TEST
 
 Suite *test_s21_mul_suite() {
   Suite *suite = suite_create("s21_mul");
@@ -177,8 +181,8 @@ Suite *test_s21_mul_suite() {
   tcase_add_test(tc_core, test_s21_mul_9);
   tcase_add_test(tc_core, test_s21_mul_10);
   tcase_add_test(tc_core, test_s21_mul_11);
-  // tcase_add_test(tc_core, test_s21_mul_12);
-  // tcase_add_test(tc_core, test_s21_mul_13);
+  tcase_add_test(tc_core, test_s21_mul_12);
+  tcase_add_test(tc_core, test_s21_mul_13);
 
   suite_add_tcase(suite, tc_core);
   return suite;

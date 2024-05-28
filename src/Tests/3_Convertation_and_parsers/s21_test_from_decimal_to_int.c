@@ -47,6 +47,21 @@ START_TEST(test_s21_from_decimal_to_int4) {
 }
 END_TEST
 
+START_TEST(test_s21_from_decimal_to_int5) {
+  s21_decimal decimal;
+  decimal = s21_decimal_null();
+  decimal = s21_decimal_set_bit(decimal, 0, 1);
+  decimal = s21_decimal_set_sign(decimal, 1);
+
+  int result, error_code;
+
+  error_code = s21_from_decimal_to_int(decimal, &result);
+
+  ck_assert_int_eq(error_code, S21_CONV_SUCCESS);
+  ck_assert_int_eq(result, -1);
+}
+END_TEST
+
 Suite *test_s21_from_decimal_to_int_suite() {
   // создаем новый набор для тестов функции
   Suite *suite = suite_create("s21_from_decimal_to_int");
@@ -57,6 +72,7 @@ Suite *test_s21_from_decimal_to_int_suite() {
   tcase_add_test(tc_core, test_s21_from_decimal_to_int2);
   tcase_add_test(tc_core, test_s21_from_decimal_to_int3);
   tcase_add_test(tc_core, test_s21_from_decimal_to_int4);
+  tcase_add_test(tc_core, test_s21_from_decimal_to_int5);
 
   // тест кейс добавляем в suite
   suite_add_tcase(suite, tc_core);

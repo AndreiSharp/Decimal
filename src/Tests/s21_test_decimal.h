@@ -34,18 +34,18 @@ Suite *test_s21_truncate_suite();
 // функция для прогона набора тестов
 unsigned int run_suite(Suite *suite, char *file_logs);
 
-#define TEST_SUB 1                  // ok
-#define TEST_MUL 1                  // ok
-#define TEST_ADD 1                  // ok
-#define TEST_DIV 1                  // ok
-#define TEST_IS_EQUAL 1             // ok
-#define TEST_IS_NOT_EQUAL 1         // ok
-#define TEST_IS_LESS 1              // ok
-#define TEST_IS_LESS_OR_EQUAL 1     // ok
-#define TEST_IS_GREATER 1           // ok
-#define TEST_IS_GREATER_OR_EQUAL 1  // ok
-#define TEST_FROM_INT_TO_DECIMAL 1  // ok
-#define TEST_FROM_FLOAT_TO_DECIMAL 1
+#define TEST_SUB 1                    // so ok +/-
+#define TEST_MUL 1                    // so ok +/-
+#define TEST_ADD 1                    // ok
+#define TEST_DIV 1                    // ok
+#define TEST_IS_EQUAL 1               // ok
+#define TEST_IS_NOT_EQUAL 1           // ok
+#define TEST_IS_LESS 1                // ok
+#define TEST_IS_LESS_OR_EQUAL 1       // ok
+#define TEST_IS_GREATER 1             // ok
+#define TEST_IS_GREATER_OR_EQUAL 1    // ok
+#define TEST_FROM_INT_TO_DECIMAL 1    // ok
+#define TEST_FROM_FLOAT_TO_DECIMAL 1  // ok
 #define TEST_FROM_DECIMAL_TO_INT 1    // ok
 #define TEST_FROM_DECIMAL_TO_FLOAT 1  // ok
 #define TEST_ROUND 1                  // ok

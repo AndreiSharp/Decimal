@@ -14,20 +14,19 @@ START_TEST(test_s21_from_float_to_decimal_1) {
 }
 END_TEST
 
-// START_TEST(test_s21_from_float_to_decimal_2) {
-//   // тест 2
-//   s21_decimal dst;
-//   float src = -0.0;
-//   s21_decimal decimal = {{0, 0, 0, 0}};
-//   s21_negate(decimal, &decimal);
-//   int result = s21_from_float_to_decimal(src, &dst);
-//   ck_assert_int_eq(result, S21_CONV_SUCCESS);
-//   ck_assert_int_eq(s21_is_equal(dst, decimal), 1);
-//   int sign1 = s21_decimal_get_sign(dst);
-//   int sign2 = s21_decimal_get_sign(decimal);
-//   ck_assert_int_eq(sign1, sign2);
-// }
-// END_TEST
+START_TEST(test_s21_from_float_to_decimal_2) {
+  // тест 2
+  s21_decimal dst;
+  float src = -0.0;
+  s21_decimal decimal = {{0, 0, 0, 0}};
+  int result = s21_from_float_to_decimal(src, &dst);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
+  ck_assert_int_eq(s21_is_equal(dst, decimal), 1);
+  int sign1 = s21_decimal_get_sign(dst);
+  int sign2 = s21_decimal_get_sign(decimal);
+  ck_assert_int_eq(sign1, sign2);
+}
+END_TEST
 
 START_TEST(test_s21_from_float_to_decimal_3) {
   // тест 3
@@ -67,20 +66,18 @@ START_TEST(test_s21_from_float_to_decimal_4) {
 }
 END_TEST
 
-// START_TEST(test_s21_from_float_to_decimal_5) {
-//   // тест 5
-//   s21_decimal dst;
-//   float src = -5.678786;
-//   s21_decimal decimal = {{5678786, 0, 0, 0b1100000000000000000}};
-//   s21_negate(decimal, &decimal);
-//   int result = s21_from_float_to_decimal(src, &dst);
-//   ck_assert_int_eq(result, S21_CONV_SUCCESS);
-//   ck_assert_int_eq(s21_is_equal(dst, decimal), 1);
-//   int sign1 = s21_decimal_get_sign(dst);
-//   int sign2 = s21_decimal_get_sign(decimal);
-//   ck_assert_int_eq(sign1, sign2);
-// }
-// END_TEST
+START_TEST(test_s21_from_float_to_decimal_5) {
+  // тест 5
+  s21_decimal dst;
+  float src = -5.678786;
+  s21_decimal decimal = {{5678786, 0, 0, 0}};
+  decimal = s21_decimal_set_scale(decimal, 6);
+  s21_negate(decimal, &decimal);
+  int result = s21_from_float_to_decimal(src, &dst);
+  ck_assert_int_eq(result, S21_CONV_SUCCESS);
+  ck_assert_int_eq(s21_is_equal(dst, decimal), 1);
+}
+END_TEST
 
 START_TEST(test_s21_from_float_to_decimal_6) {
   // тест 6
@@ -233,8 +230,6 @@ START_TEST(test_s21_from_float_to_decimal_19) {
   s21_decimal dst;
   float src =
       4.8148245739821641389174087312824996385704304343408247917894169330688125540973487659357488E-35f;
-
-  printf("float : %f\n", src);
   int result = s21_from_float_to_decimal(src, &dst);
   ck_assert_int_eq(result, S21_CONV_ERROR);
 }
@@ -257,10 +252,10 @@ Suite *test_s21_from_float_to_decimal_suite() {
 
   // каждый тест добавляем
   tcase_add_test(tc_core, test_s21_from_float_to_decimal_1);
- // tcase_add_test(tc_core, test_s21_from_float_to_decimal_2);
+  tcase_add_test(tc_core, test_s21_from_float_to_decimal_2);
   tcase_add_test(tc_core, test_s21_from_float_to_decimal_3);
   tcase_add_test(tc_core, test_s21_from_float_to_decimal_4);
-//  tcase_add_test(tc_core, test_s21_from_float_to_decimal_5);
+  tcase_add_test(tc_core, test_s21_from_float_to_decimal_5);
   tcase_add_test(tc_core, test_s21_from_float_to_decimal_6);
   tcase_add_test(tc_core, test_s21_from_float_to_decimal_7);
   tcase_add_test(tc_core, test_s21_from_float_to_decimal_8);
